@@ -11,7 +11,7 @@ const DashboardPage = () => {
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className="flex flex-col flex-1 overflow-hidden">
         <Header setSidebarOpen={setSidebarOpen} />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto">
           <div className="container px-6 py-8 mx-auto">
             <DashboardInfo />
             <div className="flex flex-col mt-8">
