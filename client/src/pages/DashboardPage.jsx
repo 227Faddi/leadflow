@@ -1,7 +1,7 @@
 import ContactTable from "../components/ContactTable";
 import DashboardInfo from "../components/DashboardInfo";
 import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
+import Topbar from "../components/Topbar";
 import { useState } from "react";
 
 const DashboardPage = () => {
@@ -10,7 +10,7 @@ const DashboardPage = () => {
     <div className="flex">
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className="flex flex-col flex-1 overflow-hidden">
-        <Header setSidebarOpen={setSidebarOpen} />
+        <Topbar setSidebarOpen={setSidebarOpen} />
         <main className="flex-1 overflow-x-hidden overflow-y-auto">
           <div className="container px-6 py-8 mx-auto">
             <DashboardInfo />
