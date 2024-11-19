@@ -7,8 +7,9 @@ import {
 
 import RootLayout from "./layout/RootLayout";
 import HomePage from "./pages/HomePage";
-import SignupPage from "./pages/SignupPage";
 import DashboardPage from "./pages/DashboardPage";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   const router = createBrowserRouter(
@@ -17,6 +18,7 @@ function App() {
         <Route index element={<HomePage />} />
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="signup" element={<SignupPage />} />
+        <Route path="login" element={<LoginPage />} />
       </Route>
     )
   );

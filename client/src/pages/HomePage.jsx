@@ -19,10 +19,10 @@ const HomePage = () => {
           <Link to="/dashboard">GO to Dashboard</Link>
           <div className="space-x-8">
             <Link
-              to="/signin"
+              to="/login"
               className="text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 shadow-lg shadow-green-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
-              Sign in
+              Login
             </Link>
             <Link
               to="/signup"
