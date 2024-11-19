@@ -8,8 +8,8 @@ const HomePage = () => {
   return (
     <div className="h-screen flex flex-col">
       <Header />
-      <main className="flex-1 flex flex-col items-center justify-center">
-        <section className="flex flex-col items-center justify-center space-y-8 my-52">
+      <main className="flex-1 flex flex-col items-center justify-center my-28 md:my-48 space-y-28 md:space-y-40">
+        <section className="flex flex-col items-center justify-center space-y-8">
           <p className="text-4xl font-bold text-center max-w-[50%]">
             Lead Ledger empowers businesses and freelancers to stay on top of
             their leads. Easily save, update statuses, and manage opportunities
@@ -33,7 +33,7 @@ const HomePage = () => {
           </div>
         </section>
         <section className="flex flex-col items-center justify-center space-y-8 px-4 md:px-10 lg:px-56 mb-52">
-          <div className="bg-gray-50 p-10 md:p-20 rounded-2xl flex flex-col md:flex-row justify-between gap-8">
+          <div className="bg-gray-100 p-10 md:p-20 rounded-2xl flex flex-col md:flex-row justify-between gap-8">
             <div className="flex flex-col gap-12">
               <div className="space-y-4">
                 <FaUserPlus className="text-blue-700" size={35} />
