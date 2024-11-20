@@ -3,7 +3,7 @@ import { IoMdSettings } from "react-icons/io";
 import { FaChartPie } from "react-icons/fa";
 import { FaChartColumn } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   return (
@@ -35,30 +35,51 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           </div>
         </div>
         <nav className="mt-10 space-y-2">
-          <Link
-            className="flex items-center p-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
+          <NavLink
             to="/dashboard"
+            className={({ isActive }) =>
+              [
+                "flex items-center p-6 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
+                isActive
+                  ? "bg-gray-700 bg-opacity-25 text-gray-100"
+                  : "text-gray-500",
+              ].join(" ")
+            }
           >
             <FaChartPie className="w-6 h-6" />
             <span>Dashboard</span>
-          </Link>
-          <Link
-            className="flex items-center p-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
+          </NavLink>
+          <NavLink
             to="/stat"
+            className={({ isActive }) =>
+              [
+                "flex items-center p-6 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
+                isActive
+                  ? "bg-gray-700 bg-opacity-25 text-gray-100"
+                  : "text-gray-500",
+              ].join(" ")
+            }
           >
             <FaChartColumn className="w-6 h-6" />
             <span>Statistic</span>
-          </Link>
-          <Link
-            className="flex items-center p-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
+          </NavLink>
+          <NavLink
             to="/settings"
+            className={({ isActive }) =>
+              [
+                "flex items-center p-6 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
+                isActive
+                  ? "bg-gray-700 bg-opacity-25 text-gray-100"
+                  : "text-gray-500",
+              ].join(" ")
+            }
           >
             <IoMdSettings className="w-6 h-6" />
             <span>Settings</span>
-          </Link>
+          </NavLink>
           <a
-            className="flex items-center p-6 text-gray-500 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
             href="/"
+            className="flex items-center text-gray-500 p-6 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
           >
             <MdLogout className="w-6 h-6" />
             <span>Logout</span>
