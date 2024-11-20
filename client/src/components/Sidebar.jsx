@@ -23,7 +23,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             : "-translate-x-full ease-in fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform rounded-br-xl bg-gray-900 lg:translate-x-0 lg:static lg:inset-0"
         }
       >
-        <div className="flex items-center justify-center mt-8">
+        <div className="flex items-center justify-center py-10">
           <div className="flex items-center">
             <a
               href="/"
@@ -34,12 +34,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             </a>
           </div>
         </div>
-        <nav className="mt-10 space-y-2">
+        <nav className="space-y-2">
           <NavLink
             to="/dashboard"
             className={({ isActive }) =>
               [
-                "flex items-center p-6 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
+                "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
                 isActive
                   ? "bg-gray-700 bg-opacity-25 text-gray-100"
                   : "text-gray-500",
@@ -53,7 +53,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             to="/stat"
             className={({ isActive }) =>
               [
-                "flex items-center p-6 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
+                "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
                 isActive
                   ? "bg-gray-700 bg-opacity-25 text-gray-100"
                   : "text-gray-500",
@@ -61,13 +61,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             }
           >
             <FaChartColumn className="w-6 h-6" />
-            <span>Statistic</span>
+            <span>Statistics</span>
           </NavLink>
           <NavLink
             to="/settings"
             className={({ isActive }) =>
               [
-                "flex items-center p-6 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
+                "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
                 isActive
                   ? "bg-gray-700 bg-opacity-25 text-gray-100"
                   : "text-gray-500",
@@ -79,7 +79,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
           <a
             href="/"
-            className="flex items-center text-gray-500 p-6 hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
+            className="flex items-center text-gray-500 p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
           >
             <MdLogout className="w-6 h-6" />
             <span>Logout</span>
