@@ -37,14 +37,13 @@ const ContactInfo = () => {
           Active
         </span>
       </td>
-      <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200"></td>
-      <td className="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+      <td className="px-6 py-4 text-center text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
+        <a href="#" className="text-gray-600 hover:text-gray-900">
           Edit
         </a>
       </td>
-      <td className="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-        <a href="#" className="text-indigo-600 hover:text-indigo-900">
+      <td className="px-6 py-4 text-center text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
+        <a href="#" className="text-red-600 hover:text-red-900">
           Delete
         </a>
       </td>
