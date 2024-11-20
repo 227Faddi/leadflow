@@ -50,7 +50,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             <span>Dashboard</span>
           </NavLink>
           <NavLink
-            to="/stat"
+            to="/statistics"
             className={({ isActive }) =>
               [
                 "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
