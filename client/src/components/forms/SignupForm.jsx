@@ -49,7 +49,9 @@ const SignupForm = () => {
     <form className="mt-8 mb-2 w-full" onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-4 flex flex-col gap-6">
         <div className="w-full max-w-sm min-w-[200px]">
-          <label className="block mb-2 text-sm text-slate-600">Username</label>
+          <label className="block mb-2 text-md text-bold text-gray-900">
+            Username
+          </label>
           <input
             {...register("username")}
             type="text"
@@ -63,7 +65,9 @@ const SignupForm = () => {
           )}
         </div>
         <div className="w-full max-w-sm min-w-[200px]">
-          <label className="block mb-2 text-sm text-slate-600">Email</label>
+          <label className="block mb-2 text-md text-bold text-gray-900">
+            Email
+          </label>
           <input
             {...register("email")}
             type="email"
@@ -75,7 +79,9 @@ const SignupForm = () => {
           )}
         </div>
         <div className="w-full max-w-sm min-w-[200px]">
-          <label className="block mb-2 text-sm text-slate-600">Password</label>
+          <label className="block mb-2 text-md text-bold text-gray-900">
+            Password
+          </label>
           <input
             {...register("password")}
             type="password"
@@ -87,7 +93,7 @@ const SignupForm = () => {
           )}
         </div>
         <div className="w-full max-w-sm min-w-[200px]">
-          <label className="block mb-2 text-sm text-slate-600">
+          <label className="block mb-2 text-md text-bold text-gray-900">
             Confirm Password
           </label>
           <input
