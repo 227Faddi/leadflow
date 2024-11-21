@@ -16,7 +16,7 @@ const ContactTable = () => {
             Phone
           </th>
           <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase">
-            Email
+            Location
           </th>
           <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase">
             Status

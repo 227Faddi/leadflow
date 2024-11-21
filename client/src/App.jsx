@@ -15,8 +15,8 @@ import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import StatisticsPage from "./pages/StatisticsPage";
 import SettingsPage from "./pages/SettingsPage";
-import AddLeadPage from "./pages/AddLeadPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import NewLeadPage from "./pages/NewLeadPage";
 
 function App() {
   const router = createBrowserRouter(
@@ -28,7 +28,7 @@ function App() {
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="statistics" element={<StatisticsPage />} />
           <Route path="settings" element={<SettingsPage />} />
-          <Route path="add" element={<AddLeadPage />} />
+          <Route path="add" element={<NewLeadPage />} />
         </Route>
 
         <Route path="signup" element={<SignupPage />} />

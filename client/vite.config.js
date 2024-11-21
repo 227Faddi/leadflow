@@ -7,4 +7,8 @@ export default defineConfig({
   server: {
     port: 8000,
   },
+  future: {
+    /* any enabled future flags */
+    v7_skipActionErrorRevalidation: true, // <-- early opt-in
+  },
 });
