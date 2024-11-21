@@ -1,6 +1,6 @@
 import { IoIosContacts } from "react-icons/io";
 import { IoMdSettings } from "react-icons/io";
-import { FaChartPie } from "react-icons/fa";
+import { FaChartPie, FaUserPlus } from "react-icons/fa";
 import { FaChartColumn } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import { NavLink } from "react-router-dom";
@@ -48,6 +48,20 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           >
             <FaChartPie className="w-6 h-6" />
             <span>Dashboard</span>
+          </NavLink>
+          <NavLink
+            to="/add"
+            className={({ isActive }) =>
+              [
+                "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
+                isActive
+                  ? "bg-gray-700 bg-opacity-25 text-gray-100"
+                  : "text-gray-500",
+              ].join(" ")
+            }
+          >
+            <FaUserPlus className="w-6 h-6" />
+            <span>New Lead</span>
           </NavLink>
           <NavLink
             to="/statistics"
