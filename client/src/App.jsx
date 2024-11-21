@@ -15,6 +15,7 @@ import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
 import StatisticsPage from "./pages/StatisticsPage";
 import SettingsPage from "./pages/SettingsPage";
+import AddLeadPage from "./pages/AddLeadPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="statistics" element={<StatisticsPage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="add" element={<AddLeadPage />} />
         </Route>
 
         <Route path="signup" element={<SignupPage />} />
