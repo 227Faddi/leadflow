@@ -1,39 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Link } from "react-router-dom";
+import { signupSchema } from "../../utils/formValidation";
 
-const schema = z
-  .object({
-    username: z
-      .string()
-      .min(1, { message: "Username is required." })
-      .max(30, { message: "Username cannot exceed 30 characters." }),
-
-    email: z
-      .string()
-      .email({ message: "Please enter a valid email address." })
-      .max(30, { message: "Email cannot exceed 30 characters." })
-      .trim()
-      .toLowerCase(),
-
-    password: z
-      .string()
-      .min(8, { message: "Password must be at least 8 characters long." }),
-
-    confirmPassword: z.string().min(8, {
-      message: "Confirm Password must be at least 8 characters long.",
-    }),
-  })
-  .refine(
-    (data) => {
-      return data.password === data.confirmPassword;
-    },
-    {
-      message: "Passwords do not match.",
-      path: ["confirmPassword"],
-    }
-  );
+const schema = signupSchema;
 
 const SignupForm = () => {
   const {

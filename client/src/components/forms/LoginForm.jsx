@@ -1,17 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { Link } from "react-router-dom";
+import { loginSchema } from "../../utils/formValidation";
 
-const schema = z.object({
-  email: z
-    .string()
-    .email({ message: "Please enter a valid email address." })
-    .max(30, { message: "Email cannot exceed 30 characters." })
-    .trim()
-    .toLowerCase(),
-  password: z.string().min(1, { message: "Password is required." }),
-});
+const schema = loginSchema;
 
 const LoginForm = () => {
   const {

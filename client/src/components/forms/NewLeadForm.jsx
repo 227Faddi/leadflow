@@ -1,35 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { leadSchema } from "../../utils/formValidation";
 
-const schema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(1, { message: "Name is required." })
-    .max(30, { message: "Name cannot exceed 30 characters." }),
-
-  email: z
-    .string()
-    .email({ message: "Please enter a valid email address." })
-    .trim()
-    .toLowerCase(),
-
-  industry: z
-    .string()
-    .trim()
-    .max(30, { message: "Industry cannot exceed 30 characters." }),
-
-  phone: z
-    .string()
-    .min(7, { message: "Invalid phone number: too short." })
-    .max(15, { message: "Invalid phone number: too long." })
-    .regex(/^\+?[0-9\s\-()]+$/, { message: "Invalid phone number format." }),
-
-  location: z
-    .string()
-    .max(30, { message: "Location cannot exceed 30 characters." }),
-});
+const schema = leadSchema;
 
 const NewLeadForm = () => {
   const {
