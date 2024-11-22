@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const ContactInfo = () => {
   return (
     <tr>
@@ -38,9 +40,9 @@ const ContactInfo = () => {
         </span>
       </td>
       <td className="px-6 py-4 text-center text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
-        <a href="#" className="text-gray-600 hover:text-gray-900">
+        <Link to="/edit" className="text-gray-600 hover:text-gray-900">
           Edit
-        </a>
+        </Link>
       </td>
       <td className="px-6 py-4 text-center text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
         <a href="#" className="text-red-600 hover:text-red-900">

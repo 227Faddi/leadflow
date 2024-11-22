@@ -17,6 +17,7 @@ import StatisticsPage from "./pages/StatisticsPage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import NewLeadPage from "./pages/NewLeadPage";
+import EditLeadPage from "./pages/EditLeadPage";
 
 function App() {
   const router = createBrowserRouter(
@@ -29,6 +30,7 @@ function App() {
           <Route path="statistics" element={<StatisticsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="add" element={<NewLeadPage />} />
+          <Route path="edit" element={<EditLeadPage />} />
         </Route>
 
         <Route path="signup" element={<SignupPage />} />
