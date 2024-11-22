@@ -7,7 +7,7 @@ const schema = z
   .object({
     username: z
       .string()
-      .min(3, { message: "Username must be at least 3 characters long." })
+      .min(1, { message: "Username is required." })
       .max(30, { message: "Username cannot exceed 30 characters." }),
 
     email: z
@@ -116,7 +116,7 @@ const SignupForm = () => {
         type="submit"
         disabled={isSubmitting}
       >
-        {isSubmitting ? "Logging in..." : "Sign up"}
+        {isSubmitting ? "Signing Up..." : "Sign up"}
       </button>
       <p className="flex justify-center mt-6 text-sm text-slate-600">
         Already have an account?

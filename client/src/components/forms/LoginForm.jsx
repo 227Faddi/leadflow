@@ -10,7 +10,7 @@ const schema = z.object({
     .max(30, { message: "Email cannot exceed 30 characters." })
     .trim()
     .toLowerCase(),
-  password: z.string(),
+  password: z.string().min(1, { message: "Password is required." }),
 });
 
 const LoginForm = () => {

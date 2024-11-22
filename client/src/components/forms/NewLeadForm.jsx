@@ -122,7 +122,7 @@ const NewLeadForm = () => {
           type="submit"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Logging in..." : "Add"}
+          {isSubmitting ? "Adding Lead..." : "Add"}
         </button>
       </div>
     </form>
