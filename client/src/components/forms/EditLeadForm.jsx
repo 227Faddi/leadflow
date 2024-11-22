@@ -3,16 +3,32 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
-  name: z.string().trim(),
+  name: z
+    .string()
+    .trim()
+    .min(1, { message: "Name is required." })
+    .max(30, { message: "Name cannot exceed 30 characters." }),
+
   email: z
     .string()
     .email({ message: "Please enter a valid email address." })
     .trim()
     .toLowerCase(),
 
-  industry: z.string().trim(),
-  phone: z.string().min(8, { message: "Invalid number: too short" }),
-  location: z.string().trim().optional(),
+  industry: z
+    .string()
+    .trim()
+    .max(30, { message: "Industry cannot exceed 30 characters." }),
+
+  phone: z
+    .string()
+    .min(7, { message: "Invalid phone number: too short." })
+    .max(15, { message: "Invalid phone number: too long." })
+    .regex(/^\+?[0-9\s\-()]+$/, { message: "Invalid phone number format." }),
+
+  location: z
+    .string()
+    .max(30, { message: "Location cannot exceed 30 characters." }),
 });
 
 const EditLeadForm = () => {
@@ -93,7 +109,7 @@ const EditLeadForm = () => {
             Location
           </label>
           <input
-            {...register("Location")}
+            {...register("location")}
             type="text"
             className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Enter a Location"

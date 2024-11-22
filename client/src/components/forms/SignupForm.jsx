@@ -7,11 +7,13 @@ const schema = z
   .object({
     username: z
       .string()
-      .min(3, { message: "Username must be at least 3 characters long." }),
+      .min(3, { message: "Username must be at least 3 characters long." })
+      .max(30, { message: "Username cannot exceed 30 characters." }),
 
     email: z
       .string()
       .email({ message: "Please enter a valid email address." })
+      .max(30, { message: "Email cannot exceed 30 characters." })
       .trim()
       .toLowerCase(),
 

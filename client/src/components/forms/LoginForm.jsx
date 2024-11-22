@@ -7,6 +7,7 @@ const schema = z.object({
   email: z
     .string()
     .email({ message: "Please enter a valid email address." })
+    .max(30, { message: "Email cannot exceed 30 characters." })
     .trim()
     .toLowerCase(),
   password: z.string(),
