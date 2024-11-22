@@ -64,7 +64,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             <span>New Lead</span>
           </NavLink>
           <NavLink
-            to="/statistics"
+            to="/analytics"
             className={({ isActive }) =>
               [
                 "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
@@ -75,7 +75,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             }
           >
             <FaChartColumn className="w-6 h-6" />
-            <span>Statistics</span>
+            <span>Analytics</span>
           </NavLink>
           <NavLink
             to="/settings"

@@ -13,7 +13,7 @@ import HomePage from "./pages/HomePage";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import DashboardPage from "./pages/DashboardPage";
-import StatisticsPage from "./pages/StatisticsPage";
+import AnalyticsPage from "./pages/AnalyticsPage";
 import SettingsPage from "./pages/SettingsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import NewLeadPage from "./pages/NewLeadPage";
@@ -27,7 +27,7 @@ function App() {
 
         <Route element={<DashboardLayout />}>
           <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="statistics" element={<StatisticsPage />} />
+          <Route path="Analytics" element={<AnalyticsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="add" element={<NewLeadPage />} />
           <Route path="edit" element={<EditLeadPage />} />
