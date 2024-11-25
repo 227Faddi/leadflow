@@ -7,8 +7,8 @@ const Footer = () => {
   return (
     <footer className="p-5 text-center">
       <div className="flex flex-col gap-5 md:flex-row justify-around items-center">
-        <p className="mb-0 col font-bold">
-          © 2024 Leads Track. Moving forward together.
+        <p className="mb-0 col font-thin">
+          © 2024 LeadFlow. Your Lead Management Solution.
         </p>
         <div>
           <a
