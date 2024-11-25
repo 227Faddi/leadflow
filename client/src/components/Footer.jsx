@@ -30,7 +30,7 @@ const Footer = () => {
             </span>
           </a>
           <a
-            href="https://github.com/227Faddi/"
+            href="https://github.com/227Faddi/leads-track-react"
             className="ml-2 relative p-0.5 inline-flex items-center justify-center overflow-hidden text-gray-900 rounded-full group bg-gradient-to-br from-green-600 to-blue-500 group-hover:from-green-600 group-hover:to-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300"
             style={{ width: 60, height: 60 }}
           >

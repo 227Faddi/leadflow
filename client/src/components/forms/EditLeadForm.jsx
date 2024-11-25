@@ -17,7 +17,11 @@ const EditLeadForm = () => {
   };
 
   return (
-    <form className="mt-8 mb-2 w-full" onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className="mt-8 mb-2 w-full"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
       <div className="w-full mb-4 flex flex-col gap-6 items-center justify-center">
         <div className="w-full max-w-sm min-w-[200px]">
           <label className="block mb-2 text-md text-bold text-gray-900">
