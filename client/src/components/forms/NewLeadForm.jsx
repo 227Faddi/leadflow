@@ -22,7 +22,7 @@ const NewLeadForm = () => {
       noValidate
     >
       <div className="w-full mb-4 flex flex-col gap-6 items-center justify-center">
-        <div className="w-full max-w-sm min-w-[200px]">
+        <div className="w-full">
           <label className="block mb-2 text-md text-bold text-gray-900">
             Name
           </label>
@@ -38,7 +38,7 @@ const NewLeadForm = () => {
             </p>
           )}
         </div>
-        <div className="w-full max-w-sm min-w-[200px]">
+        <div className="w-full">
           <label className="block mb-2 text-md text-bold text-gray-900">
             Email
           </label>
@@ -52,7 +52,7 @@ const NewLeadForm = () => {
             <p className="text-red-700 mt-1">{errors.email.message}</p>
           )}
         </div>
-        <div className="w-full max-w-sm min-w-[200px]">
+        <div className="w-full">
           <label className="block mb-2 text-md text-bold text-gray-900">
             Industry
           </label>
@@ -66,7 +66,7 @@ const NewLeadForm = () => {
             <p className="text-red-700 mt-1">{errors.industry.message}</p>
           )}
         </div>
-        <div className="w-full max-w-sm min-w-[200px]">
+        <div className="w-full">
           <label className="block mb-2 text-md text-bold text-gray-900">
             Phone
           </label>
@@ -80,7 +80,7 @@ const NewLeadForm = () => {
             <p className="text-red-700 mt-1">{errors.phone.message}</p>
           )}
         </div>
-        <div className="w-full max-w-sm min-w-[200px]">
+        <div className="w-full">
           <label className="block mb-2 text-md text-bold text-gray-900">
             Location
           </label>

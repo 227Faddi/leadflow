@@ -24,7 +24,7 @@ const LoginForm = () => {
       noValidate
     >
       <div className="mb-4 flex flex-col gap-6">
-        <div className="w-full max-w-sm min-w-[200px]">
+        <div>
           <label className="block mb-2 text-md text-bold text-gray-900">
             Email
           </label>
@@ -38,7 +38,7 @@ const LoginForm = () => {
             <p className="text-red-700 mt-1">{errors.email.message}</p>
           )}
         </div>
-        <div className="w-full max-w-sm min-w-[200px]">
+        <div>
           <label className="block mb-2 text-md text-bold text-gray-900">
             Password
           </label>

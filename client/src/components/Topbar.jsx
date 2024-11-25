@@ -29,7 +29,7 @@ const Topbar = ({ setSidebarOpen }) => {
             className="font-bold text-2xl flex items-center justify-center"
           >
             <IoIosContacts className="text-green-700" size={35} />
-            Lead Leger
+            LeadFlow
           </a>
         </div>
       </div>

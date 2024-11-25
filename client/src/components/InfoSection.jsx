@@ -5,7 +5,7 @@ const InfoSection = () => {
   return (
     <section className="flex flex-col items-center justify-center space-y-8 px-4 md:px-10 lg:px-56 mb-52">
       <div className="bg-gray-100 p-10 md:p-20 rounded-2xl flex flex-col md:flex-row justify-between space-y-12">
-        <div className="flex flex-col gap-12">
+        <div className="flex flex-col items-center justify-center gap-12">
           <div className="space-y-2">
             <FaUserPlus className="text-blue-700" size={35} />
             <h3 className="font-bold">Effortless Lead Tracking</h3>
