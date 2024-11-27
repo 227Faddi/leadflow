@@ -1,12 +1,13 @@
-import express from 'express';
 import dotenv from 'dotenv';
+dotenv.config({ path: './config/.env' });
+import express from 'express';
+
 import morgan from 'morgan';
 import cors from 'cors';
 
-import leadRoutes from './routes/leadRoutes.js';
+import leadsRoutes from './routes/leadsRoutes.js';
 import authRoutes from './routes/authRoutes.js';
 
-dotenv.config({ path: './config/.env' });
 const app = express();
 
 if (process.env.NODE_ENV === 'development') {
@@ -24,7 +25,7 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use('/api/lead', leadRoutes);
+app.use('/api/leads', leadsRoutes);
 app.use('auth', authRoutes);
 
 app.listen(process.env.PORT, () => {
