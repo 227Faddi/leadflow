@@ -3,6 +3,7 @@ import { z } from "zod";
 export const loginSchema = z.object({
   email: z
     .string()
+    .min(1, { message: "Email is required." })
     .email({ message: "Please enter a valid email address." })
     .max(30, { message: "Email cannot exceed 30 characters." })
     .trim()
@@ -19,6 +20,7 @@ export const signupSchema = z
 
     email: z
       .string()
+      .min(1, { message: "Email is required." })
       .email({ message: "Please enter a valid email address." })
       .max(30, { message: "Email cannot exceed 30 characters." })
       .trim()
@@ -51,6 +53,7 @@ export const leadSchema = z.object({
 
   email: z
     .string()
+    .min(1, { message: "Email is required." })
     .email({ message: "Please enter a valid email address." })
     .max(30, { message: "Email cannot exceed 30 characters." })
     .trim()
@@ -59,6 +62,7 @@ export const leadSchema = z.object({
   industry: z
     .string()
     .trim()
+    .min(1, { message: "Industry is required." })
     .max(30, { message: "Industry cannot exceed 30 characters." }),
 
   phone: z

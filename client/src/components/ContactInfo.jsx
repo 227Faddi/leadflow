@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const ContactInfo = () => {
+const ContactInfo = ({ lead }) => {
   return (
     <tr>
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -14,29 +14,29 @@ const ContactInfo = () => {
           </div>
           <div className="ml-4">
             <div className="text-sm font-medium leading-5 text-gray-900">
-              John Doe
+              {lead.name}
             </div>
             <a
-              href="mailto:john@example.com"
+              href={`mailto:${lead.email}`}
               className="text-sm leading-5 text-gray-500"
             >
-              john@example.com
+              {lead.email}
             </a>
           </div>
         </div>
       </td>
       <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-        Construction
+        {lead.industry}
       </td>
       <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-        +1 (123) 123 1547
+        {lead.phone}
       </td>
       <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-        Montreal, QC
+        {lead.location}
       </td>
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
         <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-          Active
+          {lead.status}
         </span>
       </td>
       <td className="px-6 py-4 text-center text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">

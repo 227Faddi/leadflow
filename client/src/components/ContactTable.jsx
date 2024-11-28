@@ -1,7 +1,29 @@
 import ContactInfo from "./ContactInfo";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
 const ContactTable = () => {
-  const contact = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const fetchLeads = async () => {
+    const { data } = await axios.get("http://localhost:3000/api/leads");
+    return data;
+  };
+
+  const {
+    data: leads,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryFn: fetchLeads,
+    queryKey: ["leads"],
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Loading...</div>;
+  }
   return (
     <table className="min-w-full">
       <thead>
@@ -26,8 +48,8 @@ const ContactTable = () => {
         </tr>
       </thead>
       <tbody className="bg-white">
-        {contact.map((lead, index) => (
-          <ContactInfo key={index} />
+        {leads?.map((lead, index) => (
+          <ContactInfo lead={lead} key={index} />
         ))}
       </tbody>
     </table>
