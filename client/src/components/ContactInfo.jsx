@@ -1,42 +1,56 @@
 import { Link } from "react-router-dom";
 
 const ContactInfo = ({ lead }) => {
+  const { name, email, industry, phone, location, status } = lead;
+
+  const getStatusColor = () => {
+    switch (status) {
+      case "new":
+        return "text-blue-800 bg-blue-100";
+      case "contacted":
+        return "text-yellow-800 bg-yellow-100";
+      case "negotiating":
+        return "text-orange-800 bg-orange-100";
+      case "converted":
+        return "text-green-800 bg-green-100";
+      case "disqualified":
+        return "text-red-800 bg-red-100";
+      default:
+        return "text-gray-800 bg-gray-100";
+    }
+  };
+
   return (
     <tr>
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
         <div className="flex items-center">
-          <div className="flex-shrink-0 w-10 h-10">
-            <img
-              className="w-10 h-10 rounded-full"
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt=""
-            />
-          </div>
           <div className="ml-4">
             <div className="text-sm font-medium leading-5 text-gray-900">
-              {lead.name}
+              {name}
             </div>
             <a
-              href={`mailto:${lead.email}`}
+              href={`mailto:${email}`}
               className="text-sm leading-5 text-gray-500"
             >
-              {lead.email}
+              {email}
             </a>
           </div>
         </div>
       </td>
       <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-        {lead.industry}
+        {industry}
       </td>
       <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-        {lead.phone}
+        {phone}
       </td>
       <td className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-        {lead.location}
+        {location}
       </td>
-      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-        <span className="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-          {lead.status}
+      <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
+        <span
+          className={`inline-flex px-4 text-xs font-semibold leading-5 ${getStatusColor()} rounded-full`}
+        >
+          {status}
         </span>
       </td>
       <td className="px-6 py-4 text-center text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">

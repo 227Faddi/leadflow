@@ -40,7 +40,7 @@ const ContactTable = () => {
           <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase">
             Location
           </th>
-          <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left uppercase">
+          <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-center uppercase">
             Status
           </th>
           <th className="px-6 py-3" />
