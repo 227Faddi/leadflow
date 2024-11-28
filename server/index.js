@@ -7,8 +7,12 @@ import cors from 'cors';
 
 import leadsRoutes from './routes/leadsRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import { synchronizeTables } from './config/database.js';
 
 const app = express();
+
+// Synchronize db tables to match model
+synchronizeTables();
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));

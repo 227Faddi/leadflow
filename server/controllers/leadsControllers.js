@@ -1,8 +1,8 @@
-import mysqlDB from '../config/database.js';
+import Lead from '../models/Lead.js';
 
 export default {
   getLeads: async (req, res) => {
-    const [leads] = await mysqlDB.query('SELECT * FROM leads');
+    const leads = await Lead.findAll();
     res.status(200).send(leads);
   },
 };
