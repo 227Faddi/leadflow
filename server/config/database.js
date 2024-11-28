@@ -21,7 +21,7 @@ try {
 
 export const synchronizeTables = async () => {
   try {
-    await sequelize.sync({ alter: true });
+    await sequelize.sync();
     console.log('Database synchronized successfully.');
   } catch (err) {
     console.error('Database synchronization failed:', err);
