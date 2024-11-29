@@ -22,7 +22,7 @@ const ContactTable = () => {
   }
 
   if (isError) {
-    return <div>Loading...</div>;
+    return <div>Error...</div>;
   }
   return (
     <table className="min-w-full">

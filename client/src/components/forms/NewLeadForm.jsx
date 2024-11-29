@@ -1,20 +1,37 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+
+import { useNavigate } from "react-router";
 
 const schema = leadSchema;
 
 const NewLeadForm = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm({ resolver: zodResolver(schema) });
 
+  const { mutateAsync } = useMutation({
+    mutationFn: (formData) => {
+      axios.post("http://localhost:3000/api/leads/add", formData);
+    },
+  });
+
   const onSubmit = async (formData) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(formData);
+    try {
+      await mutateAsync(formData);
+      navigate("/dashboard");
+    } catch (err) {
+      console.log(err);
+    }
   };
+
   return (
     <form
       className="mt-8 mb-2 w-full"
