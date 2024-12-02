@@ -10,4 +10,13 @@ export default {
     await Lead.create(newLead);
     res.status(200).send({ message: 'Lead added successfully' });
   },
+  deleteLead: async (req, res) => {
+    const id = req.params.id;
+    await Lead.destroy({
+      where: {
+        id: id,
+      },
+    });
+    res.status(200).send({ message: 'Lead added successfully' });
+  },
 };

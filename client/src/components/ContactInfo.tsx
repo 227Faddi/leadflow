@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+
+import axios from "axios";
 
 type Lead = {
+  id: string;
   name: string;
   email: string;
   industry: string;
@@ -14,7 +19,24 @@ type Props = {
 };
 
 const ContactInfo = ({ lead }: Props) => {
-  const { name, email, industry, phone, location, status } = lead;
+  const { id, name, email, industry, phone, location, status } = lead;
+
+  const { mutateAsync } = useMutation({
+    mutationFn: () => {
+      return axios.delete(`http://localhost:3000/api/leads/delete/${id}`);
+    },
+  });
+
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  const handleDelete = async () => {
+    try {
+      await mutateAsync();
+      setIsDeleted(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const getStatusColor = () => {
     switch (status) {
@@ -32,7 +54,7 @@ const ContactInfo = ({ lead }: Props) => {
   };
 
   return (
-    <tr>
+    <tr className={isDeleted ? "hidden" : ""}>
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
         <div className="flex items-center">
           <div className="ml-4">
@@ -70,9 +92,12 @@ const ContactInfo = ({ lead }: Props) => {
         </Link>
       </td>
       <td className="px-6 py-4 text-center text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
-        <a href="#" className="text-red-600 hover:text-red-900">
+        <button
+          onClick={handleDelete}
+          className="text-red-600 hover:text-red-900"
+        >
           Delete
-        </a>
+        </button>
       </td>
     </tr>
   );

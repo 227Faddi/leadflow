@@ -5,10 +5,9 @@ const Lead = sequelize.define(
   'Lead',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      autoIncrement: true,
-      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
@@ -28,7 +27,7 @@ const Lead = sequelize.define(
     },
     location: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
     status: {
       type: DataTypes.ENUM(

@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 type Lead = {
+  id: string;
   name: string;
   email: string;
   industry: string;
@@ -57,8 +58,8 @@ const ContactTable = () => {
         </tr>
       </thead>
       <tbody className="bg-white">
-        {leads?.map((lead: Lead, index: number) => (
-          <ContactInfo lead={lead} key={index} />
+        {leads?.map((lead: Lead) => (
+          <ContactInfo lead={lead} key={lead.id} />
         ))}
       </tbody>
     </table>

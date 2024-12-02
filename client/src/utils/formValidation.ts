@@ -73,5 +73,6 @@ export const leadSchema = z.object({
 
   location: z
     .string()
+    .min(1, { message: "Location is required." })
     .max(30, { message: "Location cannot exceed 30 characters." }),
 });
