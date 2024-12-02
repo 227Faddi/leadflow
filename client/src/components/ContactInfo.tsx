@@ -20,6 +20,7 @@ type Props = {
 
 const ContactInfo = ({ lead }: Props) => {
   const { id, name, email, industry, phone, location, status } = lead;
+  const [formStatus, setFormStatus] = useState(status);
 
   const { mutateAsync } = useMutation({
     mutationFn: () => {
@@ -38,8 +39,12 @@ const ContactInfo = ({ lead }: Props) => {
     }
   };
 
+  const handleChange = (e) => {
+    setFormStatus(e.target.value);
+  };
+
   const getStatusColor = () => {
-    switch (status) {
+    switch (formStatus) {
       case "contacted":
         return "text-yellow-800 bg-yellow-100";
       case "negotiating":
@@ -80,11 +85,18 @@ const ContactInfo = ({ lead }: Props) => {
         {location}
       </td>
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
-        <span
-          className={`inline-flex px-4 text-xs font-semibold leading-5 ${getStatusColor()} rounded-full`}
+        <select
+          id="status"
+          value={formStatus}
+          onChange={handleChange}
+          className={`appearance-none focus:outline-none hover:cursor-pointer inline-flex px-4 py-2 text-xs font-semibold leading-5 text-center rounded-full ${getStatusColor()}`}
         >
-          {status}
-        </span>
+          <option value="new">New</option>
+          <option value="contacted">Contacted</option>
+          <option value="negotiating">Negotiating</option>
+          <option value="converted">Converted</option>
+          <option value="disqualified">Disqualified</option>
+        </select>
       </td>
       <td className="px-6 py-4 text-center text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
         <Link to="/edit" className="text-gray-600 hover:text-gray-900">
