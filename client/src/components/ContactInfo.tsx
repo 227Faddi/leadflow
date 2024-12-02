@@ -22,25 +22,36 @@ const ContactInfo = ({ lead }: Props) => {
   const { id, name, email, industry, phone, location, status } = lead;
   const [formStatus, setFormStatus] = useState(status);
 
-  const { mutateAsync } = useMutation({
+  const [isDeleted, setIsDeleted] = useState(false);
+
+  const { mutateAsync: deleteLead } = useMutation({
     mutationFn: () => {
       return axios.delete(`http://localhost:3000/api/leads/delete/${id}`);
     },
   });
-
-  const [isDeleted, setIsDeleted] = useState(false);
-
   const handleDelete = async () => {
     try {
-      await mutateAsync();
+      await deleteLead();
       setIsDeleted(true);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleChange = (e) => {
-    setFormStatus(e.target.value);
+  const { mutateAsync: updateStatus } = useMutation({
+    mutationFn: (data: { status: string }) => {
+      return axios.put(`http://localhost:3000/api/leads/status/${id}`, data);
+    },
+  });
+
+  const handleChange = async (e) => {
+    const newStatus = e.target.value;
+    try {
+      await updateStatus({ status: newStatus });
+      setFormStatus(newStatus);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const getStatusColor = () => {
