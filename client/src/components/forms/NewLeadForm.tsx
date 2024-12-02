@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const schema = leadSchema;
@@ -26,12 +26,12 @@ const NewLeadForm = () => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const { mutateAsync } = useMutation({
-    mutationFn: (formData) => {
-      axios.post("http://localhost:3000/api/leads/add", formData);
+    mutationFn: (formData: FormData) => {
+      return axios.post("http://localhost:3000/api/leads/add", formData);
     },
   });
 
-  const onSubmit = async (formData: FormData) => {
+  const onSubmit: SubmitHandler<FormData> = async (formData) => {
     try {
       await mutateAsync(formData);
       navigate("/dashboard");
