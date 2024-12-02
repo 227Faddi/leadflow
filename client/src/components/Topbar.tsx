@@ -1,6 +1,10 @@
 import { IoIosContacts } from "react-icons/io";
 
-const Topbar = ({ setSidebarOpen }) => {
+type Props = {
+  setSidebarOpen: (val: boolean) => void;
+};
+
+const Topbar = ({ setSidebarOpen }: Props) => {
   return (
     <header className="flex items-center justify-between px-6 sm:px-14 py-8 bg-white border-b-4 border-green-700">
       <div className="flex items-center">

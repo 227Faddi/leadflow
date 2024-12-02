@@ -1,18 +1,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { loginSchema } from "../../utils/formValidation";
+import { z } from "zod";
 
 const schema = loginSchema;
+
+type FormData = z.infer<typeof schema>;
 
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const onSubmit = async (formData) => {
+  const onSubmit: SubmitHandler<FormData> = async (formData) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(formData);
   };

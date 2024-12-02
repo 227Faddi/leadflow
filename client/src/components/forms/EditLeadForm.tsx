@@ -1,17 +1,26 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
 
 const schema = leadSchema;
+
+type FormData = {
+  name: string;
+  email: string;
+  industry: string;
+  phone: string;
+  location: string;
+  status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
+};
 
 const EditLeadForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const onSubmit = async (formData) => {
+  const onSubmit: SubmitHandler<FormData> = async (formData) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(formData);
   };

@@ -1,12 +1,23 @@
 import { Link } from "react-router-dom";
 
-const ContactInfo = ({ lead }) => {
+type Lead = {
+  name: string;
+  email: string;
+  industry: string;
+  phone: string;
+  location: string;
+  status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
+};
+
+type Props = {
+  lead: Lead;
+};
+
+const ContactInfo = ({ lead }: Props) => {
   const { name, email, industry, phone, location, status } = lead;
 
   const getStatusColor = () => {
     switch (status) {
-      case "new":
-        return "text-blue-800 bg-blue-100";
       case "contacted":
         return "text-yellow-800 bg-yellow-100";
       case "negotiating":
@@ -16,7 +27,7 @@ const ContactInfo = ({ lead }) => {
       case "disqualified":
         return "text-red-800 bg-red-100";
       default:
-        return "text-gray-800 bg-gray-100";
+        return "text-blue-800 bg-blue-100";
     }
   };
 

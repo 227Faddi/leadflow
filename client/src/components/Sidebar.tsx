@@ -5,7 +5,12 @@ import { FaChartColumn } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+type Props = {
+  sidebarOpen: boolean;
+  setSidebarOpen: (val: boolean) => void;
+};
+
+const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
   return (
     <>
       <div

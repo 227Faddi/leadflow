@@ -2,11 +2,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 import axios from "axios";
 
-import { useNavigate } from "react-router";
-
 const schema = leadSchema;
+
+type FormData = {
+  name: string;
+  email: string;
+  industry: string;
+  phone: string;
+  location: string;
+  status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
+};
 
 const NewLeadForm = () => {
   const navigate = useNavigate();
@@ -15,7 +23,7 @@ const NewLeadForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const { mutateAsync } = useMutation({
     mutationFn: (formData) => {
@@ -23,7 +31,7 @@ const NewLeadForm = () => {
     },
   });
 
-  const onSubmit = async (formData) => {
+  const onSubmit = async (formData: FormData) => {
     try {
       await mutateAsync(formData);
       navigate("/dashboard");
