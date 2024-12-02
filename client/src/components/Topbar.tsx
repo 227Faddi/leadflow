@@ -30,7 +30,7 @@ const Topbar = ({ setSidebarOpen }: Props) => {
         <div className="relative mx-4 lg:mx-0">
           <a
             href="/"
-            className="font-bold text-2xl flex items-center justify-center"
+            className="font-bold text-2xl flex items-center justify-center lg:hidden"
           >
             <IoIosContacts className="text-green-700" size={35} />
             LeadFlow
