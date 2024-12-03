@@ -1,14 +1,19 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
+import mysql2 from 'mysql2';
 dotenv.config({ path: './config/.env' });
 
 const name = process.env.DB_NAME;
 const username = process.env.DB_USER;
 const password = process.env.DB_PASSWORD;
+const host = process.env.DB_HOST;
+const port = process.env.DB_PORT;
 
 const sequelize = new Sequelize(name, username, password, {
-  host: 'localhost',
+  host: host,
+  port: port,
   dialect: 'mysql',
+  dialectModule: mysql2,
 });
 
 try {
