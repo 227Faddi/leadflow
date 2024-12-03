@@ -14,6 +14,8 @@ const app = express();
 // Synchronize db tables to match model
 synchronizeTables();
 
+// test github actions
+
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
