@@ -11,6 +11,8 @@ router.post('/add', leadsControllers.addLead);
 router.put('/status/:id', leadsControllers.statusLead);
 router.put('/edit/:id', leadsControllers.editLead);
 
+router.get('/sort/:by/:order', leadsControllers.sortBy);
+
 router.delete('/delete/:id', leadsControllers.deleteLead);
 
 export default router;

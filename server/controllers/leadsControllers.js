@@ -45,4 +45,15 @@ export default {
     lead.update(req.body);
     res.status(200).send({ message: 'Status updated successfully' });
   },
+  sortBy: async (req, res) => {
+    const item = req.params.by;
+    const order = req.params.order;
+    const leads = await Lead.findAll({
+      order: [[item, order]],
+    });
+    if (!leads) {
+      throw new Error('Leads not found');
+    }
+    res.status(200).send(leads);
+  },
 };
