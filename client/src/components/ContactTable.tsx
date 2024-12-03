@@ -13,7 +13,7 @@ type Lead = {
 };
 
 const ContactTable = () => {
-  const fetchLeads = async () => {
+  const fetchLeads = async (): Promise<Lead[]> => {
     const { data } = await axios.get("http://localhost:3000/api/leads");
     return data;
   };

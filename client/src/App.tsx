@@ -30,7 +30,7 @@ function App() {
           <Route path="analytics" element={<AnalyticsPage />} />
           <Route path="settings" element={<SettingsPage />} />
           <Route path="add" element={<NewLeadPage />} />
-          <Route path="edit" element={<EditLeadPage />} />
+          <Route path="edit/:id" element={<EditLeadPage />} />
         </Route>
 
         <Route path="signup" element={<SignupPage />} />

@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const schema = leadSchema;
@@ -17,8 +17,6 @@ type FormData = {
 };
 
 const NewLeadForm = () => {
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
@@ -34,7 +32,7 @@ const NewLeadForm = () => {
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
     try {
       await mutateAsync(formData);
-      navigate("/dashboard");
+      window.location.href = "/dashboard";
     } catch (err) {
       console.log(err);
     }
@@ -126,6 +124,12 @@ const NewLeadForm = () => {
         >
           {isSubmitting ? "Adding Lead..." : "Add"}
         </button>
+        <Link
+          className="mt-4 max-w-sm w-full text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          to="/dashboard"
+        >
+          Cancel
+        </Link>
       </div>
     </form>
   );

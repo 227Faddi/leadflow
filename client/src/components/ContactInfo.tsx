@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -39,14 +38,15 @@ const ContactInfo = ({ lead }: Props) => {
   };
 
   const { mutateAsync: updateStatus } = useMutation({
-    mutationFn: (data: { status: string }) => {
+    mutationFn: (data: { status: Lead["status"] }) => {
       return axios.put(`http://localhost:3000/api/leads/status/${id}`, data);
     },
   });
 
-  const handleChange = async (e) => {
-    const newStatus = e.target.value;
+  const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newStatus = e.target.value as Lead["status"];
     try {
+      console.log(newStatus);
       await updateStatus({ status: newStatus });
       setFormStatus(newStatus);
     } catch (err) {
@@ -110,9 +110,9 @@ const ContactInfo = ({ lead }: Props) => {
         </select>
       </td>
       <td className="px-6 py-4 text-center text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
-        <Link to="/edit" className="text-gray-600 hover:text-gray-900">
+        <a href={`/edit/${id}`} className="text-gray-600 hover:text-gray-900">
           Edit
-        </Link>
+        </a>
       </td>
       <td className="px-6 py-4 text-center text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
         <button

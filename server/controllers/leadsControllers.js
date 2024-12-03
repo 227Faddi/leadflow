@@ -21,10 +21,26 @@ export default {
   },
   statusLead: async (req, res) => {
     const id = req.params.id;
-    console.log(req.body);
     const lead = await Lead.findByPk(id);
     if (!lead) {
-      res.status(404).send({ message: 'Lead not found' });
+      return res.status(404).send({ message: 'Lead not found' });
+    }
+    lead.update(req.body);
+    res.status(200).send({ message: 'Status updated successfully' });
+  },
+  getEditLead: async (req, res) => {
+    const id = req.params.id;
+    const lead = await Lead.findByPk(id);
+    if (!lead) {
+      return res.status(404).send({ message: 'Lead not found' });
+    }
+    res.status(200).send(lead);
+  },
+  editLead: async (req, res) => {
+    const id = req.params.id;
+    const lead = await Lead.findByPk(id);
+    if (!lead) {
+      return res.status(404).send({ message: 'Lead not found' });
     }
     lead.update(req.body);
     res.status(200).send({ message: 'Status updated successfully' });

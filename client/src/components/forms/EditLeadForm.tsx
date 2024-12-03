@@ -1,8 +1,32 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
+import { useMutation } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
+import axios from "axios";
 
 const schema = leadSchema;
+
+type Lead =
+  | {
+      id: string;
+      name: string;
+      email: string;
+      industry: string;
+      phone: string;
+      location: string;
+      status:
+        | "new"
+        | "contacted"
+        | "negotiating"
+        | "converted"
+        | "disqualified";
+    }
+  | undefined;
+
+type Props = {
+  lead: Lead;
+};
 
 type FormData = {
   name: string;
@@ -13,16 +37,31 @@ type FormData = {
   status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
 };
 
-const EditLeadForm = () => {
+const EditLeadForm = ({ lead }: Props) => {
+  const id = lead?.id;
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: lead,
+  });
+
+  const { mutateAsync } = useMutation({
+    mutationFn: (formData: FormData) => {
+      return axios.put(`http://localhost:3000/api/leads/edit/${id}`, formData);
+    },
+  });
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(formData);
+    try {
+      await mutateAsync(formData);
+      window.location.href = "/dashboard";
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -111,6 +150,12 @@ const EditLeadForm = () => {
         >
           {isSubmitting ? "Updating Lead..." : "Edit"}
         </button>
+        <Link
+          className="mt-4 max-w-sm w-full text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          to="/dashboard"
+        >
+          Cancel
+        </Link>
       </div>
     </form>
   );
