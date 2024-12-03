@@ -9,27 +9,30 @@ on:
     branches:
       - main
     paths:
-      - "server/**"
-    defaults:
-      run:
-        working-directory: client
+      - "server/**" # Trigger only for changes in the server folder
 
 jobs:
   Deploy-Production:
-    runs-on: ubuntu-latests
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Change working directory to server
+        run: cd server # Ensure we're working in the server directory
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Information
+        working-directory: ./server
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Build Project Artifacts
+        working-directory: ./server
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Project Artifacts
+        working-directory: ./server
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
