@@ -1,6 +1,7 @@
 import ContactInfo from "./ContactInfo";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+const serverURL = import.meta.env.VITE_SERVER_URL;
 
 type Lead = {
   id: string;
@@ -14,7 +15,7 @@ type Lead = {
 
 const ContactTable = () => {
   const fetchLeads = async (): Promise<Lead[]> => {
-    const { data } = await axios.get("http://localhost:3000/api/leads");
+    const { data } = await axios.get(`${serverURL}/api/leads`);
     return data;
   };
 

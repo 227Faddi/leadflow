@@ -4,6 +4,7 @@ import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import axios from "axios";
+const serverURL = import.meta.env.VITE_SERVER_URL;
 
 const schema = leadSchema;
 
@@ -25,7 +26,7 @@ const NewLeadForm = () => {
 
   const { mutateAsync } = useMutation({
     mutationFn: (formData: FormData) => {
-      return axios.post("http://localhost:3000/api/leads/add", formData);
+      return axios.post(`${serverURL}/api/leads/add`, formData);
     },
   });
 

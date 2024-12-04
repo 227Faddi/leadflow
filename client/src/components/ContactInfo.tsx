@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+const serverURL = import.meta.env.VITE_SERVER_URL;
 
 import axios from "axios";
 
@@ -25,7 +26,7 @@ const ContactInfo = ({ lead }: Props) => {
 
   const { mutateAsync: deleteLead } = useMutation({
     mutationFn: () => {
-      return axios.delete(`http://localhost:3000/api/leads/delete/${id}`);
+      return axios.delete(`${serverURL}/api/leads/delete/${id}`);
     },
   });
   const handleDelete = async () => {
@@ -39,7 +40,7 @@ const ContactInfo = ({ lead }: Props) => {
 
   const { mutateAsync: updateStatus } = useMutation({
     mutationFn: (data: { status: Lead["status"] }) => {
-      return axios.put(`http://localhost:3000/api/leads/status/${id}`, data);
+      return axios.put(`${serverURL}/api/leads/status/${id}`, data);
     },
   });
 

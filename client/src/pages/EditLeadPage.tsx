@@ -1,8 +1,8 @@
 import EditLeadForm from "../components/forms/EditLeadForm";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-
 import { useParams } from "react-router-dom";
+const serverURL = import.meta.env.VITE_SERVER_URL;
 
 type Lead = {
   id: string;
@@ -19,9 +19,7 @@ const EditLeadPage = () => {
   const id = params.id;
 
   const fetchLead = async (): Promise<Lead> => {
-    const { data } = await axios.get(
-      `http://localhost:3000/api/leads/edit/${id}`
-    );
+    const { data } = await axios.get(`${serverURL}/api/leads/${id}`);
     return data;
   };
 

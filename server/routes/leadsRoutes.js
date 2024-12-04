@@ -4,7 +4,7 @@ import leadsControllers from '../controllers/leadsControllers.js';
 const router = express.Router();
 
 router.get('/', leadsControllers.getLeads);
-router.get('/edit/:id', leadsControllers.getEditLead);
+router.get('/:id', leadsControllers.getLead);
 
 router.post('/add', leadsControllers.addLead);
 

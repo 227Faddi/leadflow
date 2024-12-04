@@ -28,7 +28,7 @@ export default {
     lead.update(req.body);
     res.status(200).send({ message: 'Status updated successfully' });
   },
-  getEditLead: async (req, res) => {
+  getLead: async (req, res) => {
     const id = req.params.id;
     const lead = await Lead.findByPk(id);
     if (!lead) {
