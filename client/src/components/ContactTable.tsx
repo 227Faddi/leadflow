@@ -13,9 +13,14 @@ type Lead = {
   status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
 };
 
-const ContactTable = () => {
+const ContactTable = ({ sortStatus }) => {
+  let url = `${serverURL}/api/leads`;
+  if (sortStatus) {
+    url = `${serverURL}/api/leads/sort/status/ASC`;
+  }
+
   const fetchLeads = async (): Promise<Lead[]> => {
-    const { data } = await axios.get(`${serverURL}/api/leads`);
+    const { data } = await axios.get(url);
     return data;
   };
 
