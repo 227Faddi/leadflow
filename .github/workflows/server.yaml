@@ -1,4 +1,4 @@
-name: Vercel Production Deployment
+name: Continuous Integration and Vercel Deployment
 
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -9,18 +9,43 @@ on:
     branches:
       - main
     paths:
-      - "server/**" # Trigger only for changes in the server folder
+      - "server/**"
+  pull_request:
+    paths:
+      - "server/**"
 
 jobs:
-  Deploy-Production:
+  CI:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Change working directory to server
-        run: cd server # Ensure we're working in the server directory
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: ./server
+        run: npm ci
+
+      - name: Run Prettier Format
+        working-directory: ./server
+        run: npm run format
+
+      - name: Build Project
+        working-directory: ./server
+        run: npm run build
+
+  Deploy-Production:
+    runs-on: ubuntu-latest
+    needs: CI
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
