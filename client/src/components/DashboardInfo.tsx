@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
 import { FaSortAlphaUp } from "react-icons/fa";
 import { FaSortAmountUp } from "react-icons/fa";
@@ -6,7 +5,12 @@ import { FaSortAmountDown } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 
-const DashboardInfo = ({ sortStatus, setSortStatus }) => {
+type Props = {
+  sortStatus: boolean;
+  setSortStatus: (value: boolean) => void;
+};
+
+const DashboardInfo = ({ sortStatus, setSortStatus }: Props) => {
   return (
     <>
       <h3 className="text-3xl font-medium text-gray-900">Dashboard</h3>
