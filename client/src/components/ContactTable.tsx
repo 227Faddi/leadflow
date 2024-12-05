@@ -13,7 +13,11 @@ type Lead = {
   status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
 };
 
-const ContactTable = ({ sortStatus }) => {
+type Props = {
+  sortStatus: boolean;
+};
+
+const ContactTable = ({ sortStatus }: Props) => {
   let url = `${serverURL}/api/leads`;
   if (sortStatus) {
     url = `${serverURL}/api/leads/sort/status/ASC`;
