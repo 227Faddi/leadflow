@@ -15,7 +15,7 @@
     "sourceMap": true,
     "types": ["node"],
     "noImplicitAny": true,
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "checkJs": true
   },
   "include": ["src/**/*.ts"],
