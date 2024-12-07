@@ -1,4 +1,5 @@
-src/config/.env
+.env
 node_modules
 .prettierrc
 .vercel
+
