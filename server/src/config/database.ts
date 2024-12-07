@@ -1,14 +1,13 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 import mysql2 from 'mysql2';
-dotenv.config({ path: './config/.env' });
+dotenv.config();
 
-const name = process.env.DB_NAME;
-const username = process.env.DB_USER;
-const password = process.env.DB_PASSWORD;
-const host = process.env.DB_HOST;
-const port = process.env.DB_PORT;
-
+const name = process.env.DB_NAME as string;
+const username = process.env.DB_USER as string;
+const password = process.env.DB_PASSWORD as string;
+const host = process.env.DB_HOST as string;
+const port = Number(process.env.DB_PORT as string);
 const sequelize = new Sequelize(name, username, password, {
   host: host,
   port: port,
