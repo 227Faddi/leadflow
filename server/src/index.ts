@@ -18,8 +18,6 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
-console.log('run');
-
 app.use(
   cors({
     origin: process.env.CLIENT_URL,

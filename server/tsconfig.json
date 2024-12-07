@@ -13,10 +13,10 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "sourceMap": true,
-    "types": ["node"],
     "noImplicitAny": true,
-    "noEmitOnError": false,
-    "checkJs": true
+    "noEmitOnError": true,
+    "checkJs": true,
+    "types": ["node", "express"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
