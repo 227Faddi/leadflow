@@ -26,7 +26,7 @@ const InfoSection = () => {
         <div className="flex items-center">
           <img
             className="w-full object-cover"
-            src="/assets/laptop.png"
+            src="/assets/img/laptop.png"
             alt=""
           />
         </div>
