@@ -4,15 +4,14 @@ import { Link } from "react-router-dom";
 import { signupSchema } from "../../utils/formValidation";
 import { z } from "zod";
 
-const schema = signupSchema;
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof signupSchema>;
 
 const SignupForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({ resolver: zodResolver(signupSchema) });
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));

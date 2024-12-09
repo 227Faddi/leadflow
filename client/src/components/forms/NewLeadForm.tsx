@@ -6,15 +6,14 @@ import { Link } from "react-router-dom";
 import { z } from "zod";
 import { addLead } from "../../services/api";
 
-const schema = leadSchema;
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof leadSchema>;
 
 const NewLeadForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<FormData>({ resolver: zodResolver(leadSchema) });
 
   const { mutateAsync: addLeadMutation } = useMutation({
     mutationFn: addLead,

@@ -7,9 +7,7 @@ import { Lead } from "../../types";
 import { z } from "zod";
 import { editLead } from "../../services/api";
 
-const schema = leadSchema;
-
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof leadSchema>;
 
 type Props = {
   lead: Lead;
@@ -23,7 +21,7 @@ const EditLeadForm = ({ lead }: Props) => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(leadSchema),
     defaultValues: lead,
   });
 
