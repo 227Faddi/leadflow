@@ -6,19 +6,16 @@ const serverURL = import.meta.env.VITE_SERVER_URL;
 
 type Props = {
   sortStatus: boolean;
-  searchValue: string;
+  debounceSearch: string;
 };
 
-const ContactTable = ({ sortStatus, searchValue }: Props) => {
-  let url = `${serverURL}/api/leads`;
-  if (sortStatus) {
-    url = `${serverURL}/api/leads/sort/status/ASC`;
-  }
-
+const ContactTable = ({ sortStatus, debounceSearch }: Props) => {
   const fetchLeads = async (): Promise<Lead[]> => {
-    const { data } = await axios.get(url);
+    const { data } = await axios.get(`${serverURL}/api/leads`);
     return data;
   };
+
+  console.log(debounceSearch);
 
   const {
     data: leads,
@@ -61,7 +58,7 @@ const ContactTable = ({ sortStatus, searchValue }: Props) => {
       </thead>
       <tbody className="bg-white">
         {leads
-          ?.filter((lead) => lead.name.toLowerCase().includes(searchValue))
+          ?.filter((lead) => lead.name.toLowerCase().includes(debounceSearch))
           .map((lead: Lead) => (
             <ContactInfo lead={lead} key={lead.id} />
           ))}
