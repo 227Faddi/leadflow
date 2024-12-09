@@ -1,4 +1,4 @@
-import ContactInfo from "./ContactInfo";
+import LeadRow from "./LeadRow";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Lead } from "../types";
@@ -9,7 +9,7 @@ type Props = {
   debounceSearch: string;
 };
 
-const ContactTable = ({ sortStatus, debounceSearch }: Props) => {
+const LeadsTable = ({ sortStatus, debounceSearch }: Props) => {
   const fetchLeads = async (): Promise<Lead[]> => {
     const { data } = await axios.get(`${serverURL}/api/leads`);
     return data;
@@ -60,11 +60,11 @@ const ContactTable = ({ sortStatus, debounceSearch }: Props) => {
         {leads
           ?.filter((lead) => lead.name.toLowerCase().includes(debounceSearch))
           .map((lead: Lead) => (
-            <ContactInfo lead={lead} key={lead.id} />
+            <LeadRow lead={lead} key={lead.id} />
           ))}
       </tbody>
     </table>
   );
 };
 
-export default ContactTable;
+export default LeadsTable;

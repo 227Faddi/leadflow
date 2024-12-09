@@ -22,7 +22,7 @@ const SearchBar = ({ setSearchValue }: Props) => {
           type="search"
           id="default-search"
           className="block w-full p-4 px-12 ps-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-700 focus:border-blue-700 focus:outline-none"
-          placeholder="Search Leads..."
+          placeholder="Search by name"
         />
       </div>
     </form>

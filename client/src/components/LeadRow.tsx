@@ -10,7 +10,7 @@ type Props = {
   lead: Lead;
 };
 
-const ContactInfo = ({ lead }: Props) => {
+const LeadRow = ({ lead }: Props) => {
   const { id, name, email, industry, phone, location, status } = lead;
   const [formStatus, setFormStatus] = useState(status);
 
@@ -119,4 +119,4 @@ const ContactInfo = ({ lead }: Props) => {
   );
 };
 
-export default ContactInfo;
+export default LeadRow;

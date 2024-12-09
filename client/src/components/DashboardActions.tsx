@@ -10,7 +10,7 @@ type Props = {
   setSortStatus: (value: boolean) => void;
 };
 
-const DashboardInfo = ({ sortStatus, setSortStatus }: Props) => {
+const DashboardActions = ({ sortStatus, setSortStatus }: Props) => {
   return (
     <>
       <h3 className="text-3xl font-medium text-gray-900">Dashboard</h3>
@@ -62,4 +62,4 @@ const DashboardInfo = ({ sortStatus, setSortStatus }: Props) => {
   );
 };
 
-export default DashboardInfo;
+export default DashboardActions;
