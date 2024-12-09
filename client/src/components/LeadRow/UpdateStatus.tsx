@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { updateStatus } from "../../services/api";
+import toast from "react-hot-toast";
 import { Lead } from "../../types";
 
 type Props = {
@@ -17,18 +18,18 @@ const UpdateStatus = ({ status, id }: Props) => {
 
   const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newStatus = e.target.value as Lead["status"];
-    try {
-      await updateMutation(
-        { id, newStatus },
-        {
-          onSuccess: () => alert("updated"),
-          onError: () => alert("err try again"),
-        }
-      );
-      setLeadStatus(newStatus);
-    } catch (err) {
-      console.log(err);
-    }
+    await updateMutation(
+      { id, newStatus },
+      {
+        onSuccess: () => {
+          if (newStatus === "converted") {
+            toast("🎉 Congratulations! Lead successfully converted.");
+          }
+          setLeadStatus(newStatus);
+        },
+        onError: () => toast.error("An error occurred. Please try again."),
+      }
+    );
   };
 
   const getStatusColor = () => {

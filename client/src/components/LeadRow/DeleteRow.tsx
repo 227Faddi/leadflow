@@ -1,6 +1,7 @@
 import { deleteLead } from "../../services/api";
 import { useMutation } from "@tanstack/react-query";
 import { Lead } from "../../types";
+import toast from "react-hot-toast";
 
 type Props = {
   id: Lead["id"];
@@ -13,15 +14,13 @@ const DeleteRow = ({ id, setIsDeleted }: Props) => {
   });
 
   const handleDelete = async () => {
-    try {
-      await deleteMutation(id, {
-        onSuccess: () => alert("deleted"),
-        onError: () => alert("err try again"),
-      });
-      setIsDeleted(true);
-    } catch (err) {
-      console.log(err);
-    }
+    await deleteMutation(id, {
+      onSuccess: () => {
+        toast.success("Lead deleted successfully.");
+        setIsDeleted(true);
+      },
+      onError: () => toast.error("An error occurred. Please try again."),
+    });
   };
 
   return (

@@ -2,13 +2,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addLead } from "../../services/api";
 import { LeadForm } from "../../types";
+import toast from "react-hot-toast";
 
 type FormData = LeadForm;
 
 const NewLeadForm = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -20,15 +23,13 @@ const NewLeadForm = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
-    try {
-      await addLeadMutation(formData, {
-        onSuccess: () => alert("added"),
-        onError: () => alert("err try again"),
-      });
-      window.location.href = "/dashboard";
-    } catch (err) {
-      console.log(err);
-    }
+    await addLeadMutation(formData, {
+      onSuccess: () => {
+        toast.success("Lead added successfully.");
+        navigate("/dashboard");
+      },
+      onError: () => toast.error("An error occurred. Please try again."),
+    });
   };
 
   return (
