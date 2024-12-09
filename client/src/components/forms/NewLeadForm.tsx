@@ -3,10 +3,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { z } from "zod";
 import { addLead } from "../../services/api";
+import { LeadForm } from "../../types";
 
-type FormData = z.infer<typeof leadSchema>;
+type FormData = LeadForm;
 
 const NewLeadForm = () => {
   const {

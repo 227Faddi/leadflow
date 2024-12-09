@@ -4,10 +4,10 @@ import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { Lead } from "../../types";
-import { z } from "zod";
 import { editLead } from "../../services/api";
+import { LeadForm } from "../../types";
 
-type FormData = z.infer<typeof leadSchema>;
+type FormData = LeadForm;
 
 type Props = {
   lead: Lead;

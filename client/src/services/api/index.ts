@@ -1,7 +1,6 @@
 import axios from "axios";
-import { Lead } from "../../types";
-import { leadSchema } from "../../utils/formValidation";
-import { z } from "zod";
+import { Lead, LeadForm } from "../../types";
+
 const serverURL = import.meta.env.VITE_SERVER_URL;
 
 export const fetchLeads = async (): Promise<Lead[]> => {
@@ -14,9 +13,7 @@ export const fetchLead = async <T>(id: T): Promise<Lead> => {
   return data;
 };
 
-export const addLead = async (
-  formData: z.infer<typeof leadSchema>
-): Promise<void> => {
+export const addLead = async (formData: LeadForm): Promise<void> => {
   await axios.post(`${serverURL}/api/leads/add`, formData);
 };
 
@@ -39,7 +36,7 @@ export const editLead = async ({
   formData,
 }: {
   id: Lead["id"];
-  formData: z.infer<typeof leadSchema>;
+  formData: LeadForm;
 }): Promise<void> => {
   await axios.put(`${serverURL}/api/leads/edit/${id}`, formData);
 };
