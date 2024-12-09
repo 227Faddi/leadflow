@@ -3,38 +3,15 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { Lead } from "../../types";
+import { z } from "zod";
 import axios from "axios";
 
 const schema = leadSchema;
-
-type Lead =
-  | {
-      id: string;
-      name: string;
-      email: string;
-      industry: string;
-      phone: string;
-      location: string;
-      status:
-        | "new"
-        | "contacted"
-        | "negotiating"
-        | "converted"
-        | "disqualified";
-    }
-  | undefined;
+type FormData = z.infer<typeof schema>;
 
 type Props = {
   lead: Lead;
-};
-
-type FormData = {
-  name: string;
-  email: string;
-  industry: string;
-  phone: string;
-  location: string;
-  status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
 };
 
 const EditLeadForm = ({ lead }: Props) => {

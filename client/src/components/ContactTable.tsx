@@ -1,17 +1,8 @@
 import ContactInfo from "./ContactInfo";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { Lead } from "../types";
 const serverURL = import.meta.env.VITE_SERVER_URL;
-
-type Lead = {
-  id: string;
-  name: string;
-  email: string;
-  industry: string;
-  phone: string;
-  location: string;
-  status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
-};
 
 type Props = {
   sortStatus: boolean;

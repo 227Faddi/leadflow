@@ -1,18 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { Lead } from "../types";
+
 const serverURL = import.meta.env.VITE_SERVER_URL;
 
 import axios from "axios";
-
-type Lead = {
-  id: string;
-  name: string;
-  email: string;
-  industry: string;
-  phone: string;
-  location: string;
-  status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
-};
 
 type Props = {
   lead: Lead;

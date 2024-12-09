@@ -3,19 +3,12 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { z } from "zod";
 import axios from "axios";
 const serverURL = import.meta.env.VITE_SERVER_URL;
 
 const schema = leadSchema;
-
-type FormData = {
-  name: string;
-  email: string;
-  industry: string;
-  phone: string;
-  location: string;
-  status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
-};
+type FormData = z.infer<typeof schema>;
 
 const NewLeadForm = () => {
   const {
