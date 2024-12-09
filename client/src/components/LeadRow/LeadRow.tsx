@@ -1,8 +1,7 @@
-import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { deleteLead } from "../../services/api";
 import { Lead } from "../../types";
 import UpdateStatus from "./UpdateStatus";
+import DeleteRow from "./DeleteRow";
 
 type Props = {
   lead: Lead;
@@ -11,22 +10,6 @@ type Props = {
 const LeadRow = ({ lead }: Props) => {
   const { id, name, email, industry, phone, location, status } = lead;
   const [isDeleted, setIsDeleted] = useState(false);
-
-  const { mutateAsync: deleteMutation } = useMutation({
-    mutationFn: deleteLead,
-  });
-
-  const handleDelete = async () => {
-    try {
-      await deleteMutation(id, {
-        onSuccess: () => alert("deleted"),
-        onError: () => alert("err try again"),
-      });
-      setIsDeleted(true);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   if (isDeleted) return null;
 
@@ -65,12 +48,7 @@ const LeadRow = ({ lead }: Props) => {
         </a>
       </td>
       <td className="px-6 py-4 text-center text-sm font-medium leading-5 whitespace-no-wrap border-b border-gray-200">
-        <button
-          onClick={handleDelete}
-          className="text-red-600 hover:text-red-900"
-        >
-          Delete
-        </button>
+        <DeleteRow id={id} setIsDeleted={setIsDeleted} />
       </td>
     </tr>
   );
