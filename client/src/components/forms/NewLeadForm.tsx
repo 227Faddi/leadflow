@@ -4,8 +4,7 @@ import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { z } from "zod";
-import axios from "axios";
-const serverURL = import.meta.env.VITE_SERVER_URL;
+import { addLead } from "../../services/api";
 
 const schema = leadSchema;
 type FormData = z.infer<typeof schema>;
@@ -17,15 +16,16 @@ const NewLeadForm = () => {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const { mutateAsync } = useMutation({
-    mutationFn: (formData: FormData) => {
-      return axios.post(`${serverURL}/api/leads/add`, formData);
-    },
+  const { mutateAsync: addLeadMutation } = useMutation({
+    mutationFn: addLead,
   });
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
     try {
-      await mutateAsync(formData);
+      await addLeadMutation(formData, {
+        onSuccess: () => alert("added"),
+        onError: () => alert("err try again"),
+      });
       window.location.href = "/dashboard";
     } catch (err) {
       console.log(err);

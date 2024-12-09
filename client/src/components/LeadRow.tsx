@@ -1,10 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
+import { deleteLead } from "../services/api";
+import { updateStatus } from "../services/api";
 import { Lead } from "../types";
-
-const serverURL = import.meta.env.VITE_SERVER_URL;
-
-import axios from "axios";
 
 type Props = {
   lead: Lead;
@@ -12,43 +10,46 @@ type Props = {
 
 const LeadRow = ({ lead }: Props) => {
   const { id, name, email, industry, phone, location, status } = lead;
-  const [formStatus, setFormStatus] = useState(status);
-
+  const [leadStatus, setLeadStatus] = useState(status);
   const [isDeleted, setIsDeleted] = useState(false);
 
-  const { mutateAsync: deleteLead } = useMutation({
-    mutationFn: () => {
-      return axios.delete(`${serverURL}/api/leads/delete/${id}`);
-    },
+  const { mutateAsync: deleteMutation } = useMutation({
+    mutationFn: deleteLead,
   });
+  const { mutateAsync: updateMutation } = useMutation({
+    mutationFn: updateStatus,
+  });
+
   const handleDelete = async () => {
     try {
-      await deleteLead();
+      await deleteMutation(id, {
+        onSuccess: () => alert("deleted"),
+        onError: () => alert("err try again"),
+      });
       setIsDeleted(true);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const { mutateAsync: updateStatus } = useMutation({
-    mutationFn: (data: { status: Lead["status"] }) => {
-      return axios.put(`${serverURL}/api/leads/status/${id}`, data);
-    },
-  });
-
   const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newStatus = e.target.value as Lead["status"];
     try {
-      console.log(newStatus);
-      await updateStatus({ status: newStatus });
-      setFormStatus(newStatus);
+      await updateMutation(
+        { id, newStatus: newStatus },
+        {
+          onSuccess: () => alert("updated"),
+          onError: () => alert("err try again"),
+        }
+      );
+      setLeadStatus(newStatus);
     } catch (err) {
       console.log(err);
     }
   };
 
   const getStatusColor = () => {
-    switch (formStatus) {
+    switch (leadStatus) {
       case "contacted":
         return "text-yellow-800 bg-yellow-100";
       case "negotiating":
@@ -62,8 +63,10 @@ const LeadRow = ({ lead }: Props) => {
     }
   };
 
+  if (isDeleted) return null;
+
   return (
-    <tr className={isDeleted ? "hidden" : ""}>
+    <tr>
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
         <div className="flex items-center">
           <div className="ml-4">
@@ -91,7 +94,7 @@ const LeadRow = ({ lead }: Props) => {
       <td className="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
         <select
           id="status"
-          value={formStatus}
+          value={leadStatus}
           onChange={handleChange}
           className={`appearance-none focus:outline-none hover:cursor-pointer inline-flex px-4 py-2 text-xs font-semibold leading-5 text-center rounded-full ${getStatusColor()}`}
         >

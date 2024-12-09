@@ -5,9 +5,10 @@ import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { Lead } from "../../types";
 import { z } from "zod";
-import axios from "axios";
+import { editLead } from "../../services/api";
 
 const schema = leadSchema;
+
 type FormData = z.infer<typeof schema>;
 
 type Props = {
@@ -15,7 +16,7 @@ type Props = {
 };
 
 const EditLeadForm = ({ lead }: Props) => {
-  const id = lead?.id;
+  const id = lead.id;
 
   const {
     register,
@@ -27,14 +28,18 @@ const EditLeadForm = ({ lead }: Props) => {
   });
 
   const { mutateAsync } = useMutation({
-    mutationFn: (formData: FormData) => {
-      return axios.put(`http://localhost:3000/api/leads/edit/${id}`, formData);
-    },
+    mutationFn: editLead,
   });
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
     try {
-      await mutateAsync(formData);
+      await mutateAsync(
+        { id, formData },
+        {
+          onSuccess: () => alert("edited"),
+          onError: () => alert("err try again"),
+        }
+      );
       window.location.href = "/dashboard";
     } catch (err) {
       console.log(err);

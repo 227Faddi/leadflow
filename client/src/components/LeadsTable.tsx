@@ -1,22 +1,13 @@
 import LeadRow from "./LeadRow";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { Lead } from "../types";
-const serverURL = import.meta.env.VITE_SERVER_URL;
+import { fetchLeads } from "../services/api";
 
 type Props = {
-  sortStatus: boolean;
   debounceSearch: string;
 };
 
-const LeadsTable = ({ sortStatus, debounceSearch }: Props) => {
-  const fetchLeads = async (): Promise<Lead[]> => {
-    const { data } = await axios.get(`${serverURL}/api/leads`);
-    return data;
-  };
-
-  console.log(debounceSearch);
-
+const LeadsTable = ({ debounceSearch }: Props) => {
   const {
     data: leads,
     isLoading,
@@ -33,6 +24,7 @@ const LeadsTable = ({ sortStatus, debounceSearch }: Props) => {
   if (isError) {
     return <div>Error...</div>;
   }
+
   return (
     <table className="min-w-full">
       <thead>

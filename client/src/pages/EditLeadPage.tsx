@@ -1,34 +1,18 @@
 import EditLeadForm from "../components/forms/EditLeadForm";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { useParams } from "react-router-dom";
-const serverURL = import.meta.env.VITE_SERVER_URL;
-
-type Lead = {
-  id: string;
-  name: string;
-  email: string;
-  industry: string;
-  phone: string;
-  location: string;
-  status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
-};
+import { fetchLead } from "../services/api";
+import { Lead } from "../types";
 
 const EditLeadPage = () => {
-  const params = useParams();
-  const id = params.id;
-
-  const fetchLead = async (): Promise<Lead> => {
-    const { data } = await axios.get(`${serverURL}/api/leads/${id}`);
-    return data;
-  };
+  const { id } = useParams<{ id: Lead["id"] }>();
 
   const {
     data: lead,
     isLoading,
     isError,
   } = useQuery({
-    queryFn: fetchLead,
+    queryFn: () => fetchLead(id),
     queryKey: ["lead"],
   });
 
@@ -36,7 +20,7 @@ const EditLeadPage = () => {
     return <div>Loading...</div>;
   }
 
-  if (isError) {
+  if (isError || !lead) {
     return <div>Error...</div>;
   }
 
