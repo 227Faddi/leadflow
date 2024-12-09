@@ -28,7 +28,8 @@ export const updateStatus = async ({
   id: Lead["id"];
   newStatus: Lead["status"];
 }): Promise<void> => {
-  await axios.put(`${serverURL}/api/leads/status/${id}`, newStatus);
+  console.log(newStatus);
+  await axios.put(`${serverURL}/api/leads/status/${id}`, { status: newStatus });
 };
 
 export const editLead = async ({

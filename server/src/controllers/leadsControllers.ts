@@ -23,6 +23,7 @@ export default {
   statusLead: async (req: Request, res: Response) => {
     const id = req.params.id;
     const lead = await Lead.findByPk(id);
+
     if (!lead) {
       res.status(404).send({ message: 'Lead not found' });
       return;

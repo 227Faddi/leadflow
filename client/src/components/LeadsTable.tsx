@@ -1,4 +1,4 @@
-import LeadRow from "./LeadRow";
+import LeadRow from "./LeadRow/LeadRow";
 import { useQuery } from "@tanstack/react-query";
 import { Lead } from "../types";
 import { fetchLeads } from "../services/api";
