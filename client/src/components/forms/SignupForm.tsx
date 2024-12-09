@@ -5,7 +5,6 @@ import { signupSchema } from "../../utils/formValidation";
 import { z } from "zod";
 
 const schema = signupSchema;
-
 type FormData = z.infer<typeof schema>;
 
 const SignupForm = () => {
