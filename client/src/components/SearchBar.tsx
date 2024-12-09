@@ -1,6 +1,10 @@
 import { FaSearch } from "react-icons/fa";
 
-const SearchBar = () => {
+type Props = {
+  setSearchValue: (value: string) => void;
+};
+
+const SearchBar = ({ setSearchValue }: Props) => {
   return (
     <form className="mt-10 max-w-3xl mx-auto">
       <label
@@ -14,6 +18,7 @@ const SearchBar = () => {
           <FaSearch className="w-4 h-4 text-gray-900" />
         </div>
         <input
+          onChange={(e) => setSearchValue(e.target.value.toLowerCase())}
           type="search"
           id="default-search"
           className="block w-full p-4 px-12 ps-10 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-700 focus:border-blue-700 focus:outline-none"

@@ -15,9 +15,10 @@ type Lead = {
 
 type Props = {
   sortStatus: boolean;
+  searchValue: string;
 };
 
-const ContactTable = ({ sortStatus }: Props) => {
+const ContactTable = ({ sortStatus, searchValue }: Props) => {
   let url = `${serverURL}/api/leads`;
   if (sortStatus) {
     url = `${serverURL}/api/leads/sort/status/ASC`;
@@ -68,9 +69,11 @@ const ContactTable = ({ sortStatus }: Props) => {
         </tr>
       </thead>
       <tbody className="bg-white">
-        {leads?.map((lead: Lead) => (
-          <ContactInfo lead={lead} key={lead.id} />
-        ))}
+        {leads
+          ?.filter((lead) => lead.name.toLowerCase().includes(searchValue))
+          .map((lead: Lead) => (
+            <ContactInfo lead={lead} key={lead.id} />
+          ))}
       </tbody>
     </table>
   );
