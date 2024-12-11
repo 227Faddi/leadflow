@@ -4,7 +4,7 @@ import { Lead, LeadForm } from "../../types";
 const serverURL = import.meta.env.VITE_SERVER_URL;
 
 export const fetchLeads = async (): Promise<Lead[]> => {
-  const { data } = await axios.get(`${serverURL}/api/leads`);
+  const { data } = await axios.get(`${serverURL}/api/leads/sort/name/ASC`);
   return data;
 };
 

@@ -52,7 +52,7 @@ export default {
   },
   sortBy: async (req: Request, res: Response) => {
     const item = req.params.by;
-    const order = req.params.order;
+    const order = req.params.order as 'ASC' | 'DESC';
     const leads = await Lead.findAll({
       order: [[item, order]],
     });
