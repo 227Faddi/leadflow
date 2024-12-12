@@ -11,16 +11,32 @@ const Pagination = ({ table }: { table: Table<Lead> }) => {
   return (
     <div className="flex flex-col items-center bg-white py-4">
       <div className="space-x-8 mb-2">
-        <button onClick={() => table.firstPage()}>
+        <button
+          aria-label="First Page"
+          onClick={() => table.firstPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
           <FaAnglesLeft />
         </button>
-        <button aria-label="Prev Page" onClick={() => table.previousPage()}>
+        <button
+          aria-label="Prev Page"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
           <FaAngleLeft />
         </button>
-        <button aria-label="Next Page" onClick={() => table.nextPage()}>
+        <button
+          aria-label="Next Page"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
           <FaAngleRight />
         </button>
-        <button aria-label="Last Page" onClick={() => table.lastPage()}>
+        <button
+          aria-label="Last Page"
+          onClick={() => table.lastPage()}
+          disabled={!table.getCanNextPage()}
+        >
           <FaAnglesRight />
         </button>
       </div>

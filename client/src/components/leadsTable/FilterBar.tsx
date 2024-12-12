@@ -2,8 +2,8 @@ import { FaSearch } from "react-icons/fa";
 
 type Props = {
   onFilterChange: (id: string, value: string) => void;
-  filteredName: any;
-  filteredStatus: any;
+  filteredName: string;
+  filteredStatus: string;
 };
 
 const FilterBar = ({ filteredName, filteredStatus, onFilterChange }: Props) => {
