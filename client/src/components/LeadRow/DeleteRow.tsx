@@ -2,13 +2,13 @@ import { deleteLead } from "../../services/api";
 import { useMutation } from "@tanstack/react-query";
 import { Lead } from "../../types";
 import toast from "react-hot-toast";
+import { TiDelete } from "react-icons/ti";
 
 type Props = {
   id: Lead["id"];
-  setIsDeleted: (value: boolean) => void;
 };
 
-const DeleteRow = ({ id, setIsDeleted }: Props) => {
+const DeleteRow = ({ id }: Props) => {
   const { mutateAsync: deleteMutation } = useMutation({
     mutationFn: deleteLead,
   });
@@ -17,7 +17,6 @@ const DeleteRow = ({ id, setIsDeleted }: Props) => {
     await deleteMutation(id, {
       onSuccess: () => {
         toast.success("Lead deleted successfully.");
-        setIsDeleted(true);
       },
       onError: () => toast.error("An error occurred. Please try again."),
     });
@@ -25,7 +24,7 @@ const DeleteRow = ({ id, setIsDeleted }: Props) => {
 
   return (
     <button onClick={handleDelete} className="text-red-600 hover:text-red-900">
-      Delete
+      <TiDelete size={27} />
     </button>
   );
 };
