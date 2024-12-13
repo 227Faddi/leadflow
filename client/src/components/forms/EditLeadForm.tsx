@@ -16,7 +16,7 @@ type Props = {
 
 const EditLeadForm = ({ lead }: Props) => {
   const navigate = useNavigate();
-  const id = lead.id;
+  const id = lead?.id;
 
   const {
     register,
