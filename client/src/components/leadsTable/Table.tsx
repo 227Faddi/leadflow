@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Lead } from "../../types";
 import Pagination from "./Pagination";
 import Columns from "./Columns";
-import FilterBar from "./FilterBar";
+import HeaderTable from "./HeaderTable";
 
 type Props = {
   leads: Lead[] | undefined;
@@ -55,7 +55,7 @@ const LeadsTable = ({ leads }: Props) => {
 
   return (
     <>
-      <FilterBar
+      <HeaderTable
         filteredName={filteredName}
         filteredStatus={filteredStatus}
         onFilterChange={onFilterChange}

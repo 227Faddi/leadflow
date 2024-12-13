@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchLeads } from "../services/api";
 
 import DashboardActions from "../components/DashboardInfo";
-import LeadsTable from "../components/leadsTable/LeadsTable";
+import Table from "../components/leadsTable/Table";
 import Spinner from "../components/ui/Spinner";
 import ErrorMessage from "../components/ui/ErrorMessage";
 
@@ -21,7 +21,7 @@ const DashboardPage = () => {
       <DashboardActions leads={leads} />
       {isLoading && <Spinner />}
       {isError && <ErrorMessage message="We couldn't load your leads." />}
-      {!isLoading && !isError && <LeadsTable leads={leads} />}
+      {!isLoading && !isError && <Table leads={leads} />}
     </div>
   );
 };
