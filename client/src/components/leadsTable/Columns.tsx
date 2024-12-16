@@ -1,15 +1,29 @@
-import { createColumnHelper } from "@tanstack/react-table";
+import { createColumnHelper, SortingFn } from "@tanstack/react-table";
 import { Lead } from "../../types";
 
 const columnHelper = createColumnHelper<Lead>();
-import DeleteRow from "../LeadRow/DeleteRow";
-import UpdateStatus from "../LeadRow/UpdateStatus";
+import DeleteRow from "./DeleteRow";
+import UpdateStatus from "./UpdateStatus";
 import { TiEdit } from "react-icons/ti";
+
+// Custom sorting for status
+const sortStatusFn: SortingFn<Lead> = (rowA, rowB) => {
+  const statusA = rowA.original.status;
+  const statusB = rowB.original.status;
+  const statusOrder = [
+    "new",
+    "contacted",
+    "negotiating",
+    "converted",
+    "disqualified",
+  ];
+  return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB);
+};
 
 const Columns = () => {
   return [
     columnHelper.accessor("name", {
-      header: () => "Name",
+      header: () => "name",
       cell: (info) => (
         <>
           <div className="text-sm font-medium leading-5 text-gray-900">
@@ -25,7 +39,7 @@ const Columns = () => {
       ),
     }),
     columnHelper.accessor("industry", {
-      header: () => "Industry",
+      header: () => "industry",
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("phone", {
@@ -33,29 +47,22 @@ const Columns = () => {
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("location", {
-      header: () => "Location",
+      header: () => "location",
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("status", {
-      header: () => (
-        <th className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-center uppercase">
-          Status
-        </th>
-      ),
+      header: () => "status",
       cell: (info) => (
         <UpdateStatus status={info.getValue()} id={info.row.original.id} />
       ),
+      sortingFn: sortStatusFn,
       meta: {
         filterVariant: "status",
       },
     }),
     columnHelper.display({
       id: "actions",
-      header: () => (
-        <div className="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-center uppercase">
-          Actions
-        </div>
-      ),
+      header: () => "actions",
       cell: (props) => (
         <div className="flex justify-center gap-10">
           <a

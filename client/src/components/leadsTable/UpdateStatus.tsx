@@ -48,18 +48,20 @@ const UpdateStatus = ({ status, id }: Props) => {
   };
 
   return (
-    <select
-      id="status"
-      value={leadStatus}
-      onChange={handleChange}
-      className={`appearance-none focus:outline-none hover:cursor-pointer inline-flex px-4 py-2 text-xs font-semibold leading-5 text-center rounded-full ${getStatusColor()}`}
-    >
-      <option value="new">New</option>
-      <option value="contacted">Contacted</option>
-      <option value="negotiating">Negotiating</option>
-      <option value="converted">Converted</option>
-      <option value="disqualified">Disqualified</option>
-    </select>
+    <div className="w-full flex justify-center">
+      <select
+        id="status"
+        value={leadStatus}
+        onChange={handleChange}
+        className={`appearance-none focus:outline-none hover:cursor-pointer inline-flex px-4 py-2 text-xs font-semibold leading-5 rounded-full text-center ${getStatusColor()}`}
+      >
+        <option value="new">New</option>
+        <option value="contacted">Contacted</option>
+        <option value="negotiating">Negotiating</option>
+        <option value="converted">Converted</option>
+        <option value="disqualified">Disqualified</option>
+      </select>
+    </div>
   );
 };
 

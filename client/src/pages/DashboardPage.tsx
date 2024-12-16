@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchLeads } from "../services/api";
 
 import DashboardActions from "../components/DashboardInfo";
-import Table from "../components/leadsTable/Table";
-import Spinner from "../components/ui/Spinner";
-import ErrorMessage from "../components/ui/ErrorMessage";
+import Table from "../components/LeadsTable/Table";
+import Spinner from "../components/Ui/Spinner";
+import ErrorMessage from "../components/Ui/ErrorMessage";
 
 const DashboardPage = () => {
   const {

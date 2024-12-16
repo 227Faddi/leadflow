@@ -1,10 +1,10 @@
-import EditLeadForm from "../components/forms/EditLeadForm";
+import EditLeadForm from "../components/Forms/EditLeadForm";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { fetchLead } from "../services/api";
 import { Lead } from "../types";
-import Spinner from "../components/ui/Spinner";
-import ErrorMessage from "../components/ui/ErrorMessage";
+import Spinner from "../components/Ui/Spinner";
+import ErrorMessage from "../components/Ui/ErrorMessage";
 
 const EditLeadPage = () => {
   const { id } = useParams<{ id: Lead["id"] }>();
