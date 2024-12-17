@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchLeads } from "../services/api";
 
 import DashboardActions from "../components/DashboardInfo";
-import Table from "../components/LeadsTable/Table";
+import Table from "../components/LeadsTable/Table.tsx";
 import Spinner from "../components/Ui/Spinner";
 import ErrorMessage from "../components/Ui/ErrorMessage";
 

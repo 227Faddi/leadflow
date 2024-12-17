@@ -10,7 +10,7 @@ import { useState } from "react";
 import { Lead } from "../../types";
 import Pagination from "./Pagination";
 import Columns from "./Columns";
-import FilterBar from "./TableHeader";
+import FilterBar from "./FilterBar";
 import { FaSortUp } from "react-icons/fa";
 import { FaSortDown } from "react-icons/fa";
 import { FaSort } from "react-icons/fa6";
