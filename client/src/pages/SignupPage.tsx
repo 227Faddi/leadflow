@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import SignupForm from "../components/Forms/SignupForm";
+import SignupForm from "../components/forms/SignupForm";
 
 const SignupPage = () => {
   return (

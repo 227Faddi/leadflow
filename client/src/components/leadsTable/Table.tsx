@@ -24,7 +24,7 @@ type ColumnFiltersState = {
   value: string;
 }[];
 
-const LeadsTable = ({ leads }: Props) => {
+const Table = ({ leads }: Props) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
@@ -139,4 +139,4 @@ const LeadsTable = ({ leads }: Props) => {
   );
 };
 
-export default LeadsTable;
+export default Table;

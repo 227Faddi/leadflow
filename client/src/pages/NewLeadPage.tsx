@@ -1,4 +1,4 @@
-import NewLeadForm from "../components/Forms/NewLeadForm";
+import NewLeadForm from "../components/forms/NewLeadForm";
 
 const NewLeadPage = () => {
   return (
