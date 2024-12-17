@@ -4,22 +4,20 @@
     {
       "src": "dist/index.js",
       "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["dist/**/*"]
-      }
+      "config": { "includeFiles": ["dist/**"] }
     }
   ],
   "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/dist/index.js"
+    },
     {
       "src": "/api/leads/(.*)",
       "dest": "/dist/index.js"
     },
     {
       "src": "/auth/(.*)",
-      "dest": "/dist/index.js"
-    },
-    {
-      "src": "/(.*)",
       "dest": "/dist/index.js"
     }
   ]
