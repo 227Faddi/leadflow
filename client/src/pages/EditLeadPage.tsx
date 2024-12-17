@@ -1,8 +1,8 @@
-import EditLeadForm from "../components/Forms/EditLeadForm";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { fetchLead } from "../services/api";
 import { Lead } from "../types";
+import EditLeadForm from "../components/Forms/EditLeadForm";
 import Spinner from "../components/Ui/Spinner";
 import ErrorMessage from "../components/Ui/ErrorMessage";
 
