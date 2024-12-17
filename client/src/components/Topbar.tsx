@@ -45,6 +45,7 @@ const Topbar = ({ setSidebarOpen }: Props) => {
             alt="Your avatar"
           />
         </picture>
+        Faddi
       </div>
     </header>
   );
