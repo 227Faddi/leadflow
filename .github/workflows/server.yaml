@@ -1,7 +1,5 @@
 name: Continuous Integration and Vercel Deployment
 
-timeout-minutes: 60
-
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
@@ -19,6 +17,7 @@ on:
 jobs:
   CI:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout code
@@ -43,6 +42,7 @@ jobs:
 
   Deploy-Production:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     needs: CI
 
     steps:
