@@ -1,5 +1,7 @@
 name: Continuous Integration and Vercel Deployment
 
+timeout-minutes: 60
+
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

@@ -1,5 +1,7 @@
 name: Continuous Integration and Netlify Deployment
 
+timeout-minutes: 60
+
 on:
   push:
     branches:
