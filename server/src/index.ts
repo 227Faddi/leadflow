@@ -11,7 +11,6 @@ import { synchronizeTables } from './config/database.js';
 
 const app = express();
 
-// Synchronize db tables to match model
 synchronizeTables();
 
 if (process.env.NODE_ENV === 'development') {
