@@ -31,9 +31,9 @@ jobs:
         working-directory: ./server
         run: npm ci
 
-      - name: Run Prettier Format
+      - name: Run ESLint
         working-directory: ./server
-        run: npm run format
+        run: npm run lint
 
       - name: Build Project
         working-directory: ./server

@@ -1,7 +1,7 @@
 import { FaUserPlus } from "react-icons/fa6";
 import { FaChartColumn } from "react-icons/fa6";
 
-const InfoSection = () => {
+const HomePageInfo = () => {
   return (
     <section className="flex flex-col items-center justify-center space-y-8 px-4 md:px-10 lg:px-56 mb-52">
       <div className="bg-gray-100 p-10 md:p-20 rounded-2xl flex flex-col md:flex-row justify-between space-y-12">
@@ -35,4 +35,4 @@ const InfoSection = () => {
   );
 };
 
-export default InfoSection;
+export default HomePageInfo;

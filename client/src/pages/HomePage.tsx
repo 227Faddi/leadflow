@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import InfoSection from "../components/InfoSection";
+import HomePageInfo from "../components/HomePageInfo";
 
 const HomePage = () => {
   return (
@@ -32,7 +32,7 @@ const HomePage = () => {
             </Link>
           </div>
         </section>
-        <InfoSection />
+        <HomePageInfo />
       </main>
       <Footer />
     </div>
