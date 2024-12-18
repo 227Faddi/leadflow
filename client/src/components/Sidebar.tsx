@@ -42,6 +42,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
         <nav className="space-y-2">
           <NavLink
             to="/dashboard"
+            onClick={() => setSidebarOpen(false)}
             className={({ isActive }) =>
               [
                 "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
@@ -56,6 +57,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
           </NavLink>
           <NavLink
             to="/add"
+            onClick={() => setSidebarOpen(false)}
             className={({ isActive }) =>
               [
                 "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
@@ -70,6 +72,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
           </NavLink>
           <NavLink
             to="/analytics"
+            onClick={() => setSidebarOpen(false)}
             className={({ isActive }) =>
               [
                 "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
@@ -84,6 +87,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
           </NavLink>
           <NavLink
             to="/settings"
+            onClick={() => setSidebarOpen(false)}
             className={({ isActive }) =>
               [
                 "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
