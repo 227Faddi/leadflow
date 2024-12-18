@@ -3,6 +3,7 @@ import { FaUserCheck, FaUserPlus } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
 import { Lead } from "../types";
+import { useMemo } from "react";
 
 type Props = {
   leads: Lead[] | undefined;
@@ -10,8 +11,11 @@ type Props = {
 
 const DashboardActions = ({ leads }: Props) => {
   const leadsNumber = leads?.length || 0;
-  const leadsConverted =
-    leads?.filter((lead) => lead.status === "converted").length || 0;
+  const leadsConverted = useMemo(
+    () => leads?.filter((lead) => lead.status === "converted").length || 0,
+    [leads]
+  );
+
   return (
     <>
       <h3 className="text-3xl font-medium text-gray-900">Dashboard</h3>

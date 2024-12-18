@@ -56,7 +56,7 @@ const UpdateStatus = ({ status, id }: Props) => {
         id="status"
         value={status}
         onChange={handleChange}
-        className={`appearance-none focus:outline-none hover:cursor-pointer inline-flex px-4 py-2 text-xs font-semibold leading-5 rounded-full text-center ${getStatusColor()}`}
+        className={`appearance-none focus:outline-none hover:cursor-pointer px-8 py-2 text-xs font-semibold leading-5 rounded-full text-center ${getStatusColor()}`}
       >
         <option value="new">New</option>
         <option value="contacted">Contacted</option>

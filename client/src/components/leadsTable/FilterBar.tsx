@@ -28,9 +28,7 @@ const FilterBar = ({ filteredName, filteredStatus, onFilterChange }: Props) => {
             className="h-full cursor-pointer border text-center bg-gray-900 text-white appearance-none border-gray-300 rounded-r-lg px-2 py-1 text-sm absolute inset-y-0 end-0 border-l-0 outline-none"
           >
             <option value="">All</option>
-            <option value="new" className="text-red-500">
-              New
-            </option>
+            <option value="new">New</option>
             <option value="contacted">Contacted</option>
             <option value="negotiating">Negotiating</option>
             <option value="converted">Converted</option>

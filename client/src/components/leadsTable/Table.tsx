@@ -6,7 +6,7 @@ import {
   getSortedRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Lead } from "../../types";
 import Pagination from "./Pagination";
 import Columns from "./Columns";
@@ -27,9 +27,12 @@ type ColumnFiltersState = {
 const Table = ({ leads }: Props) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
+  const columns = useMemo(() => Columns(), []);
+  const data = leads || [];
+
   const table = useReactTable({
-    data: leads ?? [],
-    columns: Columns(),
+    data: data,
+    columns: columns,
     debugTable: true,
     state: {
       columnFilters,
