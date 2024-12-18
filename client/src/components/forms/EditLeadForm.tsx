@@ -4,11 +4,9 @@ import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { Lead } from "../../types";
-import { editLead } from "../../services/api";
+import { editLead } from "../../services/api/leads";
 import { LeadForm } from "../../types";
 import toast from "react-hot-toast";
-
-type FormData = LeadForm;
 
 type Props = {
   lead: Lead;
@@ -22,7 +20,7 @@ const EditLeadForm = ({ lead }: Props) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({
+  } = useForm<LeadForm>({
     resolver: zodResolver(leadSchema),
     defaultValues: lead,
   });
@@ -31,7 +29,7 @@ const EditLeadForm = ({ lead }: Props) => {
     mutationFn: editLead,
   });
 
-  const onSubmit: SubmitHandler<FormData> = async (formData) => {
+  const onSubmit: SubmitHandler<LeadForm> = async (formData) => {
     await mutateAsync(
       { id, formData },
       {

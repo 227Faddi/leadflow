@@ -3,11 +3,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
 import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
-import { addLead } from "../../services/api";
+import { addLead } from "../../services/api/leads";
 import { LeadForm } from "../../types";
 import toast from "react-hot-toast";
-
-type FormData = LeadForm;
 
 const NewLeadForm = () => {
   const navigate = useNavigate();
@@ -16,13 +14,13 @@ const NewLeadForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(leadSchema) });
+  } = useForm<LeadForm>({ resolver: zodResolver(leadSchema) });
 
   const { mutateAsync: addLeadMutation } = useMutation({
     mutationFn: addLead,
   });
 
-  const onSubmit: SubmitHandler<FormData> = async (formData) => {
+  const onSubmit: SubmitHandler<LeadForm> = async (formData) => {
     await addLeadMutation(formData, {
       onSuccess: () => {
         toast.success("Lead added successfully.");

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { fetchLead } from "../services/api";
+import { fetchLead } from "../services/api/leads";
 import { Lead } from "../types";
 import EditLeadForm from "../components/forms/EditLeadForm";
 import Spinner from "../components/ui/Spinner";

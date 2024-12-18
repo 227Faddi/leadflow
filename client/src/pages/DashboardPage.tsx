@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchLeads } from "../services/api";
+import { fetchLeads } from "../services/api/leads.ts";
 
 import DashboardActions from "../components/DashboardInfo";
 import Table from "../components/leadsTable/Table.tsx";

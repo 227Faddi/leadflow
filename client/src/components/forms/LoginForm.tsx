@@ -2,13 +2,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { loginSchema } from "../../utils/formValidation";
-import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-
-type FormData = z.infer<typeof loginSchema>;
+import { LoginFormData } from "../../types";
+import { loginPost } from "../../services/api/auth";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -16,14 +14,13 @@ const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(loginSchema) });
+  } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
 
   const { mutateAsync: loginMutation } = useMutation({
-    mutationFn: async (formData: FormData) =>
-      await axios.post("http://localhost:3000/auth/login", formData),
+    mutationFn: loginPost,
   });
 
-  const onSubmit: SubmitHandler<FormData> = async (formData) => {
+  const onSubmit: SubmitHandler<LoginFormData> = async (formData) => {
     await loginMutation(formData, {
       onSuccess: () => {
         toast.success("Login Completed");

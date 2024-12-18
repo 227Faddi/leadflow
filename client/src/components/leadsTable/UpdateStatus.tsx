@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateStatus } from "../../services/api";
+import { updateStatus } from "../../services/api/leads";
 import toast from "react-hot-toast";
 import { Lead } from "../../types";
 

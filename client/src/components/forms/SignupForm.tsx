@@ -1,14 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { signupSchema } from "../../utils/formValidation";
-import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import axios from "axios";
-
-type FormData = z.infer<typeof signupSchema>;
+import { signupPost } from "../../services/api/auth";
+import { SignupFormData } from "../../types";
+import { signupSchema } from "../../utils/formValidation";
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -16,14 +14,13 @@ const SignupForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(signupSchema) });
+  } = useForm<SignupFormData>({ resolver: zodResolver(signupSchema) });
 
   const { mutateAsync: signupMutation } = useMutation({
-    mutationFn: async (formData: FormData) =>
-      await axios.post("http://localhost:3000/auth/signup", formData),
+    mutationFn: signupPost,
   });
 
-  const onSubmit: SubmitHandler<FormData> = async (formData) => {
+  const onSubmit: SubmitHandler<SignupFormData> = async (formData) => {
     await signupMutation(formData, {
       onSuccess: () => {
         toast.success("Signup Completed");

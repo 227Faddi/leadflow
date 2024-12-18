@@ -1,4 +1,4 @@
-import { deleteLead } from "../../services/api";
+import { deleteLead } from "../../services/api/leads";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Lead } from "../../types";
 import toast from "react-hot-toast";
