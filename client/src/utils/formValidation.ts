@@ -33,6 +33,20 @@ export const signupSchema = z
     confirmPassword: z.string().min(8, {
       message: "Confirm Password must be at least 8 characters long.",
     }),
+    profileImg: z
+      .instanceof(FileList)
+      .transform((fileList) => fileList[0] || null)
+      .refine((file) => !file || file.size <= 5 * 1024 * 1024, {
+        message: "File must be 5MB or smaller.",
+      })
+      .refine(
+        (file) =>
+          !file ||
+          ["image/png", "image/jpeg", "image/jpg", "image/webp"].includes(
+            file.type
+          ),
+        { message: "Only PNG, JPEG, JPG, and WEBP images are allowed." }
+      ),
   })
   .refine(
     (data) => {

@@ -3,19 +3,34 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { signupSchema } from "../../utils/formValidation";
 import { z } from "zod";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 type FormData = z.infer<typeof signupSchema>;
 
 const SignupForm = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(signupSchema) });
 
+  const { mutateAsync: signupMutation } = useMutation({
+    mutationFn: async (formData: FormData) =>
+      await axios.post("http://localhost:3000/auth/signup", formData),
+  });
+
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(formData);
+    await signupMutation(formData, {
+      onSuccess: () => {
+        toast.success("Signup Completed");
+        navigate("/dashboard");
+      },
+      onError: () => toast.error("An error occurred. Please try again."),
+    });
   };
 
   return (
@@ -83,6 +98,21 @@ const SignupForm = () => {
             <p className="text-red-700 mt-1">
               {errors.confirmPassword.message}
             </p>
+          )}
+        </div>
+        <div>
+          <label className="block mb-2 text-md text-bold text-gray-900">
+            Profile Image
+          </label>
+          <input
+            {...register("profileImg")}
+            type="file"
+            accept=".png, .jpg, .jpeg, .webp"
+            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            placeholder="Confirm Password"
+          />
+          {errors.profileImg && (
+            <p className="text-red-700 mt-1">{errors.profileImg.message}</p>
           )}
         </div>
       </div>

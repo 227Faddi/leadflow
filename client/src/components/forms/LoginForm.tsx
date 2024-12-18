@@ -3,19 +3,34 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { loginSchema } from "../../utils/formValidation";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 type FormData = z.infer<typeof loginSchema>;
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({ resolver: zodResolver(loginSchema) });
 
+  const { mutateAsync: loginMutation } = useMutation({
+    mutationFn: async (formData: FormData) =>
+      await axios.post("http://localhost:3000/auth/login", formData),
+  });
+
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(formData);
+    await loginMutation(formData, {
+      onSuccess: () => {
+        toast.success("Login Completed");
+        navigate("/dashboard");
+      },
+      onError: () => toast.error("An error occurred. Please try again."),
+    });
   };
 
   return (
