@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use('/api/leads', leadsRoutes);
-app.use('auth', authRoutes);
+app.use('/auth', authRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);

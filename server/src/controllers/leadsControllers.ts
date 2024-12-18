@@ -1,5 +1,5 @@
-import Lead from '../models/Lead.js';
 import { Request, Response } from 'express';
+import Lead from '../models/Lead.js';
 
 export default {
   getLeads: async (req: Request, res: Response) => {
