@@ -8,6 +8,7 @@ export default {
 
   signup: async (req: Request, res: Response) => {
     console.log(req.body);
+    console.log(req.file);
     res.send('signup');
   },
 };

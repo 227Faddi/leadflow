@@ -21,7 +21,14 @@ const SignupForm = () => {
   });
 
   const onSubmit: SubmitHandler<SignupFormData> = async (formData) => {
-    await signupMutation(formData, {
+    const data = new FormData();
+    data.append("username", formData.username);
+    data.append("email", formData.email);
+    data.append("password", formData.password);
+    data.append("confirmPassword", formData.confirmPassword);
+    data.append("profileImg", formData.profileImg);
+
+    await signupMutation(data, {
       onSuccess: () => {
         toast.success("Signup Completed");
         navigate("/dashboard");
