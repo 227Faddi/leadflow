@@ -9,17 +9,39 @@ export default {
   },
 
   signup: async (req: Request, res: Response) => {
+    const { username, email, password, confirmPassword } = req.body;
     const profileImg = req.file;
+
+    // Profile Image
     if (!profileImg) {
-      console.log('no image');
+      req.body.profileImg = `https://api.dicebear.com/9.x/initials/svg?seed=${username}`;
     } else {
-      const customName = `profile_picture_${req.body.username}_${Date.now()}`;
+      const customName = `profile_picture_${username}_${Date.now()}`;
       const result = await cloudinary.uploader.upload(profileImg.path, {
         public_id: customName,
       });
       req.body.profileImg = result.url;
       req.body.cloudinaryId = result.public_id;
     }
+
+    // Check Values
+    if (password != confirmPassword) {
+      res.status(400).json({
+        status: 'error',
+        message: 'Passwords do not match',
+      });
+      throw new Error('Passwords do not match');
+    }
+
+    const userExists = await User.findOne({ where: { email: email } });
+    if (userExists) {
+      res.status(400).json({
+        status: 'error',
+        message: 'User email already exists. Please log in instead',
+      });
+      throw new Error('User email already exists');
+    }
+
     await User.create(req.body);
     res.send('signup');
   },
