@@ -1,14 +1,15 @@
+import asyncHandler from 'express-async-handler';
 import { Request, Response } from 'express';
 import cloudinary from '../middleware/cloudinary.js';
 import User from '../models/User.js';
 
 export default {
-  login: async (req: Request, res: Response) => {
+  login: asyncHandler(async (req: Request, res: Response) => {
     console.log(req.body);
     res.send('signup');
-  },
+  }),
 
-  signup: async (req: Request, res: Response) => {
+  signup: asyncHandler(async (req: Request, res: Response) => {
     const { username, email, password, confirmPassword } = req.body;
     const profileImg = req.file;
 
@@ -44,5 +45,5 @@ export default {
 
     await User.create(req.body);
     res.send('signup');
-  },
+  }),
 };
