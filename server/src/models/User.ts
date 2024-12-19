@@ -23,6 +23,10 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  cloudinaryId: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 });
 
 export default User;
