@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { signupPost } from "../../services/api/auth";
 import { SignupFormData } from "../../types";
 import { signupSchema } from "../../utils/formValidation";
+import { AxiosError } from "axios";
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -33,7 +34,10 @@ const SignupForm = () => {
         toast.success("Signup Completed");
         navigate("/dashboard");
       },
-      onError: () => toast.error("An error occurred. Please try again."),
+      onError: (err) =>
+        toast.error(
+          err.response?.data?.message || "An error occurred. Please try again."
+        ),
     });
   };
 
