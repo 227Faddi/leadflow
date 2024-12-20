@@ -4,7 +4,6 @@ import cloudinary from '../middleware/cloudinary.js';
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
 
-//b
 export default {
   login: asyncHandler(async (req: Request, res: Response) => {
     console.log(req.body);
