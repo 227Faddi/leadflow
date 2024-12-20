@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import { Request, Response } from 'express';
 import cloudinary from '../middleware/cloudinary.js';
+import bcrypt from 'bcrypt';
 import User from '../models/User.js';
 
 export default {
@@ -37,11 +38,18 @@ export default {
     const userExists = await User.findOne({ where: { email: email } });
     if (userExists) {
       res.status(400).json({
-        status: 'error',
         message: 'User email already exists. Please log in instead',
       });
       throw new Error('User email already exists');
     }
+
+    // Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    req.body.password = hashedPassword;
+
+    console.log(req.body);
 
     await User.create(req.body);
     res.send('signup');
