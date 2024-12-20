@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { LoginFormData } from "../../types";
 import { loginPost } from "../../services/api/auth";
+import { AxiosError } from "axios";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -23,10 +24,20 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<LoginFormData> = async (formData) => {
     await loginMutation(formData, {
       onSuccess: () => {
-        toast.success("Login Completed");
+        toast.success("Welcome Back!");
         navigate("/dashboard");
       },
-      onError: () => toast.error("An error occurred. Please try again."),
+
+      onError: (err) => {
+        if (err instanceof AxiosError) {
+          toast.error(
+            err.response?.data?.message ||
+              "An error occurred. Please try again."
+          );
+        } else {
+          toast.error("An error occurred. Please try again.");
+        }
+      },
     });
   };
 

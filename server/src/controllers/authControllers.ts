@@ -6,8 +6,19 @@ import User from '../models/User.js';
 
 export default {
   login: asyncHandler(async (req: Request, res: Response) => {
-    console.log(req.body);
-    res.send('signup');
+    const { email, password } = req.body;
+    const user = await User.findOne({ where: { email: email } });
+
+    if (user && (await bcrypt.compare(password, user.dataValues.password))) {
+      res.json({
+        message: `Success`,
+      });
+    } else {
+      res.status(400).json({
+        message: 'Invalid email or password. Please try again',
+      });
+      throw new Error('Invalid credentials');
+    }
   }),
 
   signup: asyncHandler(async (req: Request, res: Response) => {
@@ -29,7 +40,6 @@ export default {
     // Check Values
     if (password != confirmPassword) {
       res.status(400).json({
-        status: 'error',
         message: 'Passwords do not match',
       });
       throw new Error('Passwords do not match');
@@ -46,12 +56,12 @@ export default {
     // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
     req.body.password = hashedPassword;
 
-    console.log(req.body);
-
     await User.create(req.body);
-    res.send('signup');
+
+    res.send({
+      message: `Welcome, ${username}! Your account has been created.`,
+    });
   }),
 };

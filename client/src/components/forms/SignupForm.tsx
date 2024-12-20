@@ -34,10 +34,16 @@ const SignupForm = () => {
         toast.success("Signup Completed");
         navigate("/dashboard");
       },
-      onError: (err) =>
-        toast.error(
-          err.response?.data?.message || "An error occurred. Please try again."
-        ),
+      onError: (err) => {
+        if (err instanceof AxiosError) {
+          toast.error(
+            err.response?.data?.message ||
+              "An error occurred. Please try again."
+          );
+        } else {
+          toast.error("An error occurred. Please try again.");
+        }
+      },
     });
   };
 
