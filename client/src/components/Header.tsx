@@ -8,8 +8,8 @@ const Header = () => {
   const navigate = useNavigate();
 
   const guest = {
-    email: "guest@gmail.com",
-    password: "Pa$$w0rd!",
+    email: import.meta.env.VITE_GUEST_EMAIL,
+    password: import.meta.env.VITE_GUEST_PASSWORD,
   };
 
   const { mutateAsync: loginMutation } = useMutation({
