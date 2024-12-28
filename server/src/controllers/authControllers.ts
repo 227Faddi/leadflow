@@ -11,6 +11,7 @@ const jwtRefresh = process.env.REFRESH_TOKEN_SECRET;
 export default {
   login: asyncHandler(async (req: Request, res: Response) => {
     const { email, password } = req.body;
+
     const user = await User.findOne({ where: { email: email } });
 
     if (!user || !(await bcrypt.compare(password, user.dataValues.password))) {
