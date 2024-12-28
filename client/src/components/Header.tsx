@@ -9,7 +9,7 @@ const Header = () => {
 
   const guest = {
     email: "guest@gmail.com",
-    password: "helloworld",
+    password: "Pa$$w0rd!",
   };
 
   const { mutateAsync: loginMutation } = useMutation({

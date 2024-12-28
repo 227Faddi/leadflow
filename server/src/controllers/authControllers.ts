@@ -2,23 +2,53 @@ import asyncHandler from 'express-async-handler';
 import { Request, Response } from 'express';
 import cloudinary from '../middleware/cloudinary.js';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+
+const jwtAccess = process.env.ACCESS_TOKEN_SECRET;
+const jwtRefresh = process.env.REFRESH_TOKEN_SECRET;
 
 export default {
   login: asyncHandler(async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const user = await User.findOne({ where: { email: email } });
 
-    if (user && (await bcrypt.compare(password, user.dataValues.password))) {
-      res.json({
-        message: `Success`,
-      });
-    } else {
+    if (!user || !(await bcrypt.compare(password, user.dataValues.password))) {
       res.status(400).json({
         message: 'Invalid email or password. Please try again',
       });
       throw new Error('Invalid credentials');
     }
+
+    if (!jwtAccess || !jwtRefresh) {
+      throw new Error('JWT variables are not defined');
+      return;
+    }
+
+    const accessToken = jwt.sign(
+      {
+        user: {
+          id: user.dataValues.id,
+        },
+      },
+      jwtAccess,
+      { expiresIn: '10s' }
+    );
+
+    const refreshToken = jwt.sign({ id: user.dataValues.id }, jwtRefresh, {
+      expiresIn: '7d',
+    });
+
+    // Create secure cookie with refresh token
+    res.cookie('jwt', refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    // Send accessToken containing username and roles
+    res.json({ accessToken });
   }),
 
   signup: asyncHandler(async (req: Request, res: Response) => {
