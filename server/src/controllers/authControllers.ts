@@ -78,7 +78,7 @@ export default {
         },
       },
       jwtAccess,
-      { expiresIn: '10s' }
+      { expiresIn: '1m' }
     );
 
     const refreshToken = jwt.sign({ id: user.dataValues.id }, jwtRefresh, {
