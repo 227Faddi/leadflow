@@ -12,7 +12,7 @@ const Header = () => {
     password: import.meta.env.VITE_GUEST_PASSWORD,
   };
 
-  const { mutateAsync: loginMutation } = useMutation({
+  const { mutateAsync: loginMutation, isPending } = useMutation({
     mutationFn: loginPost,
   });
 
@@ -39,7 +39,7 @@ const Header = () => {
         onClick={handleGuestLogin}
         className="text-white bg-gradient-to-r from-blue-500 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
       >
-        Try as Guest
+        {isPending ? "Loading..." : "Try as Guest"}
       </button>
     </header>
   );
