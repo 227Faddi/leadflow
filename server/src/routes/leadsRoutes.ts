@@ -1,7 +1,10 @@
 import express from 'express';
 import leadsControllers from '../controllers/leadsControllers.js';
+import verifyJWT from '../middleware/verifyJWT.js';
 
 const router = express.Router();
+
+router.use(verifyJWT);
 
 router.get('/', leadsControllers.getLeads);
 router.get('/:id', leadsControllers.getLead);

@@ -5,7 +5,8 @@ const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
 
   if (!(authHeader as string)?.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    res.status(401).json({ message: 'Unauthorized' });
+    return;
   }
 
   const token = (authHeader as string).split(' ')[1];
@@ -14,7 +15,6 @@ const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
 
   if (!jwtAccess) {
     throw new Error('JWT variables are not defined');
-    return;
   }
 
   jwt.verify(token, jwtAccess, (err, decoded) => {
@@ -24,4 +24,4 @@ const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-module.exports = verifyJWT;
+export default verifyJWT;

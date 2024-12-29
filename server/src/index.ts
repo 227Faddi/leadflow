@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
-
+import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -16,6 +16,8 @@ synchronizeTables();
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+
+app.use(cookieParser());
 
 app.use(
   cors({

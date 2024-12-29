@@ -2,13 +2,59 @@ import asyncHandler from 'express-async-handler';
 import { Request, Response } from 'express';
 import cloudinary from '../middleware/cloudinary.js';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import User from '../models/User.js';
 
 const jwtAccess = process.env.ACCESS_TOKEN_SECRET;
 const jwtRefresh = process.env.REFRESH_TOKEN_SECRET;
 
 export default {
+  refresh: (req: Request, res: Response) => {
+    const cookies = req.cookies;
+
+    console.log(cookies.jwt);
+
+    if (!cookies?.jwt) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
+    }
+
+    const refreshToken = cookies.jwt;
+
+    if (!jwtAccess || !jwtRefresh) {
+      throw new Error('JWT secrets are not defined');
+    }
+
+    jwt.verify(
+      refreshToken,
+      jwtRefresh as string,
+      async (err: Error | null, decoded: string | JwtPayload | undefined) => {
+        if (err) return res.status(403).json({ message: 'Forbidden' });
+
+        const foundUser = await User.findOne({
+          where: { id: (decoded as JwtPayload).id },
+        });
+
+        if (!foundUser) {
+          res.status(401).json({ message: 'Unauthorized' });
+          return;
+        }
+
+        const accessToken = jwt.sign(
+          {
+            user: {
+              id: foundUser.dataValues.id,
+            },
+          },
+          jwtAccess as string,
+          { expiresIn: '15m' }
+        );
+
+        res.json({ accessToken });
+      }
+    );
+  },
+
   login: asyncHandler(async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
@@ -23,7 +69,6 @@ export default {
 
     if (!jwtAccess || !jwtRefresh) {
       throw new Error('JWT variables are not defined');
-      return;
     }
 
     const accessToken = jwt.sign(
@@ -42,13 +87,12 @@ export default {
 
     // Create secure cookie with refresh token
     res.cookie('jwt', refreshToken, {
-      httpOnly: true,
-      secure: true,
+      httpOnly: false, // to change
+      secure: false,
       sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
-    // Send accessToken containing username and roles
     res.json({ accessToken });
   }),
 
@@ -102,7 +146,11 @@ export default {
       res.sendStatus(204);
       return;
     }
-    res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true });
+    res.clearCookie('jwt', {
+      httpOnly: false,
+      sameSite: 'none',
+      secure: false,
+    }); // to change
     res.json({ message: 'Cookie cleared' });
   },
 };

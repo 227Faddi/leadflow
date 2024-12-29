@@ -8,6 +8,8 @@ router.post('/login', authControllers.login);
 
 router.post('/logout', authControllers.logout);
 
+router.get('/refresh', authControllers.refresh);
+
 router.post('/signup', upload.single('profileImg'), authControllers.signup);
 
 export default router;
