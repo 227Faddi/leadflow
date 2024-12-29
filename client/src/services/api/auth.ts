@@ -14,3 +14,7 @@ export const signupPost = async (formData: SignupFormData): Promise<void> => {
 export const loginPost = async (formData: LoginFormData): Promise<void> => {
   await axios.post(`${serverURL}/auth/login`, formData);
 };
+
+export const logoutPost = async (): Promise<void> => {
+  await axios.post(`${serverURL}/auth/logout`);
+};

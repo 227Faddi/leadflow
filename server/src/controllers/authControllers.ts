@@ -95,4 +95,14 @@ export default {
       message: `Welcome, ${username}! Your account has been created.`,
     });
   }),
+
+  logout: (req: Request, res: Response) => {
+    const cookies = req.cookies;
+    if (!cookies?.jwt) {
+      res.sendStatus(204);
+      return;
+    }
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true });
+    res.json({ message: 'Cookie cleared' });
+  },
 };

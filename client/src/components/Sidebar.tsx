@@ -4,6 +4,10 @@ import { FaChartPie, FaUserPlus } from "react-icons/fa";
 import { FaChartColumn } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { logoutPost } from "../services/api/auth";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   sidebarOpen: boolean;
@@ -11,6 +15,22 @@ type Props = {
 };
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
+  const navigate = useNavigate();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: logoutPost,
+  });
+
+  const handleLogout = async () => {
+    await mutateAsync(undefined, {
+      onSuccess: () => {
+        toast.success("Logout completed successfully.");
+        navigate("/");
+      },
+      onError: () => toast.error("An error occurred. Please try again."),
+    });
+  };
+
   return (
     <>
       <div
@@ -100,13 +120,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
             <IoMdSettings className="w-6 h-6" />
             <span>Settings</span>
           </NavLink>
-          <a
-            href="/"
-            className="flex items-center text-gray-500 p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center text-gray-500 p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
           >
             <MdLogout className="w-6 h-6" />
             <span>Logout</span>
-          </a>
+          </button>
         </nav>
       </div>
     </>
