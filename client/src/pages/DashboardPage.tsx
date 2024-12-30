@@ -1,20 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
-import { fetchLeads } from "../services/api/leads.ts";
-
 import DashboardActions from "../components/DashboardInfo";
 import Table from "../components/leadsTable/Table.tsx";
 import Spinner from "../components/ui/Spinner.tsx";
 import ErrorMessage from "../components/ui/ErrorMessage.tsx";
+import { useGetLeads } from "../features/lead/hooks.ts";
 
 const DashboardPage = () => {
-  const {
-    data: leads,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryFn: fetchLeads,
-    queryKey: ["leads"],
-  });
+  const { data: leads, isLoading, isError } = useGetLeads();
 
   return (
     <div className="container px-6 py-8 mx-auto">

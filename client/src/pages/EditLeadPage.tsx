@@ -1,22 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { fetchLead } from "../services/api/leads";
 import { Lead } from "../types";
 import EditLeadForm from "../components/forms/EditLeadForm";
 import Spinner from "../components/ui/Spinner";
 import ErrorMessage from "../components/ui/ErrorMessage";
+import { useGetLead } from "../features/lead/hooks";
 
 const EditLeadPage = () => {
   const { id } = useParams<{ id: Lead["id"] }>();
 
-  const {
-    data: lead,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryFn: () => fetchLead(id),
-    queryKey: ["lead"],
-  });
+  const { data: lead, isLoading, isError } = useGetLead(id!);
 
   return (
     <div className="container px-6 py-8 mx-auto">

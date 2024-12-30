@@ -1,4 +1,4 @@
-import axios from "./axios";
+import axios from "../../utils/axios";
 import { Lead, LeadForm } from "../../types";
 
 export const fetchLeads = async (): Promise<Lead[]> => {

@@ -1,12 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
-import { useMutation } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { Lead } from "../../types";
-import { editLead } from "../../services/api/leads";
 import { LeadForm } from "../../types";
-import toast from "react-hot-toast";
+import { useEditLead } from "../../features/lead/hooks";
 
 type Props = {
   lead: Lead;
@@ -25,21 +23,11 @@ const EditLeadForm = ({ lead }: Props) => {
     defaultValues: lead,
   });
 
-  const { mutateAsync } = useMutation({
-    mutationFn: editLead,
-  });
+  const { mutateAsync } = useEditLead();
 
   const onSubmit: SubmitHandler<LeadForm> = async (formData) => {
-    await mutateAsync(
-      { id, formData },
-      {
-        onSuccess: () => {
-          toast.success("Lead edited successfully.");
-          navigate("/dashboard");
-        },
-        onError: () => toast.error("An error occurred. Please try again."),
-      }
-    );
+    await mutateAsync({ id, formData });
+    navigate("/dashboard");
   };
 
   return (

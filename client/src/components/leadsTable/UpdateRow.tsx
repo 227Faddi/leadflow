@@ -1,23 +1,20 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateStatus } from "../../services/api/leads";
 import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 import { Lead } from "../../types";
+import { useUpdateStatus } from "../../features/lead/hooks";
 
 type Props = {
   status: Lead["status"];
   id: Lead["id"];
 };
 
-const UpdateStatus = ({ status, id }: Props) => {
+const UpdateRow = ({ status, id }: Props) => {
+  const { mutateAsync } = useUpdateStatus();
   const queryClient = useQueryClient();
-
-  const { mutateAsync: updateMutation } = useMutation({
-    mutationFn: updateStatus,
-  });
 
   const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newStatus = e.target.value as Lead["status"];
-    await updateMutation(
+    await mutateAsync(
       { id, newStatus },
       {
         onSuccess: () => {
@@ -30,7 +27,6 @@ const UpdateStatus = ({ status, id }: Props) => {
             );
           });
         },
-        onError: () => toast.error("An error occurred. Please try again."),
       }
     );
   };
@@ -68,4 +64,4 @@ const UpdateStatus = ({ status, id }: Props) => {
   );
 };
 
-export default UpdateStatus;
+export default UpdateRow;

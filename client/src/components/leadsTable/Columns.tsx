@@ -3,7 +3,7 @@ import { Lead } from "../../types";
 
 const columnHelper = createColumnHelper<Lead>();
 import DeleteRow from "./DeleteRow";
-import UpdateStatus from "./UpdateStatus";
+import UpdateRow from "./UpdateRow";
 import { TiEdit } from "react-icons/ti";
 
 // Custom sorting for status
@@ -53,7 +53,7 @@ const Columns = () => {
     columnHelper.accessor("status", {
       header: () => "status",
       cell: (info) => (
-        <UpdateStatus status={info.getValue()} id={info.row.original.id} />
+        <UpdateRow status={info.getValue()} id={info.row.original.id} />
       ),
       sortingFn: sortStatusFn,
       meta: {
