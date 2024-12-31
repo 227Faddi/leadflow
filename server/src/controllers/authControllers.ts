@@ -8,12 +8,12 @@ import User from '../models/User.js';
 const jwtAccess = process.env.ACCESS_TOKEN_SECRET;
 const jwtRefresh = process.env.REFRESH_TOKEN_SECRET;
 
+const accessExipiration = '1m';
+const refreshExpiration = '1d';
+
 export default {
   refresh: (req: Request, res: Response) => {
     const cookies = req.cookies;
-
-    console.log(cookies.jwt);
-
     if (!cookies?.jwt) {
       res.status(401).json({ message: 'Unauthorized' });
       return;
@@ -47,7 +47,7 @@ export default {
             },
           },
           jwtAccess as string,
-          { expiresIn: '15m' }
+          { expiresIn: accessExipiration }
         );
 
         res.json({ accessToken });
@@ -78,11 +78,11 @@ export default {
         },
       },
       jwtAccess,
-      { expiresIn: '1m' }
+      { expiresIn: accessExipiration }
     );
 
     const refreshToken = jwt.sign({ id: user.dataValues.id }, jwtRefresh, {
-      expiresIn: '7d',
+      expiresIn: refreshExpiration,
     });
 
     // Create secure cookie with refresh token
@@ -133,9 +133,36 @@ export default {
     const hashedPassword = await bcrypt.hash(password, salt);
     req.body.password = hashedPassword;
 
-    await User.create(req.body);
+    const user = await User.create(req.body);
 
-    res.send({
+    if (!jwtAccess || !jwtRefresh) {
+      throw new Error('JWT variables are not defined');
+    }
+
+    const accessToken = jwt.sign(
+      {
+        user: {
+          id: user.dataValues.id,
+        },
+      },
+      jwtAccess,
+      { expiresIn: '1m' }
+    );
+
+    const refreshToken = jwt.sign({ id: user.dataValues.id }, jwtRefresh, {
+      expiresIn: refreshExpiration,
+    });
+
+    // Create secure cookie with refresh token
+    res.cookie('jwt', refreshToken, {
+      httpOnly: false, // to change
+      secure: false,
+      sameSite: 'none',
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+
+    res.json({
+      accessToken,
       message: `Welcome, ${username}! Your account has been created.`,
     });
   }),
