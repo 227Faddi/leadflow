@@ -18,12 +18,17 @@ import SettingsPage from "./pages/SettingsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import NewLeadPage from "./pages/NewLeadPage";
 import EditLeadPage from "./pages/EditLeadPage";
+import { useAuthInterceptor } from "./utils/axios";
 
 function App() {
+  useAuthInterceptor();
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
         <Route index element={<HomePage />} />
+
+        <Route path="signup" element={<SignupPage />} />
+        <Route path="login" element={<LoginPage />} />
 
         <Route element={<DashboardLayout />}>
           <Route path="dashboard" element={<DashboardPage />} />
@@ -33,8 +38,6 @@ function App() {
           <Route path="edit/:id" element={<EditLeadPage />} />
         </Route>
 
-        <Route path="signup" element={<SignupPage />} />
-        <Route path="login" element={<LoginPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     )

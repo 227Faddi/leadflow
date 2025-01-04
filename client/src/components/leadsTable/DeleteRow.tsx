@@ -7,10 +7,10 @@ type Props = {
 };
 
 const DeleteRow = ({ id }: Props) => {
-  const { mutateAsync } = useDeleteLead();
+  const deleteLead = useDeleteLead();
 
   const handleDelete = async () => {
-    await mutateAsync(id);
+    await deleteLead(id);
   };
 
   return (

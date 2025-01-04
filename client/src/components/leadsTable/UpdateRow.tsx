@@ -9,12 +9,12 @@ type Props = {
 };
 
 const UpdateRow = ({ status, id }: Props) => {
-  const { mutateAsync } = useUpdateStatus();
+  const updateStatus = useUpdateStatus();
   const queryClient = useQueryClient();
 
   const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newStatus = e.target.value as Lead["status"];
-    await mutateAsync(
+    await updateStatus(
       { id, newStatus },
       {
         onSuccess: () => {

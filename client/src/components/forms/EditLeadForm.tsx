@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Lead } from "../../types";
 import { LeadForm } from "../../types";
 import { useEditLead } from "../../features/lead/hooks";
@@ -11,7 +11,6 @@ type Props = {
 };
 
 const EditLeadForm = ({ lead }: Props) => {
-  const navigate = useNavigate();
   const id = lead?.id;
 
   const {
@@ -23,11 +22,10 @@ const EditLeadForm = ({ lead }: Props) => {
     defaultValues: lead,
   });
 
-  const { mutateAsync } = useEditLead();
+  const editLead = useEditLead();
 
   const onSubmit: SubmitHandler<LeadForm> = async (formData) => {
-    await mutateAsync({ id, formData });
-    navigate("/dashboard");
+    await editLead({ id, formData });
   };
 
   return (

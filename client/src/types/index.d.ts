@@ -5,6 +5,13 @@ import {
 } from "../../utils/formValidation";
 import { z } from "zod";
 
+export type User = {
+  id: string;
+  username: string;
+  email: string;
+  profileImg: string;
+};
+
 export type Lead = {
   id: string;
   name: string;

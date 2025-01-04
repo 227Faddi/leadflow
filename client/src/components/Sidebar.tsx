@@ -4,10 +4,7 @@ import { FaChartPie, FaUserPlus } from "react-icons/fa";
 import { FaChartColumn } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { logoutPost } from "../services/api/auth";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLogout } from "../features/user/hooks";
 
 type Props = {
   sidebarOpen: boolean;
@@ -15,20 +12,9 @@ type Props = {
 };
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
-  const navigate = useNavigate();
-
-  const { mutateAsync } = useMutation({
-    mutationFn: logoutPost,
-  });
-
+  const logout = useLogout();
   const handleLogout = async () => {
-    await mutateAsync(undefined, {
-      onSuccess: () => {
-        toast.success("Logout completed successfully.");
-        navigate("/");
-      },
-      onError: () => toast.error("An error occurred. Please try again."),
-    });
+    await logout();
   };
 
   return (

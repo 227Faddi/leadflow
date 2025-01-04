@@ -1,25 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { signupPost } from "../../services/api/auth";
 import { SignupFormData } from "../../types";
 import { signupSchema } from "../../utils/formValidation";
-import { AxiosError } from "axios";
+import { useSignup } from "../../features/user/hooks";
 
 const SignupForm = () => {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<SignupFormData>({ resolver: zodResolver(signupSchema) });
 
-  const { mutateAsync: signupMutation } = useMutation({
-    mutationFn: signupPost,
-  });
+  const signup = useSignup();
 
   const onSubmit: SubmitHandler<SignupFormData> = async (formData) => {
     const data = new FormData();
@@ -28,23 +21,7 @@ const SignupForm = () => {
     data.append("password", formData.password);
     data.append("confirmPassword", formData.confirmPassword);
     data.append("profileImg", formData.profileImg);
-
-    await signupMutation(data, {
-      onSuccess: () => {
-        toast.success("Signup Completed");
-        navigate("/dashboard");
-      },
-      onError: (err) => {
-        if (err instanceof AxiosError) {
-          toast.error(
-            err.response?.data?.message ||
-              "An error occurred. Please try again."
-          );
-        } else {
-          toast.error("An error occurred. Please try again.");
-        }
-      },
-    });
+    await signup(data);
   };
 
   return (

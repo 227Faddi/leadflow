@@ -3,11 +3,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { loginSchema } from "../../utils/formValidation";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
-import { useMutation } from "@tanstack/react-query";
 import { LoginFormData } from "../../types";
-import { loginPost } from "../../services/api/auth";
-import { AxiosError } from "axios";
+import { useLogin } from "../../features/user/hooks";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -17,26 +14,12 @@ const LoginForm = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
 
-  const { mutateAsync: loginMutation } = useMutation({
-    mutationFn: loginPost,
-  });
+  const login = useLogin();
 
   const onSubmit: SubmitHandler<LoginFormData> = async (formData) => {
-    await loginMutation(formData, {
+    await login(formData, {
       onSuccess: () => {
-        toast.success("Welcome Back!");
         navigate("/dashboard");
-      },
-
-      onError: (err) => {
-        if (err instanceof AxiosError) {
-          toast.error(
-            err.response?.data?.message ||
-              "An error occurred. Please try again."
-          );
-        } else {
-          toast.error("An error occurred. Please try again.");
-        }
       },
     });
   };

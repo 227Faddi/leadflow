@@ -10,10 +10,11 @@ import {
 import { Lead } from "../../types";
 import toast from "react-hot-toast";
 import leadKeys from "./queryKeys";
+import { useNavigate } from "react-router-dom";
 
 export const useGetLeads = () => {
   const { data, isLoading, isError } = useQuery({
-    queryFn: fetchLeads,
+    queryFn: () => fetchLeads(),
     queryKey: leadKeys.all,
   });
   return { data, isLoading, isError };
@@ -28,22 +29,26 @@ export const useGetLead = (id: Lead["id"]) => {
 };
 
 export const useAddLead = () => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  return useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: addLead,
     onSuccess: () => {
       toast.success("Lead added successfully.");
       queryClient.invalidateQueries({ queryKey: leadKeys.all });
+      navigate("/dashboard");
     },
     onError: () => toast.error("An error occurred. Please try again."),
   });
+
+  return mutateAsync;
 };
 
 export const useDeleteLead = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: deleteLead,
     onSuccess: () => {
       toast.success("Lead deleted successfully.");
@@ -51,27 +56,35 @@ export const useDeleteLead = () => {
     },
     onError: () => toast.error("An error occurred. Please try again."),
   });
+
+  return mutateAsync;
 };
 
 export const useEditLead = () => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  return useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: editLead,
     onSuccess: () => {
       toast.success("Lead edited successfully.");
       queryClient.invalidateQueries({ queryKey: leadKeys.all });
+      navigate("/dashboard");
     },
     onError: () => toast.error("An error occurred. Please try again."),
   });
+
+  return mutateAsync;
 };
 
 export const useUpdateStatus = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
+  const { mutateAsync } = useMutation({
     mutationFn: updateStatus,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: leadKeys.all }),
     onError: () => toast.error("An error occurred. Please try again."),
   });
+
+  return mutateAsync;
 };

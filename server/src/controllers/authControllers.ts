@@ -8,7 +8,7 @@ import User from '../models/User.js';
 const jwtAccess = process.env.ACCESS_TOKEN_SECRET;
 const jwtRefresh = process.env.REFRESH_TOKEN_SECRET;
 
-const accessExipiration = '1m';
+const accessExipiration = '15s';
 const refreshExpiration = '1d';
 
 export default {

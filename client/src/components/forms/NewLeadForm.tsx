@@ -1,24 +1,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { leadSchema } from "../../utils/formValidation";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LeadForm } from "../../types";
 import { useAddLead } from "../../features/lead/hooks";
 
 const NewLeadForm = () => {
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<LeadForm>({ resolver: zodResolver(leadSchema) });
 
-  const { mutateAsync } = useAddLead();
+  const addLead = useAddLead();
 
   const onSubmit: SubmitHandler<LeadForm> = async (formData) => {
-    await mutateAsync(formData);
-    navigate("/dashboard");
+    await addLead(formData);
   };
 
   return (
