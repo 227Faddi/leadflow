@@ -17,9 +17,7 @@
     "noEmitOnError": true,
     "checkJs": true,
     "types": ["node", "express"],
-    "typeRoots": ["./src/types", "./node_modules/@types"],
-    "allowImportingTsExtensions": true,
-    "noEmit": true
+    "typeRoots": ["./src/types", "./node_modules/@types"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]

@@ -1,9 +1,9 @@
 import asyncHandler from 'express-async-handler';
 import { Request, Response } from 'express';
-import cloudinary from '../middleware/cloudinary.ts';
+import cloudinary from '../middleware/cloudinary.js';
 import bcrypt from 'bcrypt';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import User from '../models/User.ts';
+import User from '../models/User.js';
 
 const jwtAccess = process.env.ACCESS_TOKEN_SECRET;
 const jwtRefresh = process.env.REFRESH_TOKEN_SECRET;

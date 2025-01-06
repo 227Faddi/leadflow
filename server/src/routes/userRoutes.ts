@@ -1,6 +1,6 @@
 import express from 'express';
 // import verifyJWT from '../middleware/verifyJWT.ts';
-import userControllers from '../controllers/userControllers.ts';
+import userControllers from '../controllers/userControllers.js';
 
 const router = express.Router();
 
