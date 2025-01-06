@@ -1,6 +1,6 @@
 import express from 'express';
-import leadsControllers from '../controllers/leadsControllers.js';
-import verifyJWT from '../middleware/verifyJWT.js';
+import leadsControllers from '../controllers/leadsControllers.ts';
+import verifyJWT from '../middleware/verifyJWT.ts';
 
 const router = express.Router();
 

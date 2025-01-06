@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Lead from '../models/Lead.js';
+import Lead from '../models/Lead.ts';
 import asyncHandler from 'express-async-handler';
 
 export default {

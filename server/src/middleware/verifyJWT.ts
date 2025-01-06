@@ -3,7 +3,6 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 
 const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
-
   if (!(authHeader as string)?.startsWith('Bearer ')) {
     res.status(401).json({ message: 'Unauthorized' });
     return;

@@ -1,18 +1,19 @@
 import asyncHandler from 'express-async-handler';
 import { Request, Response } from 'express';
-import cloudinary from '../middleware/cloudinary.js';
+import cloudinary from '../middleware/cloudinary.ts';
 import bcrypt from 'bcrypt';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import User from '../models/User.js';
+import User from '../models/User.ts';
 
 const jwtAccess = process.env.ACCESS_TOKEN_SECRET;
 const jwtRefresh = process.env.REFRESH_TOKEN_SECRET;
 
-const accessExipiration = '15s';
+const accessExipiration = '10s';
 const refreshExpiration = '1d';
 
 export default {
   refresh: (req: Request, res: Response) => {
+    console.log(req.cookies.jwt);
     const cookies = req.cookies;
     if (!cookies?.jwt) {
       res.status(401).json({ message: 'Unauthorized' });
@@ -29,7 +30,17 @@ export default {
       refreshToken,
       jwtRefresh as string,
       async (err: Error | null, decoded: string | JwtPayload | undefined) => {
-        if (err) return res.status(403).json({ message: 'Forbidden' });
+        if (err) {
+          if (err.name === 'TokenExpiredError') {
+            res.clearCookie('jwt', {
+              httpOnly: true,
+              sameSite: 'none',
+              secure: true,
+            });
+            return res.status(401).json({ message: 'Refresh token expired' });
+          }
+          return res.status(403).json({ message: 'Forbidden' });
+        }
 
         const foundUser = await User.findOne({
           where: { id: (decoded as JwtPayload).id },
@@ -87,8 +98,8 @@ export default {
 
     // Create secure cookie with refresh token
     res.cookie('jwt', refreshToken, {
-      httpOnly: false, // to change
-      secure: false,
+      httpOnly: true,
+      secure: true,
       sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -155,8 +166,8 @@ export default {
 
     // Create secure cookie with refresh token
     res.cookie('jwt', refreshToken, {
-      httpOnly: false, // to change
-      secure: false,
+      httpOnly: true, // to change
+      secure: true,
       sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -174,10 +185,10 @@ export default {
       return;
     }
     res.clearCookie('jwt', {
-      httpOnly: false,
+      httpOnly: true,
       sameSite: 'none',
-      secure: false,
-    }); // to change
+      secure: true,
+    });
     res.json({ message: 'Cookie cleared' });
   },
 };

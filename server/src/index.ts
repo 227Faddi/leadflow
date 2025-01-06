@@ -5,9 +5,10 @@ import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import cors from 'cors';
 
-import leadsRoutes from './routes/leadsRoutes.js';
-import authRoutes from './routes/authRoutes.js';
-import { synchronizeTables } from './config/database.js';
+import leadsRoutes from './routes/leadsRoutes.ts';
+import authRoutes from './routes/authRoutes.ts';
+import userRoutes from './routes/userRoutes.ts';
+import { synchronizeTables } from './config/database.ts';
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use(express.json());
 
 app.use('/api/leads', leadsRoutes);
 app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
