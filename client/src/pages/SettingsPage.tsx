@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
+import { useDeleteUser } from "../features/user/hooks";
+import { useDeleteAllLeads } from "../features/lead/hooks";
 
 const SettingsPage = () => {
+  const deleteUser = useDeleteUser();
+  const deleteLeads = useDeleteAllLeads();
+
   const handleDeleteProfile = () => {
     const confirmed = window.confirm(
       "Are you sure you want to delete your profile? This action cannot be undone."
     );
     if (confirmed) {
-      console.log('deleted"');
+      deleteUser();
     }
   };
   const handleDeleteAll = () => {
@@ -14,7 +19,7 @@ const SettingsPage = () => {
       "Are you sure you want to delete all your leads? This action cannot be undone and all data will be permanently lost."
     );
     if (confirmed) {
-      console.log('deleted"');
+      deleteLeads();
     }
   };
   return (

@@ -16,4 +16,6 @@ router.put('/edit/:id', leadsControllers.editLead);
 
 router.delete('/delete/:id', leadsControllers.deleteLead);
 
+router.delete('/delete-all', leadsControllers.deleteAllLeads);
+
 export default router;

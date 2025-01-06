@@ -6,6 +6,7 @@ import {
   editLead,
   deleteLead,
   updateStatus,
+  deleteAllLeads,
 } from "./api";
 import { Lead } from "../../types";
 import toast from "react-hot-toast";
@@ -52,6 +53,21 @@ export const useDeleteLead = () => {
     mutationFn: deleteLead,
     onSuccess: () => {
       toast.success("Lead deleted successfully.");
+      queryClient.invalidateQueries({ queryKey: leadKeys.all });
+    },
+    onError: () => toast.error("An error occurred. Please try again."),
+  });
+
+  return mutateAsync;
+};
+
+export const useDeleteAllLeads = () => {
+  const queryClient = useQueryClient();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: deleteAllLeads,
+    onSuccess: () => {
+      toast.success("Leads deleted successfully.");
       queryClient.invalidateQueries({ queryKey: leadKeys.all });
     },
     onError: () => toast.error("An error occurred. Please try again."),

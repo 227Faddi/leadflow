@@ -22,6 +22,14 @@ export default {
     });
     res.status(200).send({ message: 'Lead deleted successfully' });
   }),
+  deleteAllLeads: asyncHandler(async (req: Request, res: Response) => {
+    await Lead.destroy({
+      where: {
+        userId: req.user,
+      },
+    });
+    res.status(200).send({ message: 'Leads deleted successfully' });
+  }),
   statusLead: asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
     const lead = await Lead.findOne({ where: { id: id, userId: req.user } });

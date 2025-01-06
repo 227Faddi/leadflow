@@ -19,6 +19,10 @@ export const deleteLead = async (id: Lead["id"]): Promise<void> => {
   await axiosInstance.delete(`/api/leads/delete/${id}`);
 };
 
+export const deleteAllLeads = async (): Promise<void> => {
+  await axiosInstance.delete(`/api/leads/delete-all`);
+};
+
 export const updateStatus = async ({
   id,
   newStatus,

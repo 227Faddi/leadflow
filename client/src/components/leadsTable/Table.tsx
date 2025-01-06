@@ -11,9 +11,8 @@ import { Lead } from "../../types";
 import Pagination from "./Pagination";
 import Columns from "./Columns";
 import FilterBar from "./FilterBar";
-import { FaSortUp } from "react-icons/fa";
-import { FaSortDown } from "react-icons/fa";
-import { FaSort } from "react-icons/fa6";
+import { PiArrowsDownUpBold } from "react-icons/pi";
+import { HiArrowNarrowUp, HiArrowNarrowDown } from "react-icons/hi";
 
 type Props = {
   leads: Lead[] | undefined;
@@ -103,11 +102,11 @@ const Table = ({ leads }: Props) => {
                               header.getContext()
                             )}
                             {header.column.getIsSorted() === "asc" ? (
-                              <FaSortUp size={25} />
+                              <HiArrowNarrowUp size={25} />
                             ) : header.column.getIsSorted() === "desc" ? (
-                              <FaSortDown size={25} />
+                              <HiArrowNarrowDown size={25} />
                             ) : (
-                              <FaSort size={25} />
+                              <PiArrowsDownUpBold size={25} />
                             )}
                           </div>
                         </th>

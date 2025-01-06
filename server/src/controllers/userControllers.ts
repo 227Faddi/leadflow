@@ -35,6 +35,13 @@ export default {
       return;
     }
     user.destroy();
+
+    res.clearCookie('jwt', {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+    });
+
     res.status(200).json({ message: 'User deleted successfully' });
   }),
 };
