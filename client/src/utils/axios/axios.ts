@@ -1,6 +1,6 @@
 import Axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
-import { refreshGet } from "../../features/user/api";
+import { refreshGet } from "../../features/auth/api";
 
 export const axiosInstance = Axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { loginSchema } from "../../utils/zod/formValidation";
 import { useNavigate } from "react-router-dom";
 import { LoginFormData } from "../../types";
-import { useLogin } from "../../features/user/hooks";
+import { useLogin } from "../../features/auth/hooks";
 
 const LoginForm = () => {
   const navigate = useNavigate();

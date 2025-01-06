@@ -7,7 +7,6 @@ type Props = {
 
 const Topbar = ({ setSidebarOpen }: Props) => {
   const { user } = useGetUser();
-  console.log(user);
   return (
     <header className="flex items-center justify-between px-6 sm:px-14 py-8 bg-white border-b-4 border-green-700">
       <div className="flex items-center">
@@ -41,6 +40,7 @@ const Topbar = ({ setSidebarOpen }: Props) => {
         </div>
       </div>
       <div className="flex items-center gap-4">
+        <p className="hidden lg:block font-bold">{user?.username}</p>
         <picture className="w-12 h-12 overflow-hidden rounded-full shadow focus:outline-none">
           <img
             className="object-cover w-full h-full"

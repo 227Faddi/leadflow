@@ -4,7 +4,7 @@ import { FaChartPie, FaUserPlus } from "react-icons/fa";
 import { FaChartColumn } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import { useLogout } from "../features/user/hooks";
+import { useLogout } from "../features/auth/hooks";
 
 type Props = {
   sidebarOpen: boolean;
@@ -14,7 +14,10 @@ type Props = {
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
   const logout = useLogout();
   const handleLogout = async () => {
-    await logout();
+    const confirmed = window.confirm("Do you really want to log out?");
+    if (confirmed) {
+      await logout();
+    }
   };
 
   return (
