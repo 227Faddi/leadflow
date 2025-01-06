@@ -1,10 +1,13 @@
 import { IoIosContacts } from "react-icons/io";
+import { useGetUser } from "../features/user/hooks";
 
 type Props = {
   setSidebarOpen: (val: boolean) => void;
 };
 
 const Topbar = ({ setSidebarOpen }: Props) => {
+  const { user } = useGetUser();
+  console.log(user);
   return (
     <header className="flex items-center justify-between px-6 sm:px-14 py-8 bg-white border-b-4 border-green-700">
       <div className="flex items-center">
@@ -41,7 +44,7 @@ const Topbar = ({ setSidebarOpen }: Props) => {
         <picture className="w-12 h-12 overflow-hidden rounded-full shadow focus:outline-none">
           <img
             className="object-cover w-full h-full"
-            src="https://images.unsplash.com/photo-1528892952291-009c663ce843?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=296&q=80"
+            src={user?.profileImg}
             alt="Your avatar"
           />
         </picture>

@@ -1,10 +1,10 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { signupPost, loginPost, logoutPost, userGet } from "./api";
+import { signupPost, loginPost, logoutPost, userGet, refreshGet } from "./api";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import userKeys from "./queryKeys";
 import { useNavigate } from "react-router-dom";
-// import { updateAxiosHeader } from "../../utils/axios";
+import { updateAxiosHeader } from "../../utils/axios/axios";
 import { User } from "../../types";
 
 export const useToken = () => {
@@ -12,22 +12,22 @@ export const useToken = () => {
   const token = queryClient.getQueryData(userKeys.token);
   const setToken = (newToken: string | null) => {
     queryClient.setQueryData(userKeys.token, newToken);
-    // updateAxiosHeader(newToken);
+    updateAxiosHeader(newToken);
   };
   return { token, setToken };
 };
 
 export const useGetRefreshToken = () => {
-  const { setToken } = useToken();
+  // const { setToken } = useToken();
   const {
     data: token,
     isLoading,
     isError,
   } = useQuery({
-    queryFn: userGet,
-    queryKey: userKeys.user,
+    queryFn: refreshGet,
+    queryKey: userKeys.token,
   });
-  setToken(token);
+  // setToken(token);
   return { token, isLoading, isError };
 };
 

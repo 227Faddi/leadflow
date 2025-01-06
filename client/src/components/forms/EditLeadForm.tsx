@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { leadSchema } from "../../utils/formValidation";
+import { leadSchema } from "../../utils/zod/formValidation";
 import { Link } from "react-router-dom";
 import { Lead } from "../../types";
 import { LeadForm } from "../../types";
