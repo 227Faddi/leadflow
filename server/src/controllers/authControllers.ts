@@ -118,7 +118,7 @@ export default {
       const result = await cloudinary.uploader.upload(profileImg.path, {
         public_id: customName,
       });
-      req.body.profileImg = result.url;
+      req.body.profileImg = result.secure_url;
       req.body.cloudinaryId = result.public_id;
     }
 
