@@ -4,12 +4,12 @@ import asyncHandler from 'express-async-handler';
 
 export default {
   getLeads: asyncHandler(async (req: Request, res: Response) => {
-    const leads = await Lead.findAll();
+    const leads = await Lead.findAll({ where: { userId: req.user } });
     res.status(200).send(leads);
   }),
   addLead: asyncHandler(async (req: Request, res: Response) => {
     const newLead = req.body;
-    await Lead.create(newLead);
+    await Lead.create({ ...newLead, userId: req.user });
     res.status(200).send({ message: 'Lead added successfully' });
   }),
   deleteLead: asyncHandler(async (req: Request, res: Response) => {
@@ -17,13 +17,14 @@ export default {
     await Lead.destroy({
       where: {
         id: id,
+        userId: req.user,
       },
     });
     res.status(200).send({ message: 'Lead deleted successfully' });
   }),
   statusLead: asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
-    const lead = await Lead.findByPk(id);
+    const lead = await Lead.findOne({ where: { id: id, userId: req.user } });
 
     if (!lead) {
       res.status(404).send({ message: 'Lead not found' });
@@ -34,7 +35,7 @@ export default {
   }),
   getLead: asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
-    const lead = await Lead.findByPk(id);
+    const lead = await Lead.findOne({ where: { id: id, userId: req.user } });
     if (!lead) {
       res.status(404).send({ message: 'Lead not found' });
       return;
@@ -43,23 +44,12 @@ export default {
   }),
   editLead: asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
-    const lead = await Lead.findByPk(id);
+    const lead = await Lead.findOne({ where: { id: id, userId: req.user } });
     if (!lead) {
       res.status(404).send({ message: 'Lead not found' });
       return;
     }
     lead.update(req.body);
     res.status(200).send({ message: 'Status updated successfully' });
-  }),
-  sortBy: asyncHandler(async (req: Request, res: Response) => {
-    const item = req.params.by;
-    const order = req.params.order as 'ASC' | 'DESC';
-    const leads = await Lead.findAll({
-      order: [[item, order]],
-    });
-    if (!leads) {
-      throw new Error('Leads not found');
-    }
-    res.status(200).send(leads);
   }),
 };

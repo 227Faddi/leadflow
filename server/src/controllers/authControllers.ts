@@ -13,7 +13,6 @@ const refreshExpiration = '1d';
 
 export default {
   refresh: asyncHandler((req: Request, res: Response) => {
-    console.log(req.cookies.jwt);
     const cookies = req.cookies;
     if (!cookies?.jwt) {
       res.status(401).json({ message: 'Unauthorized' });

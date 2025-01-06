@@ -4,7 +4,14 @@ import User from '../models/User.js';
 
 export default {
   getUser: asyncHandler(async (req: Request, res: Response) => {
-    const users = await User.findAll();
-    res.status(200).send(users);
+    const user = await User.findOne({
+      where: { id: req.user },
+      attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
+    });
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+    res.status(200).send(user);
   }),
 };

@@ -40,6 +40,15 @@ const Lead = sequelize.define(
       defaultValue: 'new',
       allowNull: false,
     },
+    userId: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+        model: 'Users',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+    },
   },
   {
     freezeTableName: true,
