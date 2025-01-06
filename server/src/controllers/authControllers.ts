@@ -12,7 +12,7 @@ const accessExipiration = '10s';
 const refreshExpiration = '1d';
 
 export default {
-  refresh: (req: Request, res: Response) => {
+  refresh: asyncHandler((req: Request, res: Response) => {
     console.log(req.cookies.jwt);
     const cookies = req.cookies;
     if (!cookies?.jwt) {
@@ -64,7 +64,7 @@ export default {
         res.json({ accessToken });
       }
     );
-  },
+  }),
 
   login: asyncHandler(async (req: Request, res: Response) => {
     const { email, password } = req.body;
@@ -178,7 +178,7 @@ export default {
     });
   }),
 
-  logout: (req: Request, res: Response) => {
+  logout: asyncHandler((req: Request, res: Response) => {
     const cookies = req.cookies;
     if (!cookies?.jwt) {
       res.sendStatus(204);
@@ -190,5 +190,5 @@ export default {
       secure: true,
     });
     res.json({ message: 'Cookie cleared' });
-  },
+  }),
 };
