@@ -8,7 +8,7 @@ import User from '../models/User.js';
 const jwtAccess = process.env.ACCESS_TOKEN_SECRET;
 const jwtRefresh = process.env.REFRESH_TOKEN_SECRET;
 
-const accessExipiration = '15m';
+const accessExipiration = '1m';
 const refreshExpiration = '1d';
 
 export default {
@@ -110,6 +110,8 @@ export default {
     const { username, email, password, confirmPassword } = req.body;
     const profileImg = req.file;
 
+    console.log(req.body);
+
     // Profile Image
     if (!profileImg) {
       req.body.profileImg = `https://api.dicebear.com/9.x/initials/svg?seed=${username}`;
@@ -165,7 +167,7 @@ export default {
 
     // Create secure cookie with refresh token
     res.cookie('jwt', refreshToken, {
-      httpOnly: true, // to change
+      httpOnly: true,
       secure: true,
       sameSite: 'none',
       maxAge: 7 * 24 * 60 * 60 * 1000,
