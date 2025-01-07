@@ -91,7 +91,7 @@ export const leadSchema = z.object({
     .max(30, { message: "Location cannot exceed 30 characters." }),
 });
 
-export const changePassSchema = z
+export const changePasswordSchema = z
   .object({
     currentPassword: z.string().min(1, { message: "Password is required." }),
     newPassword: z.string().min(1, { message: "Password is required." }),

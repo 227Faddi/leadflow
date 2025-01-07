@@ -1,12 +1,10 @@
+import { z } from "zod";
 import {
+  changePasswordSchema,
+  editProfileSchema,
   leadSchema,
   loginSchema,
   signupSchema,
-} from "../../utils/formValidation";
-import { z } from "zod";
-import {
-  changePassSchema,
-  editProfileSchema,
 } from "../utils/zod/formValidation";
 
 export type User = {
@@ -35,6 +33,6 @@ export type SignupFormData = z.infer<typeof signupSchema>;
 
 export type LoginFormData = z.infer<typeof loginSchema>;
 
-export type ChangePass = z.infer<typeof changePassSchema>;
+export type ChangePassword = z.infer<typeof changePasswordSchema>;
 
 export type EditProfile = z.infer<typeof editProfileSchema>;

@@ -35,7 +35,7 @@ export const useSignup = () => {
   const navigate = useNavigate();
   const { setToken } = useToken();
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync: signup, isPending } = useMutation({
     mutationFn: signupPost,
     onSuccess: (response) => {
       setToken(response.data.accessToken);
@@ -53,14 +53,14 @@ export const useSignup = () => {
     },
   });
 
-  return mutateAsync;
+  return { signup, isPending };
 };
 
 export const useLogin = () => {
   const navigate = useNavigate();
   const { setToken } = useToken();
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync: login, isPending } = useMutation({
     mutationFn: loginPost,
     onSuccess: (response) => {
       setToken(response.data.accessToken);
@@ -78,14 +78,14 @@ export const useLogin = () => {
     },
   });
 
-  return mutateAsync;
+  return { login, isPending };
 };
 
 export const useLogout = () => {
   const navigate = useNavigate();
   const { setToken } = useToken();
 
-  const { mutateAsync } = useMutation({
+  const { mutateAsync: logout, isPending } = useMutation({
     mutationFn: logoutPost,
     onSuccess: () => {
       setToken(undefined);
@@ -103,5 +103,5 @@ export const useLogout = () => {
     },
   });
 
-  return mutateAsync;
+  return { logout, isPending };
 };

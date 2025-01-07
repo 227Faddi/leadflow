@@ -12,7 +12,7 @@ const LoginForm = () => {
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
 
-  const login = useLogin();
+  const { login } = useLogin();
 
   const onSubmit: SubmitHandler<LoginFormData> = async (formData) => {
     await login(formData);

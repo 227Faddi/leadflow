@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { changePassSchema } from "../../utils/zod/formValidation";
-import { LoginFormData } from "../../types";
+import { changePasswordSchema } from "../../utils/zod/formValidation";
+import { ChangePassword } from "../../types";
 import { useChangePassword } from "../../features/user/hooks";
 
 const ChangePassForm = () => {
@@ -10,11 +10,11 @@ const ChangePassForm = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<LoginFormData>({ resolver: zodResolver(changePassSchema) });
+  } = useForm<ChangePassword>({ resolver: zodResolver(changePasswordSchema) });
 
   const changePassword = useChangePassword();
 
-  const onSubmit: SubmitHandler<LoginFormData> = async (formData) => {
+  const onSubmit: SubmitHandler<ChangePassword> = async (formData) => {
     await changePassword(formData);
   };
 

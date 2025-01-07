@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { axiosInstance } from "../../utils/axios/axios";
-import { LoginFormData, SignupFormData } from "../../types";
+import { LoginFormData } from "../../types";
 
 export const userGet = async (): Promise<any> => {
   const response = await axiosInstance.get("/user/get");
@@ -14,7 +14,7 @@ export const refreshGet = async (): Promise<any> => {
   return response;
 };
 
-export const signupPost = async (formData: SignupFormData): Promise<any> => {
+export const signupPost = async (formData: FormData): Promise<any> => {
   const response = await axiosInstance.post("/auth/signup", formData, {
     headers: {
       "Content-Type": "multipart/form-data",

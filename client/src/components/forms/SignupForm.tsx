@@ -12,15 +12,17 @@ const SignupForm = () => {
     formState: { errors, isSubmitting },
   } = useForm<SignupFormData>({ resolver: zodResolver(signupSchema) });
 
-  const signup = useSignup();
+  const { signup } = useSignup();
 
   const onSubmit: SubmitHandler<SignupFormData> = async (formData) => {
     const data = new FormData();
+
     data.append("username", formData.username);
     data.append("email", formData.email);
     data.append("password", formData.password);
     data.append("confirmPassword", formData.confirmPassword);
     data.append("profileImg", formData.profileImg);
+
     await signup(data);
   };
 

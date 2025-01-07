@@ -20,8 +20,12 @@ const EditProfileForm = () => {
 
   const onSubmit: SubmitHandler<EditProfile> = async (formData) => {
     const data = new FormData();
+
+    if (formData.profileImg) {
+      data.append("profileImg", formData.profileImg);
+    }
     data.append("username", formData.username);
-    data.append("profileImg", formData.profileImg);
+
     await editProfile(data);
   };
 
