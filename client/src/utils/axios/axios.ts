@@ -1,13 +1,14 @@
 import Axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { refreshGet } from "../../features/auth/api";
+import { Token } from "../../types";
 
 export const axiosInstance = Axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   withCredentials: true,
 });
 
-export const updateAxiosHeader = (token: string | null) => {
+export const updateAxiosHeader = (token: Token) => {
   if (token) {
     axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
   } else {

@@ -5,11 +5,12 @@ import toast from "react-hot-toast";
 import authKeys from "./queryKeys";
 import { useNavigate } from "react-router-dom";
 import { updateAxiosHeader } from "../../utils/axios/axios";
+import { Token } from "../../types";
 
 export const useToken = () => {
   const queryClient = useQueryClient();
   const token = queryClient.getQueryData(authKeys.token);
-  const setToken = (newToken: string | null) => {
+  const setToken = (newToken: Token) => {
     queryClient.setQueryData(authKeys.token, newToken);
     updateAxiosHeader(newToken);
   };
@@ -22,7 +23,7 @@ export const useGetRefreshToken = () => {
     data: token,
     isLoading,
     isError,
-  } = useQuery({
+  } = useQuery<Token>({
     queryFn: refreshGet,
     queryKey: authKeys.token,
   });
@@ -87,7 +88,7 @@ export const useLogout = () => {
   const { mutateAsync } = useMutation({
     mutationFn: logoutPost,
     onSuccess: () => {
-      setToken(null);
+      setToken(undefined);
       toast.success("Logout completed successfully");
       navigate("/");
     },

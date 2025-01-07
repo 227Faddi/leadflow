@@ -90,3 +90,42 @@ export const leadSchema = z.object({
     .min(1, { message: "Location is required." })
     .max(30, { message: "Location cannot exceed 30 characters." }),
 });
+
+export const changePassSchema = z
+  .object({
+    currentPassword: z.string().min(1, { message: "Password is required." }),
+    newPassword: z.string().min(1, { message: "Password is required." }),
+    confirmPassword: z.string().min(8, {
+      message: "Confirm Password must be at least 8 characters long.",
+    }),
+  })
+  .refine(
+    (data) => {
+      return data.newPassword === data.confirmPassword;
+    },
+    {
+      message: "Passwords do not match.",
+      path: ["confirmPassword"],
+    }
+  );
+
+export const editProfileSchema = z.object({
+  username: z
+    .string()
+    .min(1, { message: "Username is required." })
+    .max(30, { message: "Username cannot exceed 30 characters." }),
+  profileImg: z
+    .instanceof(FileList)
+    .transform((fileList) => fileList[0] || null)
+    .refine((file) => !file || file.size <= 5 * 1024 * 1024, {
+      message: "File must be 5MB or smaller.",
+    })
+    .refine(
+      (file) =>
+        !file ||
+        ["image/png", "image/jpeg", "image/jpg", "image/webp"].includes(
+          file.type
+        ),
+      { message: "Only PNG, JPEG, JPG, and WEBP images are allowed." }
+    ),
+});

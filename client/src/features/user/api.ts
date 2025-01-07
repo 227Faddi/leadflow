@@ -9,3 +9,16 @@ export const getUser = async (): Promise<any> => {
 export const deleteUser = async (): Promise<void> => {
   await axiosInstance.delete(`/user/delete`);
 };
+
+export const changePassword = async (): Promise<void> => {
+  await axiosInstance.put(`/user/change-password`);
+};
+
+export const editProfile = async (formData: FormData): Promise<any> => {
+  const response = await axiosInstance.put("/user/edit-profile", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};

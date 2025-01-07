@@ -2,12 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { loginSchema } from "../../utils/zod/formValidation";
-import { useNavigate } from "react-router-dom";
 import { LoginFormData } from "../../types";
 import { useLogin } from "../../features/auth/hooks";
 
 const LoginForm = () => {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -17,11 +15,7 @@ const LoginForm = () => {
   const login = useLogin();
 
   const onSubmit: SubmitHandler<LoginFormData> = async (formData) => {
-    await login(formData, {
-      onSuccess: () => {
-        navigate("/dashboard");
-      },
-    });
+    await login(formData);
   };
 
   return (

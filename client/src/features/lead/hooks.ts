@@ -14,7 +14,7 @@ import leadKeys from "./queryKeys";
 import { useNavigate } from "react-router-dom";
 
 export const useGetLeads = () => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery<Lead[]>({
     queryFn: () => fetchLeads(),
     queryKey: leadKeys.all,
   });
@@ -22,7 +22,7 @@ export const useGetLeads = () => {
 };
 
 export const useGetLead = (id: Lead["id"]) => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError } = useQuery<Lead>({
     queryFn: () => fetchLead(id),
     queryKey: leadKeys.single(id),
   });
