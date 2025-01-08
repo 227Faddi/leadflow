@@ -12,6 +12,7 @@ import { Lead } from "../../types";
 import toast from "react-hot-toast";
 import leadKeys from "./queryKeys";
 import { useNavigate } from "react-router-dom";
+import handleError from "../../utils/axios/handleError";
 
 export const useGetLeads = () => {
   const { data, isLoading, isError } = useQuery<Lead[]>({
@@ -40,7 +41,7 @@ export const useAddLead = () => {
       queryClient.invalidateQueries({ queryKey: leadKeys.all });
       navigate("/dashboard");
     },
-    onError: () => toast.error("An error occurred. Please try again."),
+    onError: (err) => handleError(err),
   });
 
   return mutateAsync;
@@ -55,7 +56,7 @@ export const useDeleteLead = () => {
       toast.success("Lead deleted successfully.");
       queryClient.invalidateQueries({ queryKey: leadKeys.all });
     },
-    onError: () => toast.error("An error occurred. Please try again."),
+    onError: (err) => handleError(err),
   });
 
   return mutateAsync;
@@ -70,7 +71,7 @@ export const useDeleteAllLeads = () => {
       toast.success("Leads deleted successfully.");
       queryClient.invalidateQueries({ queryKey: leadKeys.all });
     },
-    onError: () => toast.error("An error occurred. Please try again."),
+    onError: (err) => handleError(err),
   });
 
   return mutateAsync;
@@ -87,7 +88,7 @@ export const useEditLead = () => {
       queryClient.invalidateQueries({ queryKey: leadKeys.all });
       navigate("/dashboard");
     },
-    onError: () => toast.error("An error occurred. Please try again."),
+    onError: (err) => handleError(err),
   });
 
   return mutateAsync;
@@ -99,7 +100,7 @@ export const useUpdateStatus = () => {
   const { mutateAsync } = useMutation({
     mutationFn: updateStatus,
     onSuccess: () => queryClient.invalidateQueries({ queryKey: leadKeys.all }),
-    onError: () => toast.error("An error occurred. Please try again."),
+    onError: (err) => handleError(err),
   });
 
   return mutateAsync;

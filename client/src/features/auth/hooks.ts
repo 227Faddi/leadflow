@@ -1,11 +1,11 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { signupPost, loginPost, logoutPost, refreshGet } from "./api";
-import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import authKeys from "./queryKeys";
 import { useNavigate } from "react-router-dom";
 import { updateAxiosHeader } from "../../utils/axios/axios";
 import { Token } from "../../types";
+import handleError from "../../utils/axios/handleError";
 
 export const useToken = () => {
   const queryClient = useQueryClient();
@@ -18,7 +18,6 @@ export const useToken = () => {
 };
 
 export const useGetRefreshToken = () => {
-  // const { setToken } = useToken();
   const {
     data: token,
     isLoading,
@@ -27,7 +26,6 @@ export const useGetRefreshToken = () => {
     queryFn: refreshGet,
     queryKey: authKeys.token,
   });
-  // setToken(token);
   return { token, isLoading, isError };
 };
 
@@ -42,15 +40,7 @@ export const useSignup = () => {
       toast.success(response.data.message || "Welcome!");
       navigate("/dashboard");
     },
-    onError: (err) => {
-      if (err instanceof AxiosError) {
-        toast.error(
-          err.response?.data?.message || "An error occurred. Please try again."
-        );
-      } else {
-        toast.error("An error occurred. Please try again.");
-      }
-    },
+    onError: (err) => handleError(err),
   });
 
   return { signup, isPending };
@@ -67,15 +57,7 @@ export const useLogin = () => {
       toast.success("Welcome Back!");
       navigate("/dashboard");
     },
-    onError: (err) => {
-      if (err instanceof AxiosError) {
-        toast.error(
-          err.response?.data?.message || "An error occurred. Please try again."
-        );
-      } else {
-        toast.error("An error occurred. Please try again.");
-      }
-    },
+    onError: (err) => handleError(err),
   });
 
   return { login, isPending };
@@ -92,15 +74,7 @@ export const useLogout = () => {
       toast.success("Logout completed successfully");
       navigate("/");
     },
-    onError: (err) => {
-      if (err instanceof AxiosError) {
-        toast.error(
-          err.response?.data?.message || "An error occurred. Please try again."
-        );
-      } else {
-        toast.error("An error occurred. Please try again.");
-      }
-    },
+    onError: (err) => handleError(err),
   });
 
   return { logout, isPending };

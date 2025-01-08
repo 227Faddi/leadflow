@@ -5,7 +5,7 @@ import { User } from "../../types";
 import { useToken } from "../auth/hooks";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { AxiosError } from "axios";
+import handleError from "../../utils/axios/handleError";
 
 export const useUser = () => {
   const queryClient = useQueryClient();
@@ -40,7 +40,7 @@ export const useDeleteUser = () => {
       setToken(undefined);
       navigate("/");
     },
-    onError: () => toast.error("An error occurred. Please try again."),
+    onError: (err) => handleError(err),
   });
 
   return mutateAsync;
@@ -55,15 +55,7 @@ export const useChangePassword = () => {
       toast.success("Password changed successfully.");
       navigate("/settings");
     },
-    onError: (err) => {
-      if (err instanceof AxiosError) {
-        toast.error(
-          err.response?.data?.message || "An error occurred. Please try again."
-        );
-      } else {
-        toast.error("An error occurred. Please try again.");
-      }
-    },
+    onError: (err) => handleError(err),
   });
 
   return mutateAsync;
@@ -80,7 +72,7 @@ export const useEditProfile = () => {
       toast.success("Profile edited successfully.");
       navigate("/settings");
     },
-    onError: () => toast.error("An error occurred. Please try again."),
+    onError: (err) => handleError(err),
   });
 
   return mutateAsync;
