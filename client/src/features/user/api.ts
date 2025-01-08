@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { ChangePassword } from "../../types";
+import { ChangePassword, User } from "../../types";
 import { axiosInstance } from "../../utils/axios/axios";
 
-export const getUser = async (): Promise<any> => {
+export const getUser = async (): Promise<User> => {
   const response = await axiosInstance.get("/user/get");
   return response.data;
 };
@@ -17,7 +16,7 @@ export const changePassword = async (
   await axiosInstance.put(`/user/edit/password`, formData);
 };
 
-export const editProfile = async (formData: FormData): Promise<any> => {
+export const editProfile = async (formData: FormData): Promise<User> => {
   const response = await axiosInstance.put("/user/edit", formData, {
     headers: {
       "Content-Type": "multipart/form-data",

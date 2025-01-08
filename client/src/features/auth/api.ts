@@ -1,31 +1,32 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { axiosInstance } from "../../utils/axios/axios";
-import { LoginFormData } from "../../types";
+import { LoginFormData, Token } from "../../types";
+import axios from "axios";
 
-export const userGet = async (): Promise<any> => {
-  const response = await axiosInstance.get("/user/get");
-  return response.data;
-};
-
+// Default axios instance to handle refresh interceptor
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const refreshGet = async (): Promise<any> => {
-  const response = await axiosInstance.get("/auth/refresh", {
+  const response = await axios.get("/auth/refresh", {
     withCredentials: true,
   });
   return response;
 };
 
-export const signupPost = async (formData: FormData): Promise<any> => {
+export const signupPost = async (
+  formData: FormData
+): Promise<{ accessToken: Token; message?: string }> => {
   const response = await axiosInstance.post("/auth/signup", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
-  return response;
+  return response.data;
 };
 
-export const loginPost = async (formData: LoginFormData): Promise<any> => {
+export const loginPost = async (
+  formData: LoginFormData
+): Promise<{ accessToken: Token; message?: string }> => {
   const response = await axiosInstance.post("/auth/login", formData);
-  return response;
+  return response.data;
 };
 
 export const logoutPost = async (): Promise<void> => {

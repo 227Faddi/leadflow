@@ -1,9 +1,9 @@
-import Axios from "axios";
+import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { refreshGet } from "../../features/auth/api";
 import { Token } from "../../types";
 
-export const axiosInstance = Axios.create({
+export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   withCredentials: true,
 });
@@ -18,17 +18,22 @@ export const updateAxiosHeader = (token: Token) => {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const refreshAuthLogic = async (failedRequest: any) => {
-  const response = await refreshGet();
-  if (response.data.message === "Refresh token expired") {
-    window.location.href = "/";
-    return Promise.reject("Refresh token expired");
+  try {
+    const response = await refreshGet();
+    const accessToken = response.data.accessToken;
+
+    if (!accessToken) {
+      window.location.href = "/";
+      return Promise.reject("Refresh token expired");
+    }
+    failedRequest.response.config.headers[
+      "Authorization"
+    ] = `Bearer ${accessToken}`;
+    updateAxiosHeader(accessToken);
+    return axiosInstance(failedRequest.response.config);
+  } catch (error) {
+    return Promise.reject(error);
   }
-  const accessToken = response.data.accessToken;
-  failedRequest.response.config.headers[
-    "Authorization"
-  ] = `Bearer ${accessToken}`;
-  updateAxiosHeader(accessToken);
-  return Promise.resolve();
 };
 
 createAuthRefreshInterceptor(axiosInstance, refreshAuthLogic, {

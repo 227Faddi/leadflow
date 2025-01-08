@@ -35,9 +35,9 @@ export const useSignup = () => {
 
   const { mutateAsync: signup, isPending } = useMutation({
     mutationFn: signupPost,
-    onSuccess: (response) => {
-      setToken(response.data.accessToken);
-      toast.success(response.data.message || "Welcome!");
+    onSuccess: ({ accessToken, message }) => {
+      setToken(accessToken);
+      toast.success(message || "Welcome!");
       navigate("/dashboard");
     },
     onError: (err) => handleError(err),
@@ -52,9 +52,9 @@ export const useLogin = () => {
 
   const { mutateAsync: login, isPending } = useMutation({
     mutationFn: loginPost,
-    onSuccess: (response) => {
-      setToken(response.data.accessToken);
-      toast.success("Welcome Back!");
+    onSuccess: ({ accessToken, message }) => {
+      setToken(accessToken);
+      toast.success(message || "Welcome Back!");
       navigate("/dashboard");
     },
     onError: (err) => handleError(err),
