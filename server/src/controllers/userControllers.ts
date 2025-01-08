@@ -26,6 +26,13 @@ export default {
       where: { id: req.user },
     });
 
+    if (user?.username === 'Guest') {
+      res.status(400).json({
+        message: 'Sorry you can not modify this profile',
+      });
+      throw new Error('Sorry you can not modify this profile');
+    }
+
     if (!user) {
       res.status(404).json({ message: 'User not found' });
       return;
@@ -51,13 +58,6 @@ export default {
   updatePassword: asyncHandler(async (req: Request, res: Response) => {
     const { currentPassword, newPassword, confirmPassword } = req.body;
 
-    if (newPassword != confirmPassword) {
-      res.status(400).json({
-        message: 'Passwords do not match',
-      });
-      throw new Error('Passwords do not match');
-    }
-
     const user = await User.findOne({
       where: { id: req.user },
     });
@@ -65,6 +65,20 @@ export default {
     if (!user) {
       res.status(404).json({ message: 'User not found' });
       return;
+    }
+
+    if (user.username === 'Guest') {
+      res.status(400).json({
+        message: 'Sorry you can not modify this profile',
+      });
+      throw new Error('Sorry you can not modify this profile');
+    }
+
+    if (newPassword != confirmPassword) {
+      res.status(400).json({
+        message: 'Passwords do not match',
+      });
+      throw new Error('Passwords do not match');
     }
 
     // Check current password
@@ -92,6 +106,15 @@ export default {
       res.status(404).json({ message: 'User not found' });
       return;
     }
+
+    if (user.username === 'Guest') {
+      res.status(400).json({
+        message:
+          'Sorry you can not delete this profile, create a new one instead',
+      });
+      throw new Error('Sorry you can not delete this profile');
+    }
+
     user.destroy();
 
     // Delete old image in cloudinary

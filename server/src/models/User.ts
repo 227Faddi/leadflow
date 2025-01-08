@@ -1,8 +1,27 @@
-import { DataTypes } from 'sequelize';
 import Lead from './Lead.js';
 import sequelize from '../config/database.js';
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  CreationOptional,
+} from 'sequelize';
 
-const User = sequelize.define('User', {
+export interface UserModel
+  extends Model<
+    InferAttributes<UserModel>,
+    InferCreationAttributes<UserModel>
+  > {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+  profileImg: string;
+  cloudinaryId: CreationOptional<string>;
+}
+
+const User = sequelize.define<UserModel>('User', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,

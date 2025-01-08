@@ -1,7 +1,29 @@
-import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+} from 'sequelize';
 
-const Lead = sequelize.define(
+import { UserModel } from './User.js';
+
+export interface LeadModel
+  extends Model<
+    InferAttributes<LeadModel>,
+    InferCreationAttributes<LeadModel>
+  > {
+  id: string;
+  name: string;
+  email: string;
+  industry: string;
+  phone: string;
+  location: string;
+  status: 'new' | 'contacted' | 'negotiating' | 'converted' | 'disqualified';
+  userId: UserModel['id'];
+}
+
+const Lead = sequelize.define<LeadModel>(
   'Lead',
   {
     id: {
