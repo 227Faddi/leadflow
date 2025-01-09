@@ -8,6 +8,11 @@ export const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+export const axiosRefresh = axios.create({
+  baseURL: import.meta.env.VITE_SERVER_URL,
+  withCredentials: true,
+});
+
 export const updateAxiosHeader = (token: Token) => {
   if (token) {
     axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
@@ -26,12 +31,16 @@ const refreshAuthLogic = async (failedRequest: any) => {
       window.location.href = "/";
       return Promise.reject("Refresh token expired");
     }
+
     failedRequest.response.config.headers[
       "Authorization"
     ] = `Bearer ${accessToken}`;
+
     updateAxiosHeader(accessToken);
-    return axiosInstance(failedRequest.response.config);
+
+    return Promise.resolve();
   } catch (error) {
+    window.location.href = "/";
     return Promise.reject(error);
   }
 };

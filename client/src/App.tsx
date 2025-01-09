@@ -18,11 +18,14 @@ import SettingsPage from "./pages/SettingsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import NewLeadPage from "./pages/NewLeadPage";
 import EditLeadPage from "./pages/EditLeadPage";
+// import EnsureAuth from "./utils/auth/EnsureAuth";
+// import EnsureGuest from "./utils/auth/EnsureGuest";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
+        {/* <Route element={<EnsureAuth />}> */}
         <Route element={<DashboardLayout />}>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="analytics" element={<AnalyticsPage />} />
@@ -30,10 +33,12 @@ function App() {
           <Route path="add" element={<NewLeadPage />} />
           <Route path="edit/:id" element={<EditLeadPage />} />
         </Route>
-
+        {/* </Route> */}
+        {/* <Route element={<EnsureGuest />}> */}
         <Route path="/" element={<HomePage />} />
         <Route path="signup" element={<SignupPage />} />
         <Route path="login" element={<LoginPage />} />
+        {/* </Route> */}
 
         <Route path="*" element={<NotFoundPage />} />
       </Route>

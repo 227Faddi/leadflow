@@ -25,6 +25,7 @@ export const useGetRefreshToken = () => {
   } = useQuery<Token>({
     queryFn: refreshGet,
     queryKey: authKeys.token,
+    retry: false,
   });
   return { token, isLoading, isError };
 };
