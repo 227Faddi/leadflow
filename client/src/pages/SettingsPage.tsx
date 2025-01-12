@@ -14,20 +14,20 @@ const SettingsPage = () => {
   const isEditProfile = params.has("edit-profile");
   const isChangePassword = params.has("change-password");
 
-  const handleDeleteProfile = () => {
+  const handleDeleteProfile = async () => {
     const confirmed = window.confirm(
       "Are you sure you want to delete your profile? This action cannot be undone."
     );
     if (confirmed) {
-      deleteUser();
+      await deleteUser();
     }
   };
-  const handleDeleteAll = () => {
+  const handleDeleteAll = async () => {
     const confirmed = window.confirm(
       "Are you sure you want to delete all your leads? This action cannot be undone and all data will be permanently lost."
     );
     if (confirmed) {
-      deleteLeads();
+      await deleteLeads();
     }
   };
   return (

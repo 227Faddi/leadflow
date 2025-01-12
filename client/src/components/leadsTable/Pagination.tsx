@@ -6,6 +6,7 @@ import {
   FaAnglesRight,
 } from "react-icons/fa6";
 import { Lead } from "../../types/index";
+import { LuChevronsUpDown } from "react-icons/lu";
 
 const Pagination = ({ table }: { table: Table<Lead> }) => {
   return (
@@ -45,18 +46,22 @@ const Pagination = ({ table }: { table: Table<Lead> }) => {
           Page {table.getState().pagination.pageIndex + 1} of{" "}
           {table.getPageCount()}
         </p>
-        <select
-          value={table.getState().pagination.pageSize}
-          onChange={(e) => {
-            table.setPageSize(Number(e.target.value));
-          }}
-        >
-          {[5, 10, 15, 20, 25].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
+        <div className="relative">
+          <select
+            className="appearance-none px-6 cursor-pointer focus:outline-none"
+            value={table.getState().pagination.pageSize}
+            onChange={(e) => {
+              table.setPageSize(Number(e.target.value));
+            }}
+          >
+            {[5, 10, 15, 20, 25].map((pageSize) => (
+              <option key={pageSize} value={pageSize}>
+                Show {pageSize}
+              </option>
+            ))}
+          </select>
+          <LuChevronsUpDown className="text-gray-900 cursor-pointer h-4 w-4 absolute top-1/2 right-2 transform -translate-y-1/2" />
+        </div>
       </div>
     </div>
   );

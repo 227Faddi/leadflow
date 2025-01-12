@@ -4,7 +4,7 @@ import { Lead } from "../../types";
 const columnHelper = createColumnHelper<Lead>();
 import DeleteRow from "./DeleteRow";
 import UpdateRow from "./UpdateRow";
-import { TiEdit } from "react-icons/ti";
+import { LuMail, LuPenSquare } from "react-icons/lu";
 
 // Custom sorting for status
 const sortStatusFn: SortingFn<Lead> = (rowA, rowB) => {
@@ -29,12 +29,9 @@ const Columns = () => {
           <div className="text-sm font-medium leading-5 text-gray-900">
             {info.getValue()}
           </div>
-          <a
-            href={`mailto:${info.getValue()}`}
-            className="text-sm leading-5 text-gray-500"
-          >
+          <p className="text-sm leading-5 text-gray-500">
             {info.row.original.email}
-          </a>
+          </p>
         </>
       ),
     }),
@@ -66,10 +63,16 @@ const Columns = () => {
       cell: (props) => (
         <div className="flex justify-center gap-10">
           <a
-            href={`/edit/${props.row.original.id}`}
-            className="text-gray-600 hover:text-gray-900"
+            href={`mailto:${props.row.original.email}`}
+            className="text-gray-900 hover:text-gray-600"
           >
-            <TiEdit size={27} />
+            <LuMail size={23} />
+          </a>
+          <a
+            href={`/edit/${props.row.original.id}`}
+            className="text-gray-900 hover:text-gray-600"
+          >
+            <LuPenSquare size={23} />
           </a>
           <DeleteRow id={props.row.original.id} />
         </div>
