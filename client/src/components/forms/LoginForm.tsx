@@ -24,7 +24,7 @@ const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      <div className="mb-4 flex flex-col gap-6">
+      <div className="mb-4 flex flex-col space-y-2">
         <div>
           <label className="block mb-2 text-md text-bold text-gray-900">
             Email
@@ -35,9 +35,9 @@ const LoginForm = () => {
             className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Your Email"
           />
-          {errors.email && (
-            <p className="text-red-700 mt-1">{errors.email.message}</p>
-          )}
+          <p className="text-red-700 h-4 text-sm sm:text-base">
+            {errors?.email?.message}
+          </p>
         </div>
         <div>
           <label className="block mb-2 text-md text-bold text-gray-900">
@@ -49,9 +49,9 @@ const LoginForm = () => {
             className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Your Password"
           />
-          {errors.password && (
-            <div className="text-red-700 mt-1">{errors.password.message}</div>
-          )}
+          <p className="text-red-700 h-4 text-sm sm:text-base">
+            {errors?.password?.message}
+          </p>
         </div>
       </div>
       <button

@@ -32,7 +32,6 @@ const Table = ({ leads }: Props) => {
   const table = useReactTable({
     data: data,
     columns: columns,
-    debugTable: true,
     state: {
       columnFilters,
     },

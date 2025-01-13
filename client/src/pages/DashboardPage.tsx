@@ -1,5 +1,5 @@
 import DashboardActions from "../components/DashboardInfo";
-import Table from "../components/leadsTable/Table.tsx";
+import Table from "../components/table/Table.tsx";
 import Spinner from "../components/ui/Spinner.tsx";
 import ErrorMessage from "../components/ui/ErrorMessage.tsx";
 import { useGetLeads } from "../features/lead/hooks.ts";

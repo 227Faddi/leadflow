@@ -30,9 +30,9 @@ export const signupSchema = z
       .string()
       .min(8, { message: "Password must be at least 8 characters long." }),
 
-    confirmPassword: z.string().min(8, {
-      message: "Confirm Password must be at least 8 characters long.",
-    }),
+    confirmPassword: z
+      .string()
+      .min(1, { message: "Confirm Password is required." }),
     profileImg: z
       .instanceof(FileList)
       .transform((fileList) => fileList[0] || null)
@@ -94,10 +94,12 @@ export const leadSchema = z.object({
 export const changePasswordSchema = z
   .object({
     currentPassword: z.string().min(1, { message: "Password is required." }),
-    newPassword: z.string().min(1, { message: "Password is required." }),
-    confirmPassword: z.string().min(8, {
-      message: "Confirm Password must be at least 8 characters long.",
-    }),
+    newPassword: z
+      .string()
+      .min(1, { message: "New Password must be at least 8 characters long." }),
+    confirmPassword: z
+      .string()
+      .min(1, { message: "Confirm Password is required." }),
   })
   .refine(
     (data) => {

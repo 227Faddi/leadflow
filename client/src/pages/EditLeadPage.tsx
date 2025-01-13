@@ -12,7 +12,7 @@ const EditLeadPage = () => {
   return (
     <div className="h-full container px-6 py-8 mx-auto">
       <h3 className="text-3xl font-medium text-gray-900">Edit Lead</h3>
-      <div className="h-full flex flex-col items-center justify-center px-10">
+      <div className="h-full flex flex-col items-center justify-center px-4">
         <div className="w-full max-w-sm">
           {isLoading && <Spinner />}
           {isError && <ErrorMessage />}

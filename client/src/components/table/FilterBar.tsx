@@ -12,7 +12,7 @@ type Props = {
 const FilterBar = ({ filteredName, filteredStatus, onFilterChange }: Props) => {
   return (
     <div className="flex flex-col sm:flex-row gap-4 justify-between mt-10">
-      <form className="max-w-3xl flex items-center w-full">
+      <form className="max-w-md flex items-center w-full">
         <div className="relative w-full">
           <div className="absolute inset-y-0 left-0 flex items-center px-4">
             <FaSearch className="w-4 h-4 text-gray-900" />
