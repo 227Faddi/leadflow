@@ -1,5 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { LuMail, LuPenSquare, LuTrash2 } from "react-icons/lu";
+import { Link } from "react-router-dom";
 import { Lead } from "../../types";
 import ConfirmModal from "../modals/ConfirmModal";
 import UpdateRow from "./UpdateRow";
@@ -68,12 +69,12 @@ const Columns = ({ deleteRow }: Props) => {
           >
             <LuMail size={23} />
           </a>
-          <a
-            href={`/edit/${props.row.original.id}`}
+          <Link
+            to={`/edit/${props.row.original.id}`}
             className="text-gray-900 hover:text-gray-600"
           >
             <LuPenSquare size={23} />
-          </a>
+          </Link>
           <ConfirmModal
             children={<LuTrash2 size={23} />}
             title="Delete Lead"

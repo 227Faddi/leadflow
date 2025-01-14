@@ -1,11 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { loginPost, logoutPost, refreshGet, signupPost } from "./api";
 import toast from "react-hot-toast";
-import authKeys from "./queryKeys";
 import { useNavigate } from "react-router-dom";
-import { updateAxiosHeader } from "../../utils/axios/axios";
 import { Token } from "../../types";
+import { updateAxiosHeader } from "../../utils/axios/axios";
 import handleError from "../../utils/axios/handleError";
+import { loginPost, logoutPost, refreshGet, signupPost } from "./api";
+
+export const authKeys = {
+  token: ["token"] as const,
+};
 
 export const useToken = () => {
   const queryClient = useQueryClient();

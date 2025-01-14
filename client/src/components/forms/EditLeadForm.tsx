@@ -1,10 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { leadSchema } from "../../utils/zod/formValidation";
 import { Link } from "react-router-dom";
-import { Lead } from "../../types";
-import { LeadForm } from "../../types";
 import { useEditLead } from "../../features/lead/hooks";
+import { Lead, LeadForm } from "../../types";
+import { leadSchema } from "../../utils/zod/formValidation";
 
 type Props = {
   lead: Lead;
@@ -19,10 +18,10 @@ const EditLeadForm = ({ lead }: Props) => {
     formState: { errors, isSubmitting },
   } = useForm<LeadForm>({
     resolver: zodResolver(leadSchema),
-    defaultValues: lead,
+    values: lead,
   });
 
-  const editLead = useEditLead();
+  const editLead = useEditLead(id);
 
   const onSubmit: SubmitHandler<LeadForm> = async (formData) => {
     await editLead({ id, formData });
@@ -37,7 +36,7 @@ const EditLeadForm = ({ lead }: Props) => {
       <div className="w-full mb-4 flex flex-col space-y-2 items-center justify-center">
         <div className="w-full">
           <label className="block mb-2 text-md text-bold text-gray-900">
-            Name
+            Name {lead.name}
           </label>
           <input
             {...register("name")}

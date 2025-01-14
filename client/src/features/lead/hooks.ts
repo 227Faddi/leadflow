@@ -1,4 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { Lead } from "../../types";
+import handleError from "../../utils/axios/handleError";
 import {
   addLead,
   deleteAllLeads,
@@ -8,11 +12,11 @@ import {
   fetchLeads,
   updateStatus,
 } from "./api";
-import { Lead } from "../../types";
-import toast from "react-hot-toast";
-import leadKeys from "./queryKeys";
-import { useNavigate } from "react-router-dom";
-import handleError from "../../utils/axios/handleError";
+
+export const leadKeys = {
+  all: ["leads"] as const,
+  single: (id: Lead["id"]) => ["lead", id] as const,
+};
 
 export const useGetLeads = () => {
   const { data, isLoading, isError } = useQuery<Lead[]>({
@@ -31,15 +35,15 @@ export const useGetLead = (id: Lead["id"]) => {
 };
 
 export const useAddLead = () => {
-  const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { mutateAsync } = useMutation({
     mutationFn: addLead,
     onSuccess: () => {
       toast.success("Lead added successfully.");
       queryClient.invalidateQueries({ queryKey: leadKeys.all });
-      navigate("/dashboard");
+      return navigate("/dashboard");
     },
     onError: (err) => handleError(err),
   });
@@ -77,7 +81,7 @@ export const useDeleteAllLeads = () => {
   return mutateAsync;
 };
 
-export const useEditLead = () => {
+export const useEditLead = (id: Lead["id"]) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
@@ -86,6 +90,7 @@ export const useEditLead = () => {
     onSuccess: () => {
       toast.success("Lead edited successfully.");
       queryClient.invalidateQueries({ queryKey: leadKeys.all });
+      queryClient.invalidateQueries({ queryKey: leadKeys.single(id) });
       navigate("/dashboard");
     },
     onError: (err) => handleError(err),

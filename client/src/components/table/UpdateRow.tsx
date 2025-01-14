@@ -1,8 +1,8 @@
-import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
-import { Lead } from "../../types";
-import { useUpdateStatus } from "../../features/lead/hooks";
+import toast from "react-hot-toast";
 import { LuChevronsUpDown } from "react-icons/lu";
+import { useUpdateStatus } from "../../features/lead/hooks";
+import { Lead } from "../../types";
 
 type Props = {
   status: Lead["status"];

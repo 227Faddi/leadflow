@@ -1,13 +1,14 @@
 import { useParams } from "react-router-dom";
-import { Lead } from "../types";
 import EditLeadForm from "../components/forms/EditLeadForm";
-import Spinner from "../components/ui/Spinner";
 import ErrorMessage from "../components/ui/ErrorMessage";
+import Spinner from "../components/ui/Spinner";
 import { useGetLead } from "../features/lead/hooks";
+import { Lead } from "../types";
 
 const EditLeadPage = () => {
   const { id } = useParams<{ id: Lead["id"] }>();
-  const { data: lead, isLoading, isError } = useGetLead(id!);
+
+  const { data: lead, isLoading, isError } = useGetLead(id as string);
 
   return (
     <div className="h-full container px-6 py-8 mx-auto">
@@ -16,7 +17,7 @@ const EditLeadPage = () => {
         <div className="w-full max-w-sm">
           {isLoading && <Spinner />}
           {isError && <ErrorMessage />}
-          {!isLoading && !isError && <EditLeadForm lead={lead!} />}
+          {lead && <EditLeadForm lead={lead} />}
         </div>
       </div>
     </div>
