@@ -1,5 +1,5 @@
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { deleteUser, getUser, changePassword, editProfile } from "./api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { changePassword, deleteUser, editProfile, getUser } from "./api";
 import userKeys from "./queryKeys";
 import { User } from "../../types";
 import { useToken } from "../auth/hooks";

@@ -1,12 +1,12 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  fetchLeads,
-  fetchLead,
   addLead,
-  editLead,
-  deleteLead,
-  updateStatus,
   deleteAllLeads,
+  deleteLead,
+  editLead,
+  fetchLead,
+  fetchLeads,
+  updateStatus,
 } from "./api";
 import { Lead } from "../../types";
 import toast from "react-hot-toast";

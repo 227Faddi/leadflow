@@ -1,26 +1,15 @@
-import { createColumnHelper, SortingFn } from "@tanstack/react-table";
+import { createColumnHelper } from "@tanstack/react-table";
+import { LuMail, LuPenSquare, LuTrash2 } from "react-icons/lu";
 import { Lead } from "../../types";
-
-const columnHelper = createColumnHelper<Lead>();
-import DeleteRow from "./DeleteRow";
+import ConfirmModal from "../modals/ConfirmModal";
 import UpdateRow from "./UpdateRow";
-import { LuMail, LuPenSquare } from "react-icons/lu";
+const columnHelper = createColumnHelper<Lead>();
 
-// Custom sorting for status
-const sortStatusFn: SortingFn<Lead> = (rowA, rowB) => {
-  const statusA = rowA.original.status;
-  const statusB = rowB.original.status;
-  const statusOrder = [
-    "new",
-    "contacted",
-    "negotiating",
-    "converted",
-    "disqualified",
-  ];
-  return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB);
+type Props = {
+  deleteRow: (id: string) => unknown;
 };
 
-const Columns = () => {
+const Columns = ({ deleteRow }: Props) => {
   return [
     columnHelper.accessor("name", {
       header: () => "name",
@@ -52,7 +41,18 @@ const Columns = () => {
       cell: (info) => (
         <UpdateRow status={info.getValue()} id={info.row.original.id} />
       ),
-      sortingFn: sortStatusFn,
+      sortingFn: (rowA, rowB) => {
+        const statusA = rowA.original.status;
+        const statusB = rowB.original.status;
+        const statusOrder = [
+          "new",
+          "contacted",
+          "negotiating",
+          "converted",
+          "disqualified",
+        ];
+        return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB);
+      },
       meta: {
         filterVariant: "status",
       },
@@ -74,7 +74,14 @@ const Columns = () => {
           >
             <LuPenSquare size={23} />
           </a>
-          <DeleteRow id={props.row.original.id} />
+          <ConfirmModal
+            children={<LuTrash2 size={23} />}
+            title="Delete Lead"
+            text={`Are you sure you want to delete the lead "${props.row.original.name}"?`}
+            confirmButtonText="Yes, delete it"
+            onClick={() => deleteRow(props.row.original.id)}
+            className="text-red-600 hover:text-red-900"
+          />
         </div>
       ),
     }),

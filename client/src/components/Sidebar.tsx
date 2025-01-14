@@ -1,10 +1,10 @@
-import { IoIosContacts } from "react-icons/io";
-import { IoMdSettings } from "react-icons/io";
 import { FaChartPie, FaUserPlus } from "react-icons/fa";
 import { FaChartColumn } from "react-icons/fa6";
+import { IoIosContacts, IoMdSettings } from "react-icons/io";
 import { MdLogout } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { useLogout } from "../features/auth/hooks";
+import ConfirmModal from "./modals/ConfirmModal";
 
 type Props = {
   sidebarOpen: boolean;
@@ -12,14 +12,7 @@ type Props = {
 };
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
-  const { logout, isPending } = useLogout();
-  const handleLogout = async () => {
-    const confirmed = window.confirm("Do you really want to log out?");
-    if (confirmed) {
-      await logout();
-    }
-  };
-
+  const { logout } = useLogout();
   return (
     <>
       <div
@@ -109,13 +102,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
             <IoMdSettings className="w-6 h-6" />
             <span>Settings</span>
           </NavLink>
-          <button
-            onClick={handleLogout}
+          <ConfirmModal
+            children={
+              <>
+                <MdLogout className="w-6 h-6" />
+                <span>Logout</span>
+              </>
+            }
+            title="Logout"
+            text="Do you really want to log out?"
+            confirmButtonText="Yes, log out"
+            onClick={logout}
             className="w-full flex items-center text-gray-500 p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
-          >
-            <MdLogout className="w-6 h-6" />
-            <span>{isPending ? "Loading..." : "Logout"}</span>
-          </button>
+          />
         </nav>
       </div>
     </>

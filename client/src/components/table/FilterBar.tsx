@@ -51,7 +51,7 @@ const FilterBar = ({ filteredName, filteredStatus, onFilterChange }: Props) => {
         <div className="p-2 bg-gray-900 text-white rounded-full">
           <FaUserPlus className="w-4 h-4" />
         </div>
-        <h4 className="text-lg mx-5 font-semibold text-gray-900">Add Lead</h4>
+        <p className="text-lg mx-5 font-semibold text-gray-900">Add New</p>
       </Link>
     </div>
   );

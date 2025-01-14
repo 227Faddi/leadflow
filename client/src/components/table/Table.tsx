@@ -1,18 +1,19 @@
 import {
-  getCoreRowModel,
-  useReactTable,
   flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  getFilteredRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
+import { HiArrowNarrowDown, HiArrowNarrowUp } from "react-icons/hi";
+import { PiArrowsDownUpBold } from "react-icons/pi";
+import { useDeleteLead } from "../../features/lead/hooks";
 import { Lead } from "../../types";
-import Pagination from "./Pagination";
 import Columns from "./Columns";
 import FilterBar from "./FilterBar";
-import { PiArrowsDownUpBold } from "react-icons/pi";
-import { HiArrowNarrowUp, HiArrowNarrowDown } from "react-icons/hi";
+import Pagination from "./Pagination";
 
 type Props = {
   leads: Lead[] | undefined;
@@ -26,7 +27,9 @@ type ColumnFiltersState = {
 const Table = ({ leads }: Props) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const columns = useMemo(() => Columns(), []);
+  const deleteRow = useDeleteLead();
+
+  const columns = useMemo(() => Columns({ deleteRow }), [deleteRow]);
   const data = leads || [];
 
   const table = useReactTable({

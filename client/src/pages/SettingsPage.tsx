@@ -1,8 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
-import { useDeleteUser } from "../features/user/hooks";
-import { useDeleteAllLeads } from "../features/lead/hooks";
 import ChangePassForm from "../components/forms/ChangePassForm";
 import EditProfileForm from "../components/forms/EditProfileForm";
+import ConfirmWithTextModal from "../components/modals/ConfirmWithTextModal";
+import { useDeleteAllLeads } from "../features/lead/hooks";
+import { useDeleteUser } from "../features/user/hooks";
 
 const SettingsPage = () => {
   const deleteUser = useDeleteUser();
@@ -14,22 +15,6 @@ const SettingsPage = () => {
   const isEditProfile = params.has("edit-profile");
   const isChangePassword = params.has("change-password");
 
-  const handleDeleteProfile = async () => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete your profile? This action cannot be undone."
-    );
-    if (confirmed) {
-      await deleteUser();
-    }
-  };
-  const handleDeleteAll = async () => {
-    const confirmed = window.confirm(
-      "Are you sure you want to delete all your leads? This action cannot be undone and all data will be permanently lost."
-    );
-    if (confirmed) {
-      await deleteLeads();
-    }
-  };
   return (
     <div className="h-full container px-6 py-8 mx-auto">
       <h3 className="text-3xl font-medium text-gray-900">Settings</h3>
@@ -51,18 +36,22 @@ const SettingsPage = () => {
               >
                 Change Password
               </Link>
-              <button
-                onClick={handleDeleteAll}
+              <ConfirmWithTextModal
+                children="Delete Profile"
+                title="Confirm Profile Deletion"
+                text="Are you sure you want to permanently delete your profile? This action cannot be undone."
+                onClick={deleteUser}
+                confirmText="delete my profile"
                 className="mt-4 max-w-sm text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                Delete All Leads
-              </button>
-              <button
-                onClick={handleDeleteProfile}
+              />
+              <ConfirmWithTextModal
+                children="Delete All Leads"
+                title="Confirm Deletion of All Leads"
+                text="Are you sure you want to permanently delete all leads? This action cannot be undone."
+                onClick={deleteLeads}
+                confirmText="delete all leads"
                 className="mt-4 max-w-sm text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                Delete My Account
-              </button>
+              />
             </div>
           )}
         </div>
