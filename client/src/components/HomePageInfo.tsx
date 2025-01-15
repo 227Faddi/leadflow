@@ -1,5 +1,4 @@
-import { FaUserPlus } from "react-icons/fa6";
-import { FaChartColumn } from "react-icons/fa6";
+import { FaChartColumn, FaUserPlus } from "react-icons/fa6";
 
 const HomePageInfo = () => {
   return (
@@ -27,7 +26,7 @@ const HomePageInfo = () => {
         </div>
         <div className="flex items-center flex-1">
           <img
-            className="w-full object-cover"
+            className="w-full object-cover max-w-2xl"
             src="/assets/img/desktop.webp"
             alt="dashboard preview"
           />
