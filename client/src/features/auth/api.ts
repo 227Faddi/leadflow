@@ -1,5 +1,5 @@
-import { axiosInstance, axiosRefresh } from "../../utils/axios/axios";
 import { LoginFormData, Token } from "../../types";
+import { axiosInstance, axiosRefresh } from "../../utils/axios/axios";
 
 // Default axios instance to handle refresh interceptor
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -7,11 +7,6 @@ export const refreshGet = async (): Promise<any> => {
   const response = await axiosRefresh.get("/auth/refresh", {
     withCredentials: true,
   });
-  // if(response.status === 401){
-  //   window.location.href = "/";
-
-  // }
-
   return response;
 };
 

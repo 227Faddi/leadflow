@@ -43,7 +43,7 @@ export const useAddLead = () => {
     onSuccess: () => {
       toast.success("Lead added successfully.");
       queryClient.invalidateQueries({ queryKey: leadKeys.all });
-      return navigate("/dashboard");
+      navigate("/dashboard");
     },
     onError: (err) => handleError(err),
   });
@@ -89,8 +89,8 @@ export const useEditLead = (id: Lead["id"]) => {
     mutationFn: editLead,
     onSuccess: () => {
       toast.success("Lead edited successfully.");
-      queryClient.invalidateQueries({ queryKey: leadKeys.all });
       queryClient.invalidateQueries({ queryKey: leadKeys.single(id) });
+      queryClient.invalidateQueries({ queryKey: leadKeys.all });
       navigate("/dashboard");
     },
     onError: (err) => handleError(err),
