@@ -7,11 +7,14 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
+import { FaUserPlus } from "react-icons/fa";
 import { HiArrowNarrowDown, HiArrowNarrowUp } from "react-icons/hi";
 import { PiArrowsDownUpBold } from "react-icons/pi";
+import { Link } from "react-router-dom";
 import { useDeleteLead } from "../../features/lead/hooks";
 import { Lead } from "../../types";
 import Columns from "./Columns";
+import ExportTable from "./ExportTable";
 import FilterBar from "./FilterBar";
 import Pagination from "./Pagination";
 
@@ -63,11 +66,26 @@ const Table = ({ leads }: Props) => {
 
   return (
     <>
-      <FilterBar
-        filteredName={filteredName}
-        filteredStatus={filteredStatus}
-        onFilterChange={onFilterChange}
-      />
+      <div className="flex flex-col sm:flex-row gap-4 justify-between mt-10">
+        <FilterBar
+          filteredName={filteredName}
+          filteredStatus={filteredStatus}
+          onFilterChange={onFilterChange}
+        />
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Link
+            to="/add"
+            aria-label="Add New Lead"
+            className="flex items-center p-4 bg-gray-50 rounded-lg shadow-lg"
+          >
+            <div className="p-2 bg-gray-900 text-white rounded-full">
+              <FaUserPlus className="w-4 h-4" />
+            </div>
+            <p className="text-lg mx-5 font-semibold text-gray-900">Add New</p>
+          </Link>
+          <ExportTable table={table} />
+        </div>
+      </div>
       <div className="flex flex-col mt-8">
         <div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
           <div className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
