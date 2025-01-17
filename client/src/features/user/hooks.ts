@@ -16,7 +16,6 @@ export const useUser = () => {
   const setUser = (newUser: User) => {
     queryClient.setQueryData(userKeys.user, newUser);
   };
-
   return { user, setUser };
 };
 

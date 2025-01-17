@@ -35,7 +35,7 @@ const ExportTable = ({ table }: Props) => {
       <div className="p-2 bg-gray-900 text-white rounded-full">
         <LuDownload className="w-4 h-4" />
       </div>
-      <p className="text-lg mx-5 font-semibold text-gray-900">Export All</p>
+      <p className="text-lg mx-5 font-semibold text-gray-900">Export</p>
     </button>
   );
 };

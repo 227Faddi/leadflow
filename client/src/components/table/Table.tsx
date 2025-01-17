@@ -98,7 +98,8 @@ const Table = ({ leads }: Props) => {
                   >
                     {headerGroup.headers.map((header) =>
                       header.column.id === "actions" ||
-                      header.column.id === "status" ? (
+                      header.column.id === "status" ||
+                      header.column.id === "select" ? (
                         <th
                           key={header.id}
                           className="px-6 py-3 text-xs font-medium leading-4 tracking-wider uppercase text-center"

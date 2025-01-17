@@ -36,7 +36,7 @@ const EditLeadForm = ({ lead }: Props) => {
       <div className="w-full mb-4 flex flex-col space-y-2 items-center justify-center">
         <div className="w-full">
           <label className="block mb-2 text-md text-bold text-gray-900">
-            Name {lead.name}
+            Name
           </label>
           <input
             {...register("name")}

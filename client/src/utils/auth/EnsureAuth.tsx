@@ -1,9 +1,8 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useGetRefreshToken } from "../../features/auth/hooks";
+import { useToken } from "../../features/auth/hooks";
 
 const EnsureAuth = () => {
-  const { token, isError } = useGetRefreshToken();
-  if (isError) return <Navigate to="/" />;
+  const { token } = useToken();
   return token ? <Outlet /> : <Navigate to="/" />;
 };
 
