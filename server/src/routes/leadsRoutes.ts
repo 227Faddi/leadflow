@@ -7,15 +7,12 @@ const router = express.Router();
 router.use(verifyJWT);
 
 router.get('/', leadsControllers.getLeads);
+router.post('/', leadsControllers.addLead);
+router.delete('/', leadsControllers.deleteAllLeads);
+
+router.delete('/:id', leadsControllers.deleteLead);
 router.get('/:id', leadsControllers.getLead);
-
-router.post('/add', leadsControllers.addLead);
-
-router.put('/status/:id', leadsControllers.statusLead);
-router.put('/edit/:id', leadsControllers.editLead);
-
-router.delete('/delete/:id', leadsControllers.deleteLead);
-
-router.delete('/delete-all', leadsControllers.deleteAllLeads);
+router.put('/:id', leadsControllers.editLead);
+router.put('/:id/status', leadsControllers.statusLead);
 
 export default router;

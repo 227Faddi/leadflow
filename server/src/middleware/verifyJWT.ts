@@ -1,5 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { env } from '../config/index.js';
 
 const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization || req.headers.Authorization;
@@ -10,7 +11,7 @@ const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
 
   const token = (authHeader as string).split(' ')[1];
 
-  const jwtAccess = process.env.ACCESS_TOKEN_SECRET;
+  const jwtAccess = env.JWT_ACCESS_TOKEN_SECRET;
 
   if (!jwtAccess) {
     throw new Error('JWT variables are not defined');

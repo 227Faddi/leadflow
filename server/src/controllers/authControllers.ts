@@ -1,19 +1,22 @@
-import asyncHandler from 'express-async-handler';
-import { Request, Response } from 'express';
-import cloudinary from '../middleware/cloudinary.js';
 import bcrypt from 'bcrypt';
+import { Request, Response } from 'express';
+import asyncHandler from 'express-async-handler';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { env } from '../config/index.js';
+import cloudinary from '../middleware/cloudinary.js';
 import User from '../models/User.js';
 
-const jwtAccess = process.env.ACCESS_TOKEN_SECRET;
-const jwtRefresh = process.env.REFRESH_TOKEN_SECRET;
-
-const accessExipiration = '1m';
-const refreshExpiration = '1d';
+const jwtAccess = env.JWT_ACCESS_TOKEN_SECRET;
+const jwtRefresh = env.JWT_REFRESH_TOKEN_SECRET;
+const accessExpiration = env.JWT_ACCESS_TOKEN_EXPIRATION;
+const refreshExpiration = env.JWT_REFRESH_TOKEN_EXPIRATION;
+const refreshMaxAge = env.JWT_REFRESH_TOKEN_MAX_AGE;
+const avatar = env.AVATAR_DICEBEAR_URL;
 
 export default {
   refresh: asyncHandler((req: Request, res: Response) => {
     const cookies = req.cookies;
+
     if (!cookies?.jwt) {
       res.status(401).json({ message: 'Unauthorized' });
       return;
@@ -21,20 +24,16 @@ export default {
 
     const refreshToken = cookies.jwt;
 
-    if (!jwtAccess || !jwtRefresh) {
-      throw new Error('JWT secrets are not defined');
-    }
-
     jwt.verify(
       refreshToken,
-      jwtRefresh as string,
+      jwtRefresh,
       async (err: Error | null, decoded: string | JwtPayload | undefined) => {
         if (err) {
           if (err.name === 'TokenExpiredError') {
             res.clearCookie('jwt', {
               httpOnly: true,
-              sameSite: 'none',
               secure: true,
+              sameSite: 'none',
             });
             return res.status(401).json({ message: 'Refresh token expired' });
           }
@@ -56,8 +55,8 @@ export default {
               id: foundUser.dataValues.id,
             },
           },
-          jwtAccess as string,
-          { expiresIn: accessExipiration }
+          jwtAccess,
+          { expiresIn: accessExpiration }
         );
 
         res.json({ accessToken });
@@ -77,10 +76,6 @@ export default {
       throw new Error('Invalid credentials');
     }
 
-    if (!jwtAccess || !jwtRefresh) {
-      throw new Error('JWT variables are not defined');
-    }
-
     const accessToken = jwt.sign(
       {
         user: {
@@ -88,7 +83,7 @@ export default {
         },
       },
       jwtAccess,
-      { expiresIn: accessExipiration }
+      { expiresIn: accessExpiration }
     );
 
     const refreshToken = jwt.sign({ id: user.dataValues.id }, jwtRefresh, {
@@ -100,7 +95,7 @@ export default {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: refreshMaxAge,
     });
 
     res.json({ accessToken });
@@ -110,11 +105,10 @@ export default {
     const { username, email, password, confirmPassword } = req.body;
     const profileImg = req.file;
 
-    console.log(req.body);
-
     // Profile Image
     if (!profileImg) {
-      req.body.profileImg = `https://api.dicebear.com/9.x/initials/svg?seed=${username}`;
+      // save in .env
+      req.body.profileImg = avatar + username;
     } else {
       const customName = `profile_picture_${username}_${Date.now()}`;
       const result = await cloudinary.uploader.upload(profileImg.path, {
@@ -147,10 +141,6 @@ export default {
 
     const user = await User.create(req.body);
 
-    if (!jwtAccess || !jwtRefresh) {
-      throw new Error('JWT variables are not defined');
-    }
-
     const accessToken = jwt.sign(
       {
         user: {
@@ -158,7 +148,7 @@ export default {
         },
       },
       jwtAccess,
-      { expiresIn: '1m' }
+      { expiresIn: accessExpiration }
     );
 
     const refreshToken = jwt.sign({ id: user.dataValues.id }, jwtRefresh, {
@@ -170,7 +160,7 @@ export default {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: refreshMaxAge,
     });
 
     res.json({

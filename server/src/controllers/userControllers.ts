@@ -1,11 +1,15 @@
-import asyncHandler from 'express-async-handler';
-import { Request, Response } from 'express';
-import User from '../models/User.js';
-import cloudinary from '../middleware/cloudinary.js';
 import bcrypt from 'bcrypt';
+import { Request, Response } from 'express';
+import asyncHandler from 'express-async-handler';
+import { env } from '../config/index.js';
+import cloudinary from '../middleware/cloudinary.js';
+import User from '../models/User.js';
+
+const guestId = env.GUEST_PROFILE_ID;
 
 export default {
   getUser: asyncHandler(async (req: Request, res: Response) => {
+    console.log(req.user);
     const user = await User.findOne({
       where: { id: req.user },
       attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
@@ -67,11 +71,11 @@ export default {
       return;
     }
 
-    if (user.username === 'Guest') {
+    if (user.id === guestId) {
       res.status(400).json({
         message: 'Sorry you can not modify this profile',
       });
-      throw new Error('Sorry you can not modify this profile');
+      throw new Error('Can not modify guest account');
     }
 
     if (newPassword != confirmPassword) {
@@ -102,17 +106,18 @@ export default {
     const user = await User.findOne({
       where: { id: req.user },
     });
+
     if (!user) {
       res.status(404).json({ message: 'User not found' });
       return;
     }
 
-    if (user.username === 'Guest') {
+    if (user.id === guestId) {
       res.status(400).json({
         message:
           'Sorry you can not delete this profile, create a new one instead',
       });
-      throw new Error('Sorry you can not delete this profile');
+      throw new Error('Can not modify guest account');
     }
 
     user.destroy();

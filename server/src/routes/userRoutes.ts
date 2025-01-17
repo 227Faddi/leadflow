@@ -1,18 +1,15 @@
 import express from 'express';
-import verifyJWT from '../middleware/verifyJWT.js';
 import userControllers from '../controllers/userControllers.js';
 import upload from '../middleware/multer.js';
+import verifyJWT from '../middleware/verifyJWT.js';
 
 const router = express.Router();
 
 router.use(verifyJWT);
 
-router.get('/get', userControllers.getUser);
-
-router.put('/edit', upload.single('profileImg'), userControllers.updateUser);
-
-router.put('/edit/password', userControllers.updatePassword);
-
-router.delete('/delete', userControllers.deleteUser);
+router.get('/me', userControllers.getUser);
+router.put('/me', upload.single('profileImg'), userControllers.updateUser);
+router.delete('/me', userControllers.deleteUser);
+router.put('/me/password', userControllers.updatePassword);
 
 export default router;
