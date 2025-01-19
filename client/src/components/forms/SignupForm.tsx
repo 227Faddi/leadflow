@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useSignup } from "../../features/auth/hooks";
 import { SignupFormData } from "../../types";
 import { signupSchema } from "../../utils/zod/formValidation";
-import { useSignup } from "../../features/auth/hooks";
 
 const SignupForm = () => {
   const {
@@ -28,7 +28,7 @@ const SignupForm = () => {
 
   return (
     <form
-      className="mt-8 mb-2 w-full"
+      className="mt-8 mb-2 w-full bg-gray-50 p-6 border border-slate-200 rounded-md"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
@@ -40,7 +40,7 @@ const SignupForm = () => {
           <input
             {...register("username")}
             type="text"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Your Username"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -54,7 +54,7 @@ const SignupForm = () => {
           <input
             {...register("email")}
             type="email"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Your Email"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -68,7 +68,7 @@ const SignupForm = () => {
           <input
             {...register("password")}
             type="password"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Your Password"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -82,7 +82,7 @@ const SignupForm = () => {
           <input
             {...register("confirmPassword")}
             type="password"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Confirm Password"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -97,7 +97,7 @@ const SignupForm = () => {
             {...register("profileImg")}
             type="file"
             accept=".png, .jpg, .jpeg, .webp"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
             {errors?.profileImg?.message}

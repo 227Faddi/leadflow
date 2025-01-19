@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { loginSchema } from "../../utils/zod/formValidation";
-import { LoginFormData } from "../../types";
 import { useLogin } from "../../features/auth/hooks";
+import { LoginFormData } from "../../types";
+import { loginSchema } from "../../utils/zod/formValidation";
 
 const LoginForm = () => {
   const {
@@ -20,7 +20,7 @@ const LoginForm = () => {
 
   return (
     <form
-      className="mt-8 mb-2 w-full"
+      className="mt-8 mb-2 w-full bg-gray-50 p-6 border border-slate-200 rounded-md"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
@@ -32,7 +32,7 @@ const LoginForm = () => {
           <input
             {...register("email")}
             type="email"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Your Email"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -46,7 +46,7 @@ const LoginForm = () => {
           <input
             {...register("password")}
             type="password"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Your Password"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">

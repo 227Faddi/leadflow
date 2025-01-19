@@ -29,7 +29,7 @@ const EditLeadForm = ({ lead }: Props) => {
 
   return (
     <form
-      className="mt-8 mb-2 w-full"
+      className="mt-8 mb-2 w-full bg-gray-50 p-6 border border-slate-200 rounded-md"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
@@ -41,7 +41,7 @@ const EditLeadForm = ({ lead }: Props) => {
           <input
             {...register("name")}
             type="text"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Enter a Name"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base error-message">
@@ -55,7 +55,7 @@ const EditLeadForm = ({ lead }: Props) => {
           <input
             {...register("email")}
             type="email"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Enter an Email"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -69,7 +69,7 @@ const EditLeadForm = ({ lead }: Props) => {
           <input
             {...register("industry")}
             type="text"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Enter an Industry"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -83,7 +83,7 @@ const EditLeadForm = ({ lead }: Props) => {
           <input
             {...register("phone")}
             type="text"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Enter a Phone number"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -97,7 +97,7 @@ const EditLeadForm = ({ lead }: Props) => {
           <input
             {...register("location")}
             type="text"
-            className="w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
             placeholder="Enter a Location"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">

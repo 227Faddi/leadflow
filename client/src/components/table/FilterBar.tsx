@@ -18,7 +18,7 @@ const FilterBar = ({ filteredName, filteredStatus, onFilterChange }: Props) => {
           value={filteredName}
           onChange={(e) => onFilterChange("name", e.target.value)}
           type="text"
-          className="block border-r-0 w-full h-12 pl-10 pr-2 sm:pl-12 sm:pr-28 text-gray-900 border border-gray-300 rounded-l-lg bg-gray-50 focus:outline-none"
+          className="block border-r-0 w-full h-12 pl-10 pr-2 sm:pl-12 sm:pr-28 text-gray-900 border border-gray-300 rounded-l-lg focus:outline-none"
           placeholder="Search Leads..."
         />
       </div>
