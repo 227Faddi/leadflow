@@ -29,11 +29,11 @@ const EditLeadForm = ({ lead }: Props) => {
 
   return (
     <form
-      className="mt-8 mb-2 w-full bg-gray-50 p-6 border border-slate-200 rounded-md"
+      className="mb-2 w-full bg-gray-50 p-6 border border-slate-200 rounded-md shadow-lg"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      <div className="w-full mb-4 flex flex-col space-y-2 items-center justify-center">
+      <div className="w-full mb-4 flex flex-col space-y-4 sm:space-y-1 items-center justify-center">
         <div className="w-full">
           <label className="block mb-2 text-md text-bold text-gray-900">
             Name

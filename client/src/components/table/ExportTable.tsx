@@ -29,7 +29,7 @@ const ExportTable = ({ table }: Props) => {
     <button
       disabled={table.getPrePaginationRowModel().rows.length === 0}
       onClick={() => handleExportRows(table.getPrePaginationRowModel().rows)}
-      className="flex items-center p-4 bg-gray-50 rounded-lg shadow-lg"
+      className="border-slate-200 border-2 flex items-center p-3 xl:p-4 bg-gray-50 rounded-lg shadow-lg"
       aria-label="export table"
     >
       <div className="p-2 bg-gray-900 text-white rounded-full">

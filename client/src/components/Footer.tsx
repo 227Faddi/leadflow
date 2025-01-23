@@ -1,11 +1,9 @@
+import { FaGithub, FaLinkedin, FaUserAlt } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import { FaLinkedin } from "react-icons/fa";
-import { FaGithub } from "react-icons/fa";
-import { FaUserAlt } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="p-5 text-center">
+    <footer className="p-5 text-center border-t-4 border-green-700">
       <div className="flex flex-col gap-5 md:flex-row justify-around items-center">
         <p className="mb-0 col font-thin">
           © 2024 LeadFlow. Your Lead Management Solution.

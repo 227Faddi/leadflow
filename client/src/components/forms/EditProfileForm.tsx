@@ -31,7 +31,7 @@ const EditProfileForm = () => {
 
   return (
     <form
-      className="mt-8 mb-2 w-full bg-gray-50 p-6 border border-slate-200 rounded-md"
+      className="mt-8 mb-2 w-full bg-gray-50 p-6 border border-slate-200 rounded-md shadow-lg"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >

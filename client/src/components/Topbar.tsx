@@ -41,7 +41,7 @@ const Topbar = ({ setSidebarOpen }: Props) => {
       </div>
       <div className="flex items-center gap-4">
         <p className="hidden lg:block font-bold">{user?.username}</p>
-        <picture className="w-12 h-12 overflow-hidden rounded-full shadow focus:outline-none">
+        <picture className="w-12 h-12 overflow-hidden rounded-full border-slate-200 border-2 shadow-lg focus:outline-none">
           <img
             className="object-cover w-full h-full"
             src={user?.profileImg}

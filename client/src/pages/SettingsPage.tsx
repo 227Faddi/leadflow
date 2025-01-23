@@ -23,7 +23,7 @@ const SettingsPage = () => {
           {isChangePassword && <ChangePassForm />}
           {isEditProfile && <EditProfileForm />}
           {!isChangePassword && !isEditProfile && (
-            <div className="flex flex-col bg-gray-50 p-12 border border-slate-200 rounded-md space-y-6">
+            <div className="flex flex-col bg-gray-50 p-12 border border-slate-200 rounded-md space-y-6 shadow-lg">
               <Link
                 to="/settings?edit-profile"
                 className="max-w-sm text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
@@ -37,19 +37,19 @@ const SettingsPage = () => {
                 Change Password
               </Link>
               <ConfirmWithTextModal
-                children="Delete Profile"
-                title="Confirm Profile Deletion"
-                text="Are you sure you want to permanently delete your profile? This action cannot be undone."
-                onClick={deleteUser}
-                confirmText="delete my profile"
-                className="max-w-sm text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              />
-              <ConfirmWithTextModal
                 children="Delete All Leads"
                 title="Confirm Deletion of All Leads"
                 text="Are you sure you want to permanently delete all leads? This action cannot be undone."
                 onClick={deleteLeads}
                 confirmText="delete all leads"
+                className="max-w-sm text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              />
+              <ConfirmWithTextModal
+                children="Delete Profile"
+                title="Confirm Profile Deletion"
+                text="Are you sure you want to permanently delete your profile? This action cannot be undone."
+                onClick={deleteUser}
+                confirmText="delete my profile"
                 className="max-w-sm text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               />
             </div>

@@ -18,7 +18,7 @@ const FilterBar = ({ filteredName, filteredStatus, onFilterChange }: Props) => {
           value={filteredName}
           onChange={(e) => onFilterChange("name", e.target.value)}
           type="text"
-          className="block border-r-0 w-full h-12 pl-10 pr-2 sm:pl-12 sm:pr-28 text-gray-900 border border-gray-300 rounded-l-lg focus:outline-none"
+          className="border-slate-200 border-2 shadow-lg block border-r-0 w-full min-h-14 pl-10 pr-2 sm:pl-12 sm:pr-28 text-gray-900 rounded-l-lg focus:outline-none"
           placeholder="Search Leads..."
         />
       </div>
@@ -27,7 +27,7 @@ const FilterBar = ({ filteredName, filteredStatus, onFilterChange }: Props) => {
           value={filteredStatus}
           onChange={(e) => onFilterChange("status", e.target.value)}
           id="statusFilter"
-          className="h-12 cursor-pointer text-center bg-gray-900 text-white appearance-none border border-l-0 rounded-l-none border-gray-300 rounded-r-lg px-2 pr-6 text-sm focus:outline-none  [text-align-last:center]"
+          className="border-slate-200 border-2 shadow-lg min-h-14 cursor-pointer text-center bg-gray-900 text-white appearance-none border-l-0 rounded-l-none rounded-r-lg px-2 pr-6 text-sm focus:outline-none  [text-align-last:center]"
         >
           <option value="">All</option>
           <option value="new">New</option>
