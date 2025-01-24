@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { LuChevronsUpDown } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { useAddLead } from "../../features/lead/hooks";
 import { LeadForm } from "../../types";
@@ -58,16 +59,19 @@ const AddLeadForm = () => {
           <label className="block mb-2 text-md text-bold text-gray-900">
             Industry
           </label>
-          <select
-            {...register("industry")}
-            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-          >
-            {industries.map((entry, index) => (
-              <option value={entry} key={index}>
-                {firstLetterUpperCase(entry)}
-              </option>
-            ))}
-          </select>
+          <div className="relative">
+            <select
+              {...register("industry")}
+              className="appearance-none w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            >
+              {industries.map((entry, index) => (
+                <option value={entry} key={index}>
+                  {firstLetterUpperCase(entry)}
+                </option>
+              ))}
+            </select>
+            <LuChevronsUpDown className=" cursor-pointer text-gray-900 h-4 w-4 absolute top-1/2 right-2 transform -translate-y-1/2" />
+          </div>
           <p className="text-red-700 h-4 text-sm sm:text-base">
             {errors?.industry?.message}
           </p>
