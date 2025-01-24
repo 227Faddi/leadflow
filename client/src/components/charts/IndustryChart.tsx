@@ -39,7 +39,7 @@ const IndustryChart = () => {
           {/* @ts-expect-error recharts */}
           <YAxis />
           <Tooltip />
-          <Bar dataKey="value" fill="#8884d8" />
+          <Bar dataKey="value" fill="#111827" />
         </BarChart>
       </ResponsiveContainer>
     </div>

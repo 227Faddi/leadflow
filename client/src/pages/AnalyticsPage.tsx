@@ -13,7 +13,7 @@ const AnalyticsPage = () => {
   const converted = leads?.filter((lead) => lead.status === "converted");
   const conversionRate =
     leads && converted
-      ? Math.round((converted.length / leads.length) * 100) + "%" // Shows two decimals
+      ? Math.round((converted.length / leads.length) * 100).toFixed(1) + "%"
       : "0%";
 
   const leadsNumber = leads?.length || 0;

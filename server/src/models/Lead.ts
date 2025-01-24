@@ -1,12 +1,36 @@
-import sequelize from '../config/database.js';
 import {
-  Model,
+  DataTypes,
   InferAttributes,
   InferCreationAttributes,
-  DataTypes,
+  Model,
 } from 'sequelize';
+import sequelize from '../config/database.js';
 
 import { UserModel } from './User.js';
+
+type Industry =
+  | 'other'
+  | 'technology'
+  | 'healthcare'
+  | 'finance'
+  | 'retail'
+  | 'hospitality'
+  | 'food&Beverage'
+  | 'education'
+  | 'construction'
+  | 'transportation'
+  | 'realEstate'
+  | 'manufacturing'
+  | 'professional'
+  | 'fitness'
+  | 'automotive';
+
+type Status =
+  | 'new'
+  | 'contacted'
+  | 'negotiating'
+  | 'converted'
+  | 'disqualified';
 
 export interface LeadModel
   extends Model<
@@ -16,10 +40,10 @@ export interface LeadModel
   id: string;
   name: string;
   email: string;
-  industry: string;
+  industry: Industry;
   phone: string;
   location: string;
-  status: 'new' | 'contacted' | 'negotiating' | 'converted' | 'disqualified';
+  status: Status;
   userId: UserModel['id'];
 }
 

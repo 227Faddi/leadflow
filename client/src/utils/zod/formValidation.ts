@@ -1,5 +1,31 @@
 import { z } from "zod";
 
+export const statuses = [
+  "new",
+  "contacted",
+  "negotiating",
+  "converted",
+  "disqualified",
+] as const;
+
+export const industries = [
+  "other",
+  "technology",
+  "healthcare",
+  "finance",
+  "retail",
+  "hospitality",
+  "food&Beverage",
+  "education",
+  "construction",
+  "transportation",
+  "realEstate",
+  "manufacturing",
+  "professional",
+  "fitness",
+  "automotive",
+] as const;
+
 export const loginSchema = z.object({
   email: z
     .string()
@@ -73,12 +99,7 @@ export const leadSchema = z.object({
     .trim()
     .toLowerCase(),
 
-  industry: z
-    .string()
-    .trim()
-    .min(1, { message: "Industry is required." })
-    .max(30, { message: "Industry cannot exceed 30 characters." }),
-
+  industry: z.enum(industries),
   phone: z
     .string()
     .min(7, { message: "Invalid phone number: too short." })

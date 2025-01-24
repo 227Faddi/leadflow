@@ -3,13 +3,15 @@ import toast from "react-hot-toast";
 import { LuChevronsUpDown } from "react-icons/lu";
 import { useUpdateStatus } from "../../features/lead/hooks";
 import { Lead } from "../../types";
+import { firstLetterUpperCase } from "../../utils";
+import { statuses } from "../../utils/zod/formValidation";
 
 type Props = {
-  status: Lead["status"];
+  currentStatus: Lead["status"];
   id: Lead["id"];
 };
 
-const UpdateRow = ({ status, id }: Props) => {
+const UpdateRow = ({ currentStatus, id }: Props) => {
   const updateStatus = useUpdateStatus();
   const queryClient = useQueryClient();
 
@@ -33,7 +35,7 @@ const UpdateRow = ({ status, id }: Props) => {
   };
 
   const getStatusColor = () => {
-    switch (status) {
+    switch (currentStatus) {
       case "contacted":
         return "text-yellow-800 bg-yellow-100";
       case "negotiating":
@@ -53,15 +55,15 @@ const UpdateRow = ({ status, id }: Props) => {
     >
       <select
         id="status"
-        value={status}
+        value={currentStatus}
         onChange={handleChange}
         className="appearance-none focus:outline-none hover:cursor-pointer pl-6 pr-8 py-2 text-xs font-semibold leading-5 text-center bg-transparent [text-align-last:center]"
       >
-        <option value="new">New</option>
-        <option value="contacted">Contacted</option>
-        <option value="negotiating">Negotiating</option>
-        <option value="converted">Converted</option>
-        <option value="disqualified">Disqualified</option>
+        {Object.entries(statuses).map(([key, value]) => (
+          <option value={key} key={key}>
+            {firstLetterUpperCase(value)}
+          </option>
+        ))}
       </select>
       <LuChevronsUpDown className=" cursor-pointer text-gray-900 h-4 w-4 absolute top-1/2 right-2 transform -translate-y-1/2" />
     </div>

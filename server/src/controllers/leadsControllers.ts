@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import Lead from '../models/Lead.js';
 import asyncHandler from 'express-async-handler';
+import Lead from '../models/Lead.js';
 
 export default {
   getLeads: asyncHandler(async (req: Request, res: Response) => {

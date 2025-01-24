@@ -3,7 +3,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useAddLead } from "../../features/lead/hooks";
 import { LeadForm } from "../../types";
-import { leadSchema } from "../../utils/zod/formValidation";
+import { firstLetterUpperCase } from "../../utils";
+import { industries, leadSchema } from "../../utils/zod/formValidation";
 
 const AddLeadForm = () => {
   const {
@@ -24,7 +25,7 @@ const AddLeadForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      <div className="w-full mb-4 flex flex-col space-y-4 sm:space-y-1 items-center justify-center">
+      <div className="w-full mb-4 flex flex-col space-y-4 sm:space-y-2 items-center justify-center">
         <div className="w-full">
           <label className="block mb-2 text-md text-bold text-gray-900">
             Name
@@ -57,12 +58,16 @@ const AddLeadForm = () => {
           <label className="block mb-2 text-md text-bold text-gray-900">
             Industry
           </label>
-          <input
+          <select
             {...register("industry")}
-            type="text"
             className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
-            placeholder="Enter an Industry"
-          />
+          >
+            {industries.map((entry, index) => (
+              <option value={entry} key={index}>
+                {firstLetterUpperCase(entry)}
+              </option>
+            ))}
+          </select>
           <p className="text-red-700 h-4 text-sm sm:text-base">
             {errors?.industry?.message}
           </p>

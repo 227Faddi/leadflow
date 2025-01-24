@@ -2,8 +2,11 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { LuMail, LuPenSquare, LuTrash2 } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { Lead } from "../../types";
+import { firstLetterUpperCase } from "../../utils";
+import { statuses } from "../../utils/zod/formValidation";
 import ConfirmModal from "../modals/ConfirmModal";
 import UpdateRow from "./UpdateRow";
+
 const columnHelper = createColumnHelper<Lead>();
 
 type Props = {
@@ -17,7 +20,7 @@ const Columns = ({ deleteRow }: Props) => {
       cell: (info) => (
         <>
           <div className="text-sm font-medium leading-5 text-gray-900">
-            {info.getValue()}
+            {firstLetterUpperCase(info.getValue())}
           </div>
           <p className="text-sm leading-5 text-gray-500">
             {info.row.original.email}
@@ -27,7 +30,7 @@ const Columns = ({ deleteRow }: Props) => {
     }),
     columnHelper.accessor("industry", {
       header: () => "industry",
-      cell: (info) => info.getValue(),
+      cell: (info) => firstLetterUpperCase(info.getValue()),
     }),
     columnHelper.accessor("phone", {
       header: () => "Phone",
@@ -35,23 +38,17 @@ const Columns = ({ deleteRow }: Props) => {
     }),
     columnHelper.accessor("location", {
       header: () => "location",
-      cell: (info) => info.getValue(),
+      cell: (info) => firstLetterUpperCase(info.getValue()),
     }),
     columnHelper.accessor("status", {
       header: () => "status",
       cell: (info) => (
-        <UpdateRow status={info.getValue()} id={info.row.original.id} />
+        <UpdateRow currentStatus={info.getValue()} id={info.row.original.id} />
       ),
       sortingFn: (rowA, rowB) => {
         const statusA = rowA.original.status;
         const statusB = rowB.original.status;
-        const statusOrder = [
-          "new",
-          "contacted",
-          "negotiating",
-          "converted",
-          "disqualified",
-        ];
+        const statusOrder = statuses;
         return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB);
       },
       meta: {

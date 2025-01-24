@@ -7,25 +7,7 @@ import {
   signupSchema,
 } from "../utils/zod/formValidation";
 
-export type User = {
-  id: string;
-  username: string;
-  email: string;
-  profileImg: string;
-  cloudinaryId: string;
-};
-
 export type Token = string | undefined;
-
-export type Lead = {
-  id: string;
-  name: string;
-  email: string;
-  industry: string;
-  phone: string;
-  location: string;
-  status: "new" | "contacted" | "negotiating" | "converted" | "disqualified";
-};
 
 export type LeadForm = z.infer<typeof leadSchema>;
 
@@ -36,3 +18,45 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 export type ChangePassword = z.infer<typeof changePasswordSchema>;
 
 export type EditProfile = z.infer<typeof editProfileSchema>;
+
+export type User = {
+  id: string;
+  username: string;
+  email: string;
+  profileImg: string;
+  cloudinaryId: string;
+};
+
+export type Lead = {
+  id: string;
+  name: string;
+  email: string;
+  industry: Industry;
+  phone: string;
+  location: string;
+  status: Status;
+};
+
+type Status =
+  | "new"
+  | "contacted"
+  | "negotiating"
+  | "converted"
+  | "disqualified";
+
+type Industry =
+  | "other"
+  | "technology"
+  | "healthcare"
+  | "finance"
+  | "retail"
+  | "hospitality"
+  | "food&Beverage"
+  | "education"
+  | "construction"
+  | "transportation"
+  | "realEstate"
+  | "manufacturing"
+  | "professional"
+  | "fitness"
+  | "automotive";
