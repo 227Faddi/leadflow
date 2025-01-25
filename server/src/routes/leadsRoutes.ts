@@ -10,9 +10,13 @@ router.get('/', leadsControllers.getLeads);
 router.post('/', leadsControllers.addLead);
 router.delete('/', leadsControllers.deleteAllLeads);
 
+router.get('/industry-count', leadsControllers.getIndustryCount);
+router.get('/status-count', leadsControllers.getStatusCount);
+
 router.delete('/:id', leadsControllers.deleteLead);
 router.get('/:id', leadsControllers.getLead);
 router.put('/:id', leadsControllers.editLead);
+
 router.put('/:id/status', leadsControllers.statusLead);
 
 export default router;
