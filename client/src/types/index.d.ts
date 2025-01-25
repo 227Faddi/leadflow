@@ -19,6 +19,16 @@ export type ChangePassword = z.infer<typeof changePasswordSchema>;
 
 export type EditProfile = z.infer<typeof editProfileSchema>;
 
+export type IndustryChart = {
+  industry: string;
+  value: number;
+};
+
+export type StatusChart = {
+  status: string;
+  value: number;
+};
+
 export type User = {
   id: string;
   username: string;

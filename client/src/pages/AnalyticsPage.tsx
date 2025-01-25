@@ -7,6 +7,7 @@ import ErrorMessage from "../components/ui/ErrorMessage";
 import InfoCard from "../components/ui/InfoCard";
 import Spinner from "../components/ui/Spinner";
 import { useGetLeads } from "../features/lead/hooks";
+
 const AnalyticsPage = () => {
   const { data: leads, isLoading, isError } = useGetLeads();
 
@@ -53,7 +54,7 @@ const AnalyticsPage = () => {
                 <IndustryChart />
               </div>
               <div className="w-full md:w-1/3">
-                <StatusChart leads={leads!} />
+                <StatusChart />
               </div>
             </div>
           </>

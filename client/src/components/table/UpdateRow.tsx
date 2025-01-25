@@ -60,7 +60,7 @@ const UpdateRow = ({ currentStatus, id }: Props) => {
         className="appearance-none focus:outline-none hover:cursor-pointer pl-6 pr-8 py-2 text-xs font-semibold leading-5 text-center bg-transparent [text-align-last:center]"
       >
         {Object.entries(statuses).map(([key, value]) => (
-          <option value={key} key={key}>
+          <option value={value} key={key}>
             {firstLetterUpperCase(value)}
           </option>
         ))}

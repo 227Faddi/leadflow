@@ -1,137 +1,97 @@
-import {
-  Cell,
-  Label,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
-import { Lead } from "../../types";
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { useGetStatusCount } from "../../features/lead/hooks";
+import { firstLetterUpperCase } from "../../utils";
 
-type Props = {
-  leads: Lead[];
+type CustomLabel = {
+  cx: number;
+  cy: number;
+  midAngle: number;
+  innerRadius: number;
+  outerRadius: number;
+  percent: number;
+  index: number;
 };
-const StatusChart = ({ leads }: Props) => {
-  const newCount = leads?.reduce(
-    (tot, lead) => (lead.status === "new" ? (tot += 1) : tot),
-    0
-  );
-  const contactedCount = leads?.reduce(
-    (tot, lead) => (lead.status === "contacted" ? (tot += 1) : tot),
-    0
-  );
-  const negotiatingCount = leads?.reduce(
-    (tot, lead) => (lead.status === "negotiating" ? (tot += 1) : tot),
-    0
-  );
-  const convertedCount = leads?.reduce(
-    (tot, lead) => (lead.status === "converted" ? (tot += 1) : tot),
-    0
-  );
-  const disqualifiedCount = leads?.reduce(
-    (tot, lead) => (lead.status === "disqualified" ? (tot += 1) : tot),
-    0
-  );
 
-  const statusData = [
-    {
-      name: "new",
-      value: newCount,
-      color: "#3B82F6", // bg-blue-500 equivalent
-    },
-    {
-      name: "contacted",
-      value: contactedCount,
-      color: "#F59E0B", // bg-yellow-500 equivalent
-    },
-    {
-      name: "negotiating",
-      value: negotiatingCount,
-      color: "#F97316", // bg-orange-500 equivalent
-    },
-    {
-      name: "converted",
-      value: convertedCount,
-      color: "#10B981", // bg-green-500 equivalent
-    },
-    {
-      name: "disqualified",
-      value: disqualifiedCount,
-      color: "#EF4444", // bg-red-500 equivalent
-    },
-  ];
+const RADIAN = Math.PI / 180;
+const RenderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+}: CustomLabel) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
-  const renderCustomizedLabel = ({
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    percent,
-  }: {
-    cx: number;
-    cy: number;
-    midAngle: number;
-    innerRadius: number;
-    outerRadius: number;
-    percent: number;
-    index: number;
-  }) => {
-    const RADIAN = Math.PI / 180;
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  return (
+    <text
+      x={x}
+      y={y}
+      fill="white"
+      textAnchor={x > cx ? "start" : "end"}
+      dominantBaseline="central"
+    >
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
 
-    if (percent > 0) {
-      return (
-        <text
-          x={x}
-          y={y}
-          fill="white"
-          textAnchor={x > cx ? "start" : "end"}
-          dominantBaseline="central"
-        >
-          {`${(percent * 100).toFixed(0)}%`}
-        </text>
-      );
-    }
-    return null;
+const StatusChart = () => {
+  const { data } = useGetStatusCount();
+
+  const colors = {
+    new: "#3B82F6",
+    contacted: "#F59E0B",
+    negotiating: "#F97316",
+    converted: "#10B981",
+    disqualified: "#EF4444",
   };
 
   return (
     <div className="w-full h-full border-slate-200 border-2 bg-white rounded-lg p-4 xl:p-6 flex flex-col items-center justify-center shadow-lg">
-      <p className="p-2 xl:p-4 border-slate-200 rounded-lg border-2 font-bold text-center">
+      <h4 className="p-2 xl:p-4 border-slate-200 rounded-lg border-2 font-bold text-center">
         Status Distribution
-      </p>
+      </h4>
       <ResponsiveContainer width="100%" height={350}>
         <PieChart>
           <Pie
-            data={statusData}
+            data={data}
             dataKey="value"
-            label={renderCustomizedLabel}
+            nameKey="status"
+            label={RenderCustomizedLabel}
             labelLine={false}
           >
-            {statusData.map((item, index) => (
-              <Cell key={`cell-${index}`} fill={item.color} />
+            {data?.map((item, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={colors[item.status as keyof typeof colors]}
+              />
             ))}
           </Pie>
-          <Tooltip />
-          <Label />
+          <Tooltip
+            formatter={(value, name) => [
+              value,
+              firstLetterUpperCase(name as string),
+            ]}
+          />
         </PieChart>
       </ResponsiveContainer>
       {/* Legend */}
       <div className="gap-2 flex flex-col xl:flex-row xl:flex-wrap xl:gap-4">
-        {statusData.map((item) => (
+        {data?.map((item) => (
           <div
-            key={item.name}
+            key={item.status}
             className="flex items-center gap-2 text-sm text-gray-700"
           >
             <span
               className="w-4 h-4 inline-block rounded-full"
-              style={{ backgroundColor: item.color }}
+              style={{
+                backgroundColor: colors[item.status as keyof typeof colors],
+              }}
             ></span>
-            {item.name.charAt(0).toUpperCase() + item.name.slice(1)}:{" "}
-            {item.value}
+            {firstLetterUpperCase(item.status)}: {item.value}
           </div>
         ))}
       </div>

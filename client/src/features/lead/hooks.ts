@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Lead } from "../../types";
+import { IndustryChart, Lead, StatusChart } from "../../types";
 import handleError from "../../utils/axios/handleError";
 import {
   addLead,
@@ -10,6 +10,8 @@ import {
   editLead,
   fetchLead,
   fetchLeads,
+  getIndustryCount,
+  getStatusCount,
   updateStatus,
 } from "./api";
 
@@ -20,8 +22,24 @@ export const leadKeys = {
 
 export const useGetLeads = () => {
   const { data, isLoading, isError } = useQuery<Lead[]>({
-    queryFn: () => fetchLeads(),
+    queryFn: fetchLeads,
     queryKey: leadKeys.all,
+  });
+  return { data, isLoading, isError };
+};
+
+export const useGetIndustryCount = () => {
+  const { data, isLoading, isError } = useQuery<IndustryChart[]>({
+    queryFn: getIndustryCount,
+    queryKey: ["industry"],
+  });
+  return { data, isLoading, isError };
+};
+
+export const useGetStatusCount = () => {
+  const { data, isLoading, isError } = useQuery<StatusChart[]>({
+    queryFn: getStatusCount,
+    queryKey: ["status"],
   });
   return { data, isLoading, isError };
 };

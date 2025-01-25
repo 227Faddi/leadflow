@@ -1,4 +1,4 @@
-import { Lead, LeadForm } from "../../types";
+import { IndustryChart, Lead, LeadForm, StatusChart } from "../../types";
 import { axiosInstance } from "../../utils/axios/axios";
 
 export const fetchLeads = async (): Promise<Lead[]> => {
@@ -8,6 +8,16 @@ export const fetchLeads = async (): Promise<Lead[]> => {
 
 export const fetchLead = async <T>(id: T): Promise<Lead> => {
   const { data } = await axiosInstance.get(`/api/leads/${id}`);
+  return data;
+};
+
+export const getIndustryCount = async (): Promise<IndustryChart[]> => {
+  const { data } = await axiosInstance.get(`/api/leads/industry-count`);
+  return data;
+};
+
+export const getStatusCount = async (): Promise<StatusChart[]> => {
+  const { data } = await axiosInstance.get(`/api/leads/status-count`);
   return data;
 };
 
