@@ -23,20 +23,26 @@ const IndustryChart = () => {
       <h4 className="p-2 xl:p-4 border-slate-200 rounded-lg border-2 font-bold text-center">
         Top Industries Distribution
       </h4>
-      <ResponsiveContainer width="100%" height={350}>
-        <BarChart
-          data={transformedData}
-          margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          {/* @ts-expect-error recharts */}
-          <XAxis dataKey="industry" />
-          {/* @ts-expect-error recharts */}
-          <YAxis />
-          <Tooltip />
-          <Bar dataKey="value" fill="#111827" />
-        </BarChart>
-      </ResponsiveContainer>
+      {!data || data.length === 0 ? (
+        <p className="text-center py-24 text-lg leading-5 text-gray-500">
+          No Data Available
+        </p>
+      ) : (
+        <ResponsiveContainer width="100%" height={350}>
+          <BarChart
+            data={transformedData}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            {/* @ts-expect-error recharts */}
+            <XAxis dataKey="industry" />
+            {/* @ts-expect-error recharts */}
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="value" fill="#111827" />
+          </BarChart>
+        </ResponsiveContainer>
+      )}
     </div>
   );
 };

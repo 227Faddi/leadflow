@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 type Props = {
   text: string;
   data: string | number;
-  icon: ReactNode;
+  icon?: ReactNode;
 };
 
 const InfoCard = ({ text, data, icon }: Props) => {

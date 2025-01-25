@@ -12,6 +12,7 @@ const DashboardPage = () => {
   const { data: leads, isLoading, isError } = useGetLeads();
 
   const leadsNumber = leads?.length || 0;
+
   const leadsConverted = useMemo(
     () => leads?.filter((lead) => lead.status === "converted").length || 0,
     [leads]

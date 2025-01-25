@@ -11,17 +11,17 @@ import { useGetLeads } from "../features/lead/hooks";
 const AnalyticsPage = () => {
   const { data: leads, isLoading, isError } = useGetLeads();
 
-  const converted = leads?.filter((lead) => lead.status === "converted");
-  const conversionRate =
-    leads && converted
-      ? Math.round((converted.length / leads.length) * 100).toFixed(1) + "%"
-      : "0%";
-
   const leadsNumber = leads?.length || 0;
+
   const leadsConverted = useMemo(
     () => leads?.filter((lead) => lead.status === "converted").length || 0,
     [leads]
   );
+
+  const conversionRate =
+    leads && leadsConverted
+      ? Math.round((leadsConverted / leads.length) * 100).toFixed(1) + "%"
+      : "0%";
 
   return (
     <div className="container px-6 py-8 mx-auto">
