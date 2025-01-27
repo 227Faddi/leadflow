@@ -2,13 +2,18 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import morgan from 'morgan';
+import passport from 'passport';
 import { synchronizeTables } from './config/database.js';
 import { env } from './config/index.js';
+import passportConfig from './config/passport.js';
 import authRoutes from './routes/authRoutes.js';
 import leadsRoutes from './routes/leadsRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
 const app = express();
+
+app.use(passport.initialize());
+passportConfig(passport);
 
 synchronizeTables();
 

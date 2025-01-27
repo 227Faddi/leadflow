@@ -12,6 +12,7 @@ const accessExpiration = env.JWT_ACCESS_TOKEN_EXPIRATION;
 const refreshExpiration = env.JWT_REFRESH_TOKEN_EXPIRATION;
 const refreshMaxAge = env.JWT_REFRESH_TOKEN_MAX_AGE;
 const avatar = env.AVATAR_DICEBEAR_URL;
+const client = env.CLIENT_URL;
 
 export default {
   refresh: asyncHandler((req: Request, res: Response) => {
@@ -171,6 +172,7 @@ export default {
 
   logout: asyncHandler((req: Request, res: Response) => {
     const cookies = req.cookies;
+
     if (!cookies?.jwt) {
       res.sendStatus(204);
       return;
@@ -181,5 +183,21 @@ export default {
       secure: true,
     });
     res.json({ message: 'Cookie cleared' });
+  }),
+
+  socialCallback: asyncHandler((req: Request, res: Response) => {
+    const refreshToken = jwt.sign({ id: req.user?.id }, jwtRefresh, {
+      expiresIn: refreshExpiration,
+    });
+
+    // Create secure cookie with refresh token
+    res.cookie('jwt', refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+      maxAge: refreshMaxAge,
+    });
+
+    res.redirect(client + '/dashboard');
   }),
 };

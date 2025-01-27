@@ -14,6 +14,16 @@ export const env = {
   DB_HOST: process.env.DB_HOST as string,
   DB_PORT: Number(process.env.DB_PORT),
 
+  // Google
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID as string,
+  GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET as string,
+  GOOGLE_CALLBACK_URL: process.env.GOOGLE_CALLBACK_URL as string,
+
+  // Github
+  GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID as string,
+  GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET as string,
+  GITHUB_CALLBACK_URL: process.env.GITHUB_CALLBACK_URL as string,
+
   // Cloudinary
   CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
   CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,

@@ -1,12 +1,12 @@
-import Lead from './Lead.js';
-import sequelize from '../config/database.js';
 import {
-  Model,
+  CreationOptional,
+  DataTypes,
   InferAttributes,
   InferCreationAttributes,
-  DataTypes,
-  CreationOptional,
+  Model,
 } from 'sequelize';
+import sequelize from '../config/database.js';
+import Lead from './Lead.js';
 
 export interface UserModel
   extends Model<
@@ -16,7 +16,7 @@ export interface UserModel
   id: string;
   username: string;
   email: string;
-  password: string;
+  password: CreationOptional<string>;
   profileImg: string;
   cloudinaryId: CreationOptional<string>;
 }
@@ -26,18 +26,22 @@ const User = sequelize.define<UserModel>('User', {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
+    unique: true,
+    allowNull: true,
   },
   username: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   profileImg: {
     type: DataTypes.STRING,
@@ -46,6 +50,7 @@ const User = sequelize.define<UserModel>('User', {
   cloudinaryId: {
     type: DataTypes.STRING,
     allowNull: true,
+    unique: true,
   },
 });
 
