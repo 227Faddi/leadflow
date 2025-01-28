@@ -1,9 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useLogin } from "../../features/auth/hooks";
 import { LoginFormData } from "../../types";
 import { loginSchema } from "../../utils/zod/formValidation";
+import { SocialButton } from "../ui/Button";
 
 const LoginForm = () => {
   const {
@@ -61,6 +63,21 @@ const LoginForm = () => {
       >
         {isSubmitting ? "Logging in..." : "Login"}
       </button>
+      <div className="w-full py-3 flex items-center text-gray-400 before:flex-1 before:border-t before:border-gray-300 before:me-6 after:flex-1 after:border-t after:border-gray-300 after:ms-6">
+        or
+      </div>
+      <div className="space-y-4">
+        <SocialButton
+          text="Login in with Google"
+          social="google"
+          icon={<FaGoogle />}
+        />
+        <SocialButton
+          text="Login in with Github"
+          social="github"
+          icon={<FaGithub />}
+        />
+      </div>
       <p className="flex justify-center mt-6 text-sm text-slate-600">
         Don't have an account?
         <Link
