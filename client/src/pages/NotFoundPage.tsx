@@ -1,16 +1,18 @@
-import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const NotFoundPage = () => {
   return (
     <div className="h-screen flex flex-col">
       <Header />
       <main className="flex-1 flex flex-col text-center items-center justify-center space-y-6 px-12">
-        <p className="text-5xl md:text-7xl font-semibold text-blue-700">404</p>
-        <h1 className="font-bold tracking-tight text-gray-900 text-xl sm:text-2xl md:text-5xl">
+        <p className="text-5xl md:text-7xl font-semibold text-blue-700 dark:text-white">
+          404
+        </p>
+        <h1 className="font-bold tracking-tight text-gray-900 text-xl sm:text-2xl md:text-5xl dark:text-white">
           Page not found
         </h1>
-        <p className="text-lg leading-7 text-gray-600">
+        <p className="text-lg leading-7 text-gray-600 dark:text-gray-300">
           Sorry, we couldn’t find the page you’re looking for.
         </p>
         <a

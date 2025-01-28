@@ -76,25 +76,25 @@ const Table = ({ leads }: Props) => {
           <Link
             to="/add"
             aria-label="Add New Lead"
-            className="border-slate-200 border-2 flex items-center p-3 xl:p-4 bg-gray-50 rounded-lg shadow-lg"
+            className="border-slate-200 border-2 flex items-center p-3 xl:p-4 bg-gray-50 rounded-lg shadow-lg dark:border-slate-700 dark:bg-gray-900 dark:text-white"
           >
-            <div className="p-2 bg-gray-900 text-white rounded-full">
+            <div className="p-2 bg-gray-900 text-white rounded-full dark:bg-white dark:text-gray-900">
               <FaUserPlus className="w-4 h-4" />
             </div>
-            <p className="text-lg mx-5 font-semibold text-gray-900">Add New</p>
+            <p className="text-lg mx-5 font-semibold">Add New</p>
           </Link>
           <ExportTable table={table} />
         </div>
       </div>
       <div className="flex flex-col mt-8">
         <div className="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-          <div className="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
+          <div className="inline-block min-w-full overflow-hidden align-middle border border-gray-200 shadow rounded-lg dark:border-gray-600">
             <table className="min-w-full text-left">
               <thead className="sticky top-0 z-10">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr
                     key={headerGroup.id}
-                    className="bg-gray-900 text-white border-b border-gray-200"
+                    className="bg-gray-900 text-white border-b border-gray-200 dark:border-gray-600"
                   >
                     {headerGroup.headers.map((header) =>
                       header.column.id === "actions" ||
@@ -136,12 +136,12 @@ const Table = ({ leads }: Props) => {
                   </tr>
                 ))}
               </thead>
-              <tbody className="bg-white">
+              <tbody className="bg-white dark:bg-gray-900">
                 {table.getRowModel().rows.length === 0 ? (
                   <tr>
                     <td
                       colSpan={table.getAllColumns().length}
-                      className="text-center px-6 py-24 text-lg leading-5 text-gray-500"
+                      className="text-center px-6 py-24 text-lg leading-5 text-gray-500 dark:text-gray-300"
                     >
                       No Leads Available
                     </td>
@@ -152,7 +152,7 @@ const Table = ({ leads }: Props) => {
                       {row.getVisibleCells().map((cell) => (
                         <td
                           key={cell.id}
-                          className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200"
+                          className="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200 dark:text-white dark:border-gray-800"
                         >
                           {flexRender(
                             cell.column.columnDef.cell,

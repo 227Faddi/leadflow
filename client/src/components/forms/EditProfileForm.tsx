@@ -31,19 +31,19 @@ const EditProfileForm = () => {
 
   return (
     <form
-      className="mt-8 mb-2 w-full bg-gray-50 p-6 border border-slate-200 rounded-md shadow-lg"
+      className="mt-8 mb-2 w-full bg-gray-50 dark:bg-gray-900 dark:border-slate-700 p-6 border-2 border-slate-200 rounded-md shadow-lg"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
       <div className="mb-4 flex flex-col space-y-2">
         <div>
-          <label className="block mb-2 text-md text-bold text-gray-900">
+          <label className="block mb-2 text-md text-bold text-gray-900 dark:text-white">
             Username
           </label>
           <input
             {...register("username")}
             type="text"
-            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow dark:bg-slate-800 dark:text-white dark:border-slate-700"
             placeholder="Your Username"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -51,14 +51,14 @@ const EditProfileForm = () => {
           </p>
         </div>
         <div>
-          <label className="block mb-2 text-md text-bold text-gray-900">
+          <label className="block mb-2 text-md text-bold text-gray-900 dark:text-white">
             Profile Image
           </label>
           <input
             {...register("profileImg")}
             type="file"
             accept=".png, .jpg, .jpeg, .webp"
-            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow dark:bg-slate-800 dark:text-white dark:border-slate-700"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
             {errors?.profileImg?.message}

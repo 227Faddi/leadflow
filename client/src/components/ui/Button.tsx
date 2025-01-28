@@ -11,7 +11,7 @@ type SocialButtonProps = {
 export const SocialButton = ({ text, social, icon }: SocialButtonProps) => {
   return (
     <a
-      className="flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-700 text-white dark:bg-gray-200 dark:text-gray-900 dark:hover:bg-white focus:ring-4 focus:outline-none shadow-lg font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+      className="flex items-center justify-center gap-2 text-gray-900 hover:bg-white bg-gray-50 border border-slate-300 focus:ring-4 focus:outline-none shadow-lg font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700"
       href={`${clientUrl}/auth/${social}`}
     >
       {icon}

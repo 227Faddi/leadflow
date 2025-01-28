@@ -3,7 +3,7 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="p-5 text-center border-t-4 border-green-700">
+    <footer className="mt-36 sm:mt-14 p-5 text-center dark:text-white">
       <div className="flex flex-col gap-5 md:flex-row justify-around items-center">
         <p className="mb-0 col font-thin">
           © 2024 LeadFlow. Your Lead Management Solution.

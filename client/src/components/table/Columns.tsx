@@ -19,10 +19,10 @@ const Columns = ({ deleteRow }: Props) => {
       header: () => "name",
       cell: (info) => (
         <>
-          <div className="text-sm font-medium leading-5 text-gray-900">
+          <div className="text-sm font-medium leading-5 text-gray-900 dark:text-white">
             {firstLetterUpperCase(info.getValue())}
           </div>
-          <p className="text-sm leading-5 text-gray-500">
+          <p className="text-sm leading-5 text-gray-500 dark:text-gray-300">
             {info.row.original.email}
           </p>
         </>
@@ -62,13 +62,13 @@ const Columns = ({ deleteRow }: Props) => {
         <div className="flex justify-center gap-10">
           <a
             href={`mailto:${props.row.original.email}`}
-            className="text-gray-900 hover:text-gray-600"
+            className="text-gray-900 hover:text-gray-600 dark:text-white"
           >
             <LuMail size={23} />
           </a>
           <Link
             to={`/edit/${props.row.original.id}`}
-            className="text-gray-900 hover:text-gray-600"
+            className="text-gray-900 hover:text-gray-600 dark:text-white"
           >
             <LuPenSquare size={23} />
           </Link>

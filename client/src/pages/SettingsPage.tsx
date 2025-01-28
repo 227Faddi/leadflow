@@ -17,13 +17,15 @@ const SettingsPage = () => {
 
   return (
     <div className="h-full container px-6 py-8 mx-auto">
-      <h3 className="text-3xl font-medium text-gray-900">Settings</h3>
+      <h3 className="text-3xl font-medium text-gray-900 dark:text-white">
+        Settings
+      </h3>
       <div className="h-full flex flex-col items-center justify-center px-10">
         <div className="w-full max-w-sm">
           {isChangePassword && <ChangePassForm />}
           {isEditProfile && <EditProfileForm />}
           {!isChangePassword && !isEditProfile && (
-            <div className="flex flex-col bg-gray-50 p-12 border border-slate-200 rounded-md space-y-6 shadow-lg">
+            <div className="flex flex-col bg-gray-50 p-12 border-2 border-slate-200 rounded-md space-y-6 shadow-lg dark:text-white dark:bg-gray-900 dark:border-slate-700">
               <Link
                 to="/settings?edit-profile"
                 className="max-w-sm text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"

@@ -26,8 +26,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
       <div
         className={
           sidebarOpen
-            ? "translate-x-0 ease-out fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform rounded-br-xl bg-gray-900 lg:translate-x-0 lg:static lg:inset-0"
-            : "-translate-x-full ease-in fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform rounded-br-xl bg-gray-900 lg:translate-x-0 lg:static lg:inset-0"
+            ? "translate-x-0 ease-out fixed inset-y-0 left-0 z-30 w-64 transition duration-300 transform border-b border-green-700 dark:border-slate-700 bg-gray-900 lg:translate-x-0 lg:static lg:inset-0 flex flex-col"
+            : "-translate-x-full ease-in fixed inset-y-0 left-0 z-30 w-64 transition duration-300 transform border-b border-green-700 dark:border-slate-700 bg-gray-900 lg:translate-x-0 lg:static lg:inset-0 flex flex-col"
         }
       >
         <div className="flex items-center justify-center py-10">
@@ -41,7 +41,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
             </a>
           </div>
         </div>
-        <nav className="space-y-2">
+        <nav className="space-y-2 border-r-2 border-green-700 dark:border-slate-700 flex-1">
           <NavLink
             to="/dashboard"
             onClick={() => setSidebarOpen(false)}

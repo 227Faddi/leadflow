@@ -1,8 +1,8 @@
-import Topbar from "../components/Topbar";
-import Sidebar from "../components/Sidebar";
-import Footer from "../components/Footer";
-import { Outlet } from "react-router-dom";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
+import Footer from "../components/Footer";
+import Sidebar from "../components/Sidebar";
+import Topbar from "../components/Topbar";
 
 export const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);

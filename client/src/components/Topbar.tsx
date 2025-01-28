@@ -8,7 +8,7 @@ type Props = {
 const Topbar = ({ setSidebarOpen }: Props) => {
   const { user } = useGetUser();
   return (
-    <header className="flex items-center justify-between px-6 sm:px-14 py-8 bg-white border-b-4 border-green-700">
+    <header className="flex items-center justify-between px-6 sm:px-14 py-8 bg-white dark:bg-gray-900 dark:text-white dark:border-slate-700 border-b-2 border-green-700">
       <div className="flex items-center">
         <button
           className="text-gray-500 focus:outline-none lg:hidden"

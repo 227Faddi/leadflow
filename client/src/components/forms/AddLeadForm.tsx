@@ -22,19 +22,19 @@ const AddLeadForm = () => {
 
   return (
     <form
-      className="mb-2 w-full bg-gray-50 p-6 border border-slate-200 rounded-md shadow-lg"
+      className="mb-2 w-full bg-gray-50 dark:bg-gray-900 p-6 border-2 dark:border-slate-700 border-slate-200 rounded-md shadow-lg"
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
       <div className="w-full mb-4 flex flex-col space-y-4 sm:space-y-2 items-center justify-center">
         <div className="w-full">
-          <label className="block mb-2 text-md text-bold text-gray-900">
+          <label className="block mb-2 text-md text-bold text-gray-900 dark:text-white">
             Name
           </label>
           <input
             {...register("name")}
             type="text"
-            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow dark:bg-slate-800 dark:text-white dark:border-slate-700"
             placeholder="Enter a Name"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -42,13 +42,13 @@ const AddLeadForm = () => {
           </p>
         </div>
         <div className="w-full">
-          <label className="block mb-2 text-md text-bold text-gray-900">
+          <label className="block mb-2 text-md text-bold text-gray-900 dark:text-white">
             Email
           </label>
           <input
             {...register("email")}
             type="email"
-            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow dark:bg-slate-800 dark:text-white dark:border-slate-700"
             placeholder="Enter an Email"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -56,13 +56,13 @@ const AddLeadForm = () => {
           </p>
         </div>
         <div className="w-full">
-          <label className="block mb-2 text-md text-bold text-gray-900">
+          <label className="block mb-2 text-md text-bold text-gray-900 dark:text-white">
             Industry
           </label>
           <div className="relative">
             <select
               {...register("industry")}
-              className="appearance-none w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+              className="appearance-none w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow dark:bg-slate-800 dark:text-white dark:border-slate-700"
             >
               {industries.map((entry, index) => (
                 <option value={entry} key={index}>
@@ -70,20 +70,20 @@ const AddLeadForm = () => {
                 </option>
               ))}
             </select>
-            <LuChevronsUpDown className=" cursor-pointer text-gray-900 h-4 w-4 absolute top-1/2 right-2 transform -translate-y-1/2" />
+            <LuChevronsUpDown className=" cursor-pointer text-gray-900 dark:text-white h-4 w-4 absolute top-1/2 right-2 transform -translate-y-1/2" />
           </div>
           <p className="text-red-700 h-4 text-sm sm:text-base">
             {errors?.industry?.message}
           </p>
         </div>
         <div className="w-full">
-          <label className="block mb-2 text-md text-bold text-gray-900">
+          <label className="block mb-2 text-md text-bold text-gray-900 dark:text-white">
             Phone
           </label>
           <input
             {...register("phone")}
             type="text"
-            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow dark:bg-slate-800 dark:text-white dark:border-slate-700"
             placeholder="Enter a Phone number"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">
@@ -91,13 +91,13 @@ const AddLeadForm = () => {
           </p>
         </div>
         <div className="w-full">
-          <label className="block mb-2 text-md text-bold text-gray-900">
+          <label className="block mb-2 text-md text-bold text-gray-900 dark:text-white">
             Location
           </label>
           <input
             {...register("location")}
             type="text"
-            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+            className="w-full placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow dark:bg-slate-800 dark:text-white dark:border-slate-700"
             placeholder="Enter a Location"
           />
           <p className="text-red-700 h-4 text-sm sm:text-base">

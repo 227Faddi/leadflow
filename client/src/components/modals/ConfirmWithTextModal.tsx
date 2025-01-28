@@ -37,6 +37,10 @@ const ConfirmWithTextModal = ({
         }
       },
       customClass: {
+        popup:
+          "outline outline-4 outline-slate-300 dark:bg-gray-900 dark:text-white dark:!outline-slate-700",
+        input: "dark:bg-white dark:text-black",
+        validationMessage: " dark:bg-gray-900 dark:text-white bg-white",
         confirmButton:
           "text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-blue-500",
         cancelButton:

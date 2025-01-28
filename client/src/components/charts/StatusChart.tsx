@@ -50,12 +50,12 @@ const StatusChart = () => {
   };
 
   return (
-    <div className="w-full h-full border-slate-200 border-2 bg-white rounded-lg p-4 xl:p-6 flex flex-col items-center shadow-lg">
-      <h4 className="p-2 xl:p-4 border-slate-200 rounded-lg border-2 font-bold text-center">
+    <div className="w-full h-full border-slate-200 border bg-white dark:bg-gray-900 rounded-lg p-4 xl:p-6 flex flex-col items-center shadow-lg dark:border-slate-700">
+      <h4 className="p-2 xl:p-4 border-slate-200 rounded-lg border-2 font-bold text-center dark:bg-gray-900 dark:text-white bg-white text-gray-900 dark:border-slate-700">
         Status Distribution
       </h4>
       {!data || data.length === 0 ? (
-        <p className="text-center py-24 text-lg leading-5 text-gray-500">
+        <p className="text-center py-24 text-lg leading-5 text-gray-500 dark:text-gray-300">
           No Data Available
         </p>
       ) : (
@@ -88,7 +88,7 @@ const StatusChart = () => {
             {data?.map((item) => (
               <div
                 key={item.status}
-                className="flex items-center gap-2 text-sm text-gray-700"
+                className="flex items-center gap-2 text-sm text-gray-700 dark:text-white"
               >
                 <span
                   className="w-4 h-4 inline-block rounded-full"
