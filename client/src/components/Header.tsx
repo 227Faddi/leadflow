@@ -1,7 +1,12 @@
 import { IoIosContacts } from "react-icons/io";
+import { LuMoonStar, LuSun } from "react-icons/lu";
 import { useLogin } from "../features/auth/hooks";
+import useDarkMode from "../hooks/useDarkMode";
+import ToolTip from "./ui/ToolTip";
 
 const Header = () => {
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
   const guest = {
     email: import.meta.env.VITE_GUEST_EMAIL,
     password: import.meta.env.VITE_GUEST_PASSWORD,
@@ -22,13 +27,24 @@ const Header = () => {
         <IoIosContacts className="text-green-700" size={35} />
         LeadFlow
       </a>
-      <button
-        onClick={handleGuestLogin}
-        disabled={isPending}
-        className="text-white bg-gradient-to-r from-blue-500 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-      >
-        {isPending ? "Logging in..." : "Try as Guest"}
-      </button>
+      <div className="flex items-center justify-center gap-8">
+        <button
+          onClick={handleGuestLogin}
+          disabled={isPending}
+          className="text-white bg-gradient-to-r from-blue-500 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+        >
+          {isPending ? "Logging in..." : "Try as Guest"}
+        </button>
+        <ToolTip text={isDarkMode ? "Ligth Mode" : "Dark Mode"}>
+          <button onClick={toggleDarkMode}>
+            {isDarkMode ? (
+              <LuSun className="text-white w-6 h-6" />
+            ) : (
+              <LuMoonStar className="w-6 h-6" />
+            )}
+          </button>
+        </ToolTip>
+      </div>
     </header>
   );
 };

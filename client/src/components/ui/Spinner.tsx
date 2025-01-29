@@ -1,4 +1,6 @@
-const Spinner = ({ size = "h-16 h-16" }: { size?: string }) => {
+type Props = { size?: string };
+
+const Spinner = ({ size = "h-16 h-16" }: Props) => {
   return (
     <div className="flex items-center justify-center h-[500px]">
       <div role="status">

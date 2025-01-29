@@ -11,7 +11,6 @@ import { FaUserPlus } from "react-icons/fa";
 import { HiArrowNarrowDown, HiArrowNarrowUp } from "react-icons/hi";
 import { PiArrowsDownUpBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
-import { useDeleteLead } from "../../features/lead/hooks";
 import { Lead } from "../../types";
 import Columns from "./Columns";
 import ExportTable from "./ExportTable";
@@ -30,9 +29,7 @@ type ColumnFiltersState = {
 const Table = ({ leads }: Props) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
-  const deleteRow = useDeleteLead();
-
-  const columns = useMemo(() => Columns({ deleteRow }), [deleteRow]);
+  const columns = useMemo(() => Columns(), []);
   const data = leads || [];
 
   const table = useReactTable({

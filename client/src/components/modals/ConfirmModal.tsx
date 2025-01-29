@@ -44,7 +44,6 @@ const ConfirmModal = ({
   return (
     <button onClick={showModal} className={className}>
       {children}
-      {/* <div aria-labelledby="swal2-title" aria-describedby="swal2-html-container" class="swal2-popup swal2-modal dark:bg-gray-900 dark:text-white dark:!border-2 dark:!border-red-500 shadow-none swal2-show" tabindex="-1" role="dialog" aria-live="assertive" aria-modal="true" style="display: grid;"><div> */}
     </button>
   );
 };

@@ -1,4 +1,6 @@
-const ErrorMessage = ({ message }: { message?: string }) => {
+type Props = { message?: string };
+
+const ErrorMessage = ({ message }: Props) => {
   return (
     <div className="flex items-center justify-center h-[500px]">
       <div
