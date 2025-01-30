@@ -1,11 +1,34 @@
+import { motion } from "motion/react";
 import { FaChartColumn, FaUserPlus } from "react-icons/fa6";
 
 const HomePageInfo = () => {
+  const variants = {
+    initial: {
+      opacity: 0,
+      x: 50,
+    },
+    animate: () => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 2,
+      },
+    }),
+  };
+
   return (
     <section className="flex flex-col items-center justify-center space-y-8 px-4 md:px-10 lg:px-56 mb-52">
       <div className="bg-gray-100 p-10 md:p-20 rounded-2xl flex flex-col md:flex-row justify-between space-y-12 dark:bg-gray-900 dark:border-2 dark:border-gray-600">
         <div className="flex flex-col items-center justify-center gap-12 flex-1">
-          <div className="space-y-2">
+          <motion.div
+            className="space-y-2"
+            variants={variants}
+            initial="initial"
+            whileInView="animate"
+            viewport={{
+              once: true,
+            }}
+          >
             <FaUserPlus
               className="text-blue-700 dark:text-green-500"
               size={35}
@@ -18,8 +41,16 @@ const HomePageInfo = () => {
               instantly. Stay on top of your sales pipeline and never miss an
               opportunity to close a deal.
             </p>
-          </div>
-          <div className="space-y-2">
+          </motion.div>
+          <motion.div
+            className="space-y-2"
+            variants={variants}
+            initial="initial"
+            whileInView="animate"
+            viewport={{
+              once: true,
+            }}
+          >
             <FaChartColumn
               className="text-blue-700 dark:text-green-500"
               size={35}
@@ -32,7 +63,7 @@ const HomePageInfo = () => {
               trends, refine strategies, and make smarter, data-driven decisions
               to boost results.
             </p>
-          </div>
+          </motion.div>
         </div>
         <div className="flex items-center flex-1">
           <img

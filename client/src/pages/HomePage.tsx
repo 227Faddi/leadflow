@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import Footer from "../components/Footer";
@@ -11,7 +12,13 @@ const HomePage = () => {
       <Header />
       <main className="flex-1 flex flex-col items-center justify-center my-16 md:my-48 space-y-32 md:space-y-40">
         <section className="flex flex-col items-center justify-center space-y-14">
-          <div className="text-center max-w-[75%] space-y-4 flex flex-col items-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            viewport={{ once: true }}
+            className="text-center max-w-[75%] space-y-4 flex flex-col items-center"
+          >
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold dark:text-white">
               Simplify Your Lead Management Process
             </h1>
@@ -19,7 +26,7 @@ const HomePage = () => {
               Easily organize, track, and analyze your potential clients to stay
               ahead and close more deals, all in one powerful platform.
             </p>
-          </div>
+          </motion.div>
           <div className="flex flex-col justify-center items-center space-y-2">
             <div className="space-x-6">
               <LinkButton text="Login" color="green" to="/login" />

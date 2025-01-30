@@ -6,11 +6,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { motion } from "motion/react";
+import { useEffect, useMemo, useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
 import { HiArrowNarrowDown, HiArrowNarrowUp } from "react-icons/hi";
 import { PiArrowsDownUpBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import { Lead } from "../../types";
 import Columns from "./Columns";
 import ExportTable from "./ExportTable";
@@ -27,7 +29,34 @@ type ColumnFiltersState = {
 }[];
 
 const Table = ({ leads }: Props) => {
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const { getItem, setItem } = useLocalStorage("tableFilter");
+  const savedFilter = getItem();
+
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
+    savedFilter || []
+  );
+
+  // Filter
+  const filteredName: string =
+    columnFilters.find((item) => item.id === "name")?.value || "";
+
+  const filteredStatus =
+    columnFilters.find((item) => item.id === "status")?.value || "";
+
+  const onFilterChange = (id: string, value: string) =>
+    setColumnFilters((prev) =>
+      prev
+        .filter((f) => f.id !== id)
+        .concat({
+          id,
+          value,
+        })
+    );
+
+  useEffect(() => {
+    const status = columnFilters.filter((item) => item.id === "status");
+    setItem(status);
+  }, [columnFilters, setItem]);
 
   const columns = useMemo(() => Columns(), []);
   const data = leads || [];
@@ -43,23 +72,6 @@ const Table = ({ leads }: Props) => {
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
-
-  // Filter
-  const filteredName: string =
-    columnFilters.find((f) => f.id === "name")?.value || "";
-
-  const filteredStatus =
-    columnFilters.find((f) => f.id === "status")?.value || "";
-
-  const onFilterChange = (id: string, value: string) =>
-    setColumnFilters((prev) =>
-      prev
-        .filter((f) => f.id !== id)
-        .concat({
-          id,
-          value,
-        })
-    );
 
   return (
     <>
@@ -145,7 +157,13 @@ const Table = ({ leads }: Props) => {
                   </tr>
                 ) : (
                   table.getRowModel().rows.map((row) => (
-                    <tr key={row.id}>
+                    <motion.tr
+                      initial={{ opacity: 0, y: 5 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                      viewport={{ once: true }}
+                      key={row.id}
+                    >
                       {row.getVisibleCells().map((cell) => (
                         <td
                           key={cell.id}
@@ -157,7 +175,7 @@ const Table = ({ leads }: Props) => {
                           )}
                         </td>
                       ))}
-                    </tr>
+                    </motion.tr>
                   ))
                 )}
               </tbody>
