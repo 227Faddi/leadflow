@@ -92,6 +92,7 @@ export default {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      domain: env.BASE_DOMAIN,
       maxAge: env.JWT_REFRESH_TOKEN_MAX_AGE,
     });
 
@@ -160,6 +161,7 @@ export default {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      domain: env.BASE_DOMAIN,
       maxAge: env.JWT_REFRESH_TOKEN_MAX_AGE,
     });
 
@@ -197,6 +199,7 @@ export default {
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
       secure: true,
+      domain: env.BASE_DOMAIN,
       maxAge: env.JWT_REFRESH_TOKEN_MAX_AGE,
     });
 

@@ -6,6 +6,7 @@ export const env = {
   SERVER_PORT: Number(process.env.SERVER_PORT),
   CLIENT_URL: process.env.CLIENT_URL as string,
   NODE_ENV: process.env.NODE_ENV as string,
+  BASE_DOMAIN: process.env.BASE_DOMAIN as string,
 
   // Database
   DB_NAME: process.env.DB_NAME as string,
