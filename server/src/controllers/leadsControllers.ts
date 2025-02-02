@@ -1,11 +1,16 @@
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import sequelize from '../config/database.js';
+import { env } from '../config/index.js';
 import Lead from '../models/Lead.js';
 
 export default {
   getLeads: asyncHandler(async (req: Request, res: Response) => {
-    const leads = await Lead.findAll({ where: { userId: req.user } });
+    const leads = await Lead.findAll({
+      where: { userId: req.user },
+      order: [[sequelize.literal('status'), 'ASC']],
+    });
     res.status(200).send(leads);
   }),
 
@@ -96,5 +101,80 @@ export default {
     }
     lead.update(req.body);
     res.status(200).send({ message: 'Status updated successfully' });
+  }),
+
+  messageLead: asyncHandler(async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const lead = await Lead.findOne({
+      where: { id: id },
+      attributes: {
+        exclude: ['id', 'status', 'userId', 'createdAt', 'updatedAt'],
+      },
+      raw: true,
+    });
+    if (!lead) {
+      res.status(404).send({ message: 'Lead not found' });
+      return;
+    }
+
+    const prompt = `
+      Write a short, friendly sales email for ${lead.name} in the ${lead.industry} industry located in ${lead.location}. Follow this structure:  
+      1. **Structure Flow**:  
+      - Subject line: Mention ${lead.industry} and ${lead.location} (e.g., "Boost Your [Industry] Success in [City]").  
+      - Opening: Greet ${lead.name}, introduce [Your Company], and mention how you help ${lead.industry} businesses (include [service details]).  
+      - Hook: Reference ${lead.location}’s ${lead.industry} scene and hint at a result like [insert result].  
+      - CTA: Ask to schedule a call.  
+      - Sign-off: Close with "[Your Full Name]".  
+      2. **Rules**:  
+      - Keep [bracketed placeholders] for user inputs.  
+      - Stay under 100 words.
+    `;
+
+    const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const result = await model.generateContent(prompt);
+    const response = result.response.text();
+
+    res.status(200).send({ message: response });
+  }),
+
+  getInsights: asyncHandler(async (req: Request, res: Response) => {
+    const statuses = await Lead.findAll({
+      where: { userId: req.user },
+      attributes: [
+        'status',
+        [sequelize.fn('COUNT', sequelize.col('status')), 'value'],
+      ],
+      group: ['status'],
+      raw: true,
+    });
+
+    const industries = await Lead.findAll({
+      where: { userId: req.user },
+      attributes: [
+        'industry',
+        [sequelize.fn('COUNT', sequelize.col('industry')), 'value'],
+      ],
+      limit: 5,
+      order: [[sequelize.literal('value'), 'DESC']],
+      group: ['industry'],
+      raw: true,
+    });
+
+    const prompt = `
+      Analyze the following lead analytics data and provide a summary of key trends and insights. 
+      Focus on identifying lead distribution patterns across industries and statuses, as well as suggesting opportunities for improvement. 
+      Please provide a concise 3-4 sentence summary highlighting important findings: 
+      **Data**: 
+      - Industries: ${JSON.stringify(industries)} 
+      - Statuses: ${JSON.stringify(statuses)}
+    `;
+
+    const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const result = await model.generateContent(prompt);
+    const response = result.response.text();
+
+    res.status(200).send({ message: response });
   }),
 };

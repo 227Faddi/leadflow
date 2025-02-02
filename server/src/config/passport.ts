@@ -4,8 +4,6 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import User from '../models/User.js';
 import { env } from './index.js';
 
-const avatar = env.AVATAR_DICEBEAR_URL;
-
 const passportConfig = (passport: PassportStatic) => {
   passport.use(
     new GoogleStrategy(
@@ -20,7 +18,7 @@ const passportConfig = (passport: PassportStatic) => {
         const username = profile.name?.givenName as string;
         const profileImg =
           (profile?.photos?.[0]?.value as string) ??
-          ((avatar + username) as string);
+          ((env.AVATAR_DICEBEAR_URL + username) as string);
 
         const user = {
           id: id,
@@ -66,7 +64,7 @@ const passportConfig = (passport: PassportStatic) => {
           ((id + username + '@users.noreply.github.com') as string);
         const profileImg =
           (profile?.photos?.[0]?.value as string) ??
-          ((avatar + username) as string);
+          ((env.AVATAR_DICEBEAR_URL + username) as string);
 
         const user = {
           id: id,

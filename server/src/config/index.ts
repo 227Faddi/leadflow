@@ -14,6 +14,9 @@ export const env = {
   DB_HOST: process.env.DB_HOST as string,
   DB_PORT: Number(process.env.DB_PORT),
 
+  // Gemini
+  GEMINI_API_KEY: process.env.GEMINI_API_KEY as string,
+
   // Google
   GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID as string,
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET as string,

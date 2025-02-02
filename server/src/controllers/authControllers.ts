@@ -6,14 +6,6 @@ import { env } from '../config/index.js';
 import cloudinary from '../middleware/cloudinary.js';
 import User from '../models/User.js';
 
-const jwtAccess = env.JWT_ACCESS_TOKEN_SECRET;
-const jwtRefresh = env.JWT_REFRESH_TOKEN_SECRET;
-const accessExpiration = env.JWT_ACCESS_TOKEN_EXPIRATION;
-const refreshExpiration = env.JWT_REFRESH_TOKEN_EXPIRATION;
-const refreshMaxAge = env.JWT_REFRESH_TOKEN_MAX_AGE;
-const avatar = env.AVATAR_DICEBEAR_URL;
-const client = env.CLIENT_URL;
-
 export default {
   refresh: asyncHandler((req: Request, res: Response) => {
     const cookies = req.cookies;
@@ -27,7 +19,7 @@ export default {
 
     jwt.verify(
       refreshToken,
-      jwtRefresh,
+      env.JWT_REFRESH_TOKEN_SECRET,
       async (err: Error | null, decoded: string | JwtPayload | undefined) => {
         if (err) {
           if (err.name === 'TokenExpiredError') {
@@ -56,8 +48,8 @@ export default {
               id: foundUser.dataValues.id,
             },
           },
-          jwtAccess,
-          { expiresIn: accessExpiration }
+          env.JWT_ACCESS_TOKEN_SECRET,
+          { expiresIn: env.JWT_ACCESS_TOKEN_EXPIRATION }
         );
 
         res.json({ accessToken });
@@ -83,20 +75,24 @@ export default {
           id: user.dataValues.id,
         },
       },
-      jwtAccess,
-      { expiresIn: accessExpiration }
+      env.JWT_ACCESS_TOKEN_SECRET,
+      { expiresIn: env.JWT_ACCESS_TOKEN_EXPIRATION }
     );
 
-    const refreshToken = jwt.sign({ id: user.dataValues.id }, jwtRefresh, {
-      expiresIn: refreshExpiration,
-    });
+    const refreshToken = jwt.sign(
+      { id: user.dataValues.id },
+      env.JWT_REFRESH_TOKEN_SECRET,
+      {
+        expiresIn: env.JWT_REFRESH_TOKEN_EXPIRATION,
+      }
+    );
 
     // Create secure cookie with refresh token
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      maxAge: refreshMaxAge,
+      maxAge: env.JWT_REFRESH_TOKEN_MAX_AGE,
     });
 
     res.json({ accessToken });
@@ -109,7 +105,7 @@ export default {
     // Profile Image
     if (!profileImg) {
       // save in .env
-      req.body.profileImg = avatar + username;
+      req.body.profileImg = env.AVATAR_DICEBEAR_URL + username;
     } else {
       const customName = `profile_picture_${username}_${Date.now()}`;
       const result = await cloudinary.uploader.upload(profileImg.path, {
@@ -148,20 +144,24 @@ export default {
           id: user.dataValues.id,
         },
       },
-      jwtAccess,
-      { expiresIn: accessExpiration }
+      env.JWT_ACCESS_TOKEN_SECRET,
+      { expiresIn: env.JWT_ACCESS_TOKEN_EXPIRATION }
     );
 
-    const refreshToken = jwt.sign({ id: user.dataValues.id }, jwtRefresh, {
-      expiresIn: refreshExpiration,
-    });
+    const refreshToken = jwt.sign(
+      { id: user.dataValues.id },
+      env.JWT_REFRESH_TOKEN_SECRET,
+      {
+        expiresIn: env.JWT_REFRESH_TOKEN_EXPIRATION,
+      }
+    );
 
     // Create secure cookie with refresh token
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      maxAge: refreshMaxAge,
+      maxAge: env.JWT_REFRESH_TOKEN_MAX_AGE,
     });
 
     res.json({
@@ -186,18 +186,21 @@ export default {
   }),
 
   socialCallback: asyncHandler((req: Request, res: Response) => {
-    const refreshToken = jwt.sign({ id: req.user?.id }, jwtRefresh, {
-      expiresIn: refreshExpiration,
-    });
+    const refreshToken = jwt.sign(
+      { id: req.user?.id },
+      env.JWT_REFRESH_TOKEN_SECRET,
+      {
+        expiresIn: env.JWT_REFRESH_TOKEN_EXPIRATION,
+      }
+    );
 
     // Create secure cookie with refresh token
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
-      maxAge: refreshMaxAge,
+      maxAge: env.JWT_REFRESH_TOKEN_MAX_AGE,
     });
 
-    res.redirect(client + '/dashboard');
+    res.redirect(env.CLIENT_URL + '/dashboard');
   }),
 };
