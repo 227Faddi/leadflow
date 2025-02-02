@@ -1,23 +1,5 @@
 {
   "version": 2,
-  "headers": [
-    {
-      "key": "Access-Control-Allow-Origin",
-      "value": "https://app.leadflow.buzz"
-    },
-    {
-      "key": "Access-Control-Allow-Credentials",
-      "value": "true"
-    },
-    {
-      "key": "Access-Control-Allow-Methods",
-      "value": "GET,POST,PUT,DELETE,OPTIONS"
-    },
-    {
-      "key": "Access-Control-Allow-Headers",
-      "value": "Content-Type, Authorization"
-    }
-  ],
   "builds": [
     {
       "src": "dist/index.js",
