@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "motion/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -27,7 +28,12 @@ const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      <div className="mb-4 flex flex-col space-y-2">
+      <motion.div
+        initial={{ opacity: 0, y: 5 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="mb-4 flex flex-col space-y-2"
+      >
         <div>
           <label className="block mb-2 text-md text-bold text-gray-900 dark:text-white">
             Email
@@ -56,7 +62,7 @@ const LoginForm = () => {
             {errors?.password?.message}
           </p>
         </div>
-      </div>
+      </motion.div>
       <button
         className="mt-4 w-full text-white bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 shadow-lg shadow-green-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
         type="submit"

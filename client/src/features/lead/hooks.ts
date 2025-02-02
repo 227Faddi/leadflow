@@ -11,6 +11,7 @@ import {
   fetchLead,
   fetchLeads,
   getIndustryCount,
+  getMessage,
   getStatusCount,
   updateStatus,
 } from "./api";
@@ -18,12 +19,21 @@ import {
 export const leadKeys = {
   all: ["leads"] as const,
   single: (id: Lead["id"]) => ["lead", id] as const,
+  message: ["message"] as const,
 };
 
 export const useGetLeads = () => {
   const { data, isLoading, isError } = useQuery<Lead[]>({
     queryFn: fetchLeads,
     queryKey: leadKeys.all,
+  });
+  return { data, isLoading, isError };
+};
+
+export const useGetMessage = (id: Lead["id"]) => {
+  const { data, isLoading, isError } = useQuery({
+    queryFn: () => getMessage(id),
+    queryKey: leadKeys.message,
   });
   return { data, isLoading, isError };
 };

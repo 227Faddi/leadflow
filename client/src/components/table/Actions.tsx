@@ -1,9 +1,10 @@
 import { CellContext } from "@tanstack/react-table";
-import { LuMail, LuPenSquare, LuTrash2 } from "react-icons/lu";
+import { LuPenSquare, LuTrash2 } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { useDeleteLead } from "../../features/lead/hooks";
 import { Lead } from "../../types";
 import ConfirmModal from "../modals/ConfirmModal";
+import MessageModal from "../modals/MessageModal";
 import ToolTip from "../ui/ToolTip";
 
 type Props = {
@@ -15,13 +16,10 @@ const Actions = ({ props }: Props) => {
 
   return (
     <div className="flex justify-center gap-10">
-      <ToolTip text="Send an Email">
-        <a
-          href={`mailto:${props.row.original.email}`}
-          className="text-gray-900 hover:text-gray-600 dark:text-white"
-        >
-          <LuMail size={23} />
-        </a>
+      <ToolTip text="Reach Out">
+        <span>
+          <MessageModal id={props.row.original.id} />
+        </span>
       </ToolTip>
       <ToolTip text="Edit Lead">
         <Link

@@ -52,3 +52,8 @@ export const editLead = async ({
 }): Promise<void> => {
   await axiosInstance.put(`/api/leads/${id}`, formData);
 };
+
+export const getMessage = async (id: Lead["id"]) => {
+  const { data } = await axiosInstance.get(`/${id}/message`);
+  return data;
+};

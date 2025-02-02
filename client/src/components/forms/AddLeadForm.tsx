@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "motion/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { LuChevronsUpDown } from "react-icons/lu";
 import { Link } from "react-router-dom";
@@ -26,7 +27,13 @@ const AddLeadForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      <div className="w-full mb-4 flex flex-col space-y-4 sm:space-y-2 items-center justify-center">
+      <motion.div
+        initial={{ opacity: 0, y: 5 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        viewport={{ once: true }}
+        className="w-full mb-4 flex flex-col space-y-4 sm:space-y-2 items-center justify-center"
+      >
         <div className="w-full">
           <label className="block mb-2 text-md text-bold text-gray-900 dark:text-white">
             Name
@@ -119,7 +126,7 @@ const AddLeadForm = () => {
             Cancel
           </Link>
         </div>
-      </div>
+      </motion.div>
     </form>
   );
 };

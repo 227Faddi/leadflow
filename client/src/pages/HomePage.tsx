@@ -4,9 +4,20 @@ import { FcGoogle } from "react-icons/fc";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import HomePageInfo from "../components/HomePageInfo";
-import { LinkButton, SocialButton } from "../components/ui/Button";
+import { SocialButton } from "../components/ui/Button";
+import { useLogin } from "../features/auth/hooks";
 
 const HomePage = () => {
+  const guest = {
+    email: import.meta.env.VITE_GUEST_EMAIL,
+    password: import.meta.env.VITE_GUEST_PASSWORD,
+  };
+
+  const { login, isPending } = useLogin();
+
+  const handleGuestLogin = async () => {
+    await login(guest);
+  };
   return (
     <div>
       <Header />
@@ -28,10 +39,13 @@ const HomePage = () => {
             </p>
           </motion.div>
           <div className="flex flex-col justify-center items-center space-y-2">
-            <div className="space-x-6">
-              <LinkButton text="Login" color="green" to="/login" />
-              <LinkButton text="Signup" color="blue" to="/signup" />
-            </div>
+            <button
+              onClick={handleGuestLogin}
+              disabled={isPending}
+              className="text-white bg-gradient-to-r from-blue-500 to-green-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+            >
+              {isPending ? "Logging in..." : "Try as Guest"}
+            </button>
             <div className="w-full py-3 flex items-center text-gray-400 before:flex-1 before:border-t before:border-gray-300 before:me-6 after:flex-1 after:border-t after:border-gray-300 after:ms-6 dark:text-white">
               or
             </div>

@@ -27,7 +27,7 @@ const SettingsPage = () => {
           {isEditProfile && <EditProfileForm />}
           {!isChangePassword && !isEditProfile && (
             <motion.div
-              initial={{ opacity: 0, y: -5 }}
+              initial={{ opacity: 0, y: 5 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
               className="flex flex-col bg-gray-50 p-12 border-2 border-slate-200 rounded-md space-y-6 shadow-lg dark:text-white dark:bg-gray-900 dark:border-slate-700"

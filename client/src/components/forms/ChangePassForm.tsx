@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "motion/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useChangePassword } from "../../features/user/hooks";
@@ -24,7 +25,12 @@ const ChangePassForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      <div className="mb-4 flex flex-col space-y-5 sm:space-y-2">
+      <motion.div
+        initial={{ opacity: 0, y: 5 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="mb-4 flex flex-col space-y-5 sm:space-y-2"
+      >
         <div>
           <label className="block mb-2 text-md text-bold text-gray-900 dark:text-white">
             Current Password
@@ -82,7 +88,7 @@ const ChangePassForm = () => {
             Cancel
           </Link>
         </div>
-      </div>
+      </motion.div>
     </form>
   );
 };
