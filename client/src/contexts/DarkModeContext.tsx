@@ -19,7 +19,7 @@ const DarkModeProvider = ({ children }: Props) => {
   const savedTheme = getItem();
 
   const [isDarkMode, setIsDarkMode] = useState<boolean>(
-    savedTheme || systemTheme
+    savedTheme ?? systemTheme
   );
 
   useEffect(() => {

@@ -104,7 +104,6 @@ export default {
 
     // Profile Image
     if (!profileImg) {
-      // save in .env
       req.body.profileImg = env.AVATAR_DICEBEAR_URL + username;
     } else {
       const customName = `profile_picture_${username}_${Date.now()}`;
