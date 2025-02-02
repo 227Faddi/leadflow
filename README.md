@@ -1,6 +1,6 @@
 # [LeadFlow](https://lead-flow.netlify.app) - CRM for Freelancers
 
-![Preview](/preview.mp4)
+![Preview](/preview.gif)
 
 ## 📖 Description
 
