@@ -1,4 +1,4 @@
-# [LeadFlow](https://lead-flow.netlify.app) - CRM for Freelancers
+# [LeadFlow](https://app.leadflow.buzz) - CRM for Freelancers
 
 https://github.com/user-attachments/assets/b2db95df-9e15-45f8-93fd-a1dd8bcb2121
 
