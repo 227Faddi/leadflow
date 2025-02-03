@@ -182,6 +182,7 @@ export default {
       httpOnly: true,
       sameSite: 'none',
       secure: true,
+      domain: env.BASE_DOMAIN,
     });
     res.json({ message: 'Cookie cleared' });
   }),
