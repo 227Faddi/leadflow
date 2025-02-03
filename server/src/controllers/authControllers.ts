@@ -184,7 +184,7 @@ export default {
       secure: true,
       domain: env.BASE_DOMAIN,
     });
-    res.json({ message: 'Cookie cleared' });
+    res.redirect(env.CLIENT_URL);
   }),
 
   socialCallback: asyncHandler((req: Request, res: Response) => {
