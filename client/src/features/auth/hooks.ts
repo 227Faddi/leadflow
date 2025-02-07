@@ -75,7 +75,6 @@ export const useLogout = () => {
     mutationFn: logoutPost,
     onSuccess: () => {
       setToken(undefined);
-      toast.success("Logout completed successfully");
       navigate("/");
     },
     onError: (err) => handleError(err),
