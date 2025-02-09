@@ -48,3 +48,9 @@ export const env = {
     .JWT_REFRESH_TOKEN_EXPIRATION as string,
   JWT_REFRESH_TOKEN_MAX_AGE: Number(process.env.JWT_REFRESH_TOKEN_MAX_AGE),
 };
+
+for (const [key, value] of Object.entries(env)) {
+  if (!value) {
+    throw new Error(`Missing ${key} value from env file`);
+  }
+}

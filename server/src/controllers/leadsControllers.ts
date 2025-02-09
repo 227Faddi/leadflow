@@ -40,7 +40,7 @@ export default {
     res.status(200).send({ message: 'Leads deleted successfully' });
   }),
 
-  statusLead: asyncHandler(async (req: Request, res: Response) => {
+  updateLeadStatus: asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
     const lead = await Lead.findOne({ where: { id: id, userId: req.user } });
 
@@ -92,7 +92,7 @@ export default {
     res.status(200).send(data);
   }),
 
-  editLead: asyncHandler(async (req: Request, res: Response) => {
+  updateLead: asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
     const lead = await Lead.findOne({ where: { id: id, userId: req.user } });
     if (!lead) {
@@ -103,7 +103,7 @@ export default {
     res.status(200).send({ message: 'Status updated successfully' });
   }),
 
-  messageLead: asyncHandler(async (req: Request, res: Response) => {
+  getLeadMessage: asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
     const lead = await Lead.findOne({
       where: { id: id },
