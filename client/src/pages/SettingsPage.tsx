@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import ChangePassForm from "../components/forms/ChangePassForm";
 import EditProfileForm from "../components/forms/EditProfileForm";
 import ConfirmWithTextModal from "../components/modals/ConfirmWithTextModal";
-import { useDeleteAllLeads } from "../features/lead/hooks";
-import { useDeleteUser } from "../features/user/hooks";
+import { useDeleteAllLeads } from "../states/lead";
+import { useDeleteUser } from "../states/user";
 
 const SettingsPage = () => {
   const deleteUser = useDeleteUser();

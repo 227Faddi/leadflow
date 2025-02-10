@@ -5,7 +5,7 @@ import {
   leadSchema,
   loginSchema,
   signupSchema,
-} from "../utils/zod/formValidation";
+} from "../utils/formValidation";
 
 export type Token = string | undefined;
 

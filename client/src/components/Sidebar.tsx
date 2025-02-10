@@ -4,8 +4,8 @@ import { IoIosContacts, IoMdSettings } from "react-icons/io";
 import { LuMoonStar, LuSun } from "react-icons/lu";
 import { MdLogout } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import { useLogout } from "../features/auth/hooks";
 import useDarkMode from "../hooks/useDarkMode";
+import { useLogout } from "../states/auth";
 import ConfirmModal from "./modals/ConfirmModal";
 
 type Props = {

@@ -1,5 +1,5 @@
 import { IoIosContacts } from "react-icons/io";
-import { useGetUser } from "../features/user/hooks";
+import { useGetUser } from "../states/user";
 
 type Props = {
   setSidebarOpen: (val: boolean) => void;

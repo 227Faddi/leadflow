@@ -1,10 +1,10 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { User } from "../../types";
-import handleError from "../../utils/axios/handleError";
-import { useToken } from "../auth/hooks";
-import { changePassword, deleteUser, editProfile, getUser } from "./api";
+import handleError from "../api/handleError";
+import { changePassword, deleteUser, editProfile, getUser } from "../api/user";
+import { User } from "../types";
+import { useToken } from "./auth";
 
 export const userKeys = {
   user: ["user"] as const,

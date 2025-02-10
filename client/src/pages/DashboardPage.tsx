@@ -4,7 +4,7 @@ import Table from "../components/table/Table.tsx";
 import ErrorMessage from "../components/ui/ErrorMessage.tsx";
 import InfoCard from "../components/ui/InfoCard.tsx";
 import Spinner from "../components/ui/Spinner.tsx";
-import { useGetLeads } from "../features/lead/hooks.ts";
+import { useGetLeads } from "../states/lead.ts";
 
 import { useMemo } from "react";
 

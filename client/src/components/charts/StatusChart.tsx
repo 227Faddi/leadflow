@@ -1,5 +1,5 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
-import { useGetStatusCount } from "../../features/lead/hooks";
+import { useGetStatusCount } from "../../states/lead";
 import { firstLetterUpperCase } from "../../utils";
 
 type CustomLabel = {

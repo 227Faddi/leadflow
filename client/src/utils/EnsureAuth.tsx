@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useToken } from "../../features/auth/hooks";
+import { useToken } from "../states/auth";
 
 const EnsureAuth = () => {
   const { token } = useToken();

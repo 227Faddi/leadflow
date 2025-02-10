@@ -8,7 +8,7 @@ import InsightsModal from "../components/modals/InsightsModal";
 import ErrorMessage from "../components/ui/ErrorMessage";
 import InfoCard from "../components/ui/InfoCard";
 import Spinner from "../components/ui/Spinner";
-import { useGetLeads } from "../features/lead/hooks";
+import { useGetLeads } from "../states/lead";
 
 const AnalyticsPage = () => {
   const { data: leads, isLoading, isError } = useGetLeads();

@@ -3,10 +3,10 @@ import { motion } from "motion/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { LuChevronsUpDown } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { useEditLead } from "../../features/lead/hooks";
+import { useEditLead } from "../../states/lead";
 import { Lead, LeadForm } from "../../types";
 import { firstLetterUpperCase } from "../../utils";
-import { industries, leadSchema } from "../../utils/zod/formValidation";
+import { industries, leadSchema } from "../../utils/formValidation";
 
 type Props = {
   lead: Lead;

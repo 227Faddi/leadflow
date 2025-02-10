@@ -1,7 +1,7 @@
 import { CellContext } from "@tanstack/react-table";
 import { LuPenSquare, LuTrash2 } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import { useDeleteLead } from "../../features/lead/hooks";
+import { useDeleteLead } from "../../states/lead";
 import { Lead } from "../../types";
 import ConfirmModal from "../modals/ConfirmModal";
 import MessageModal from "../modals/MessageModal";

@@ -18,8 +18,8 @@ import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import SettingsPage from "./pages/SettingsPage";
 import SignupPage from "./pages/SignupPage";
-import EnsureAuth from "./utils/auth/EnsureAuth";
-import EnsureGuest from "./utils/auth/EnsureGuest";
+import EnsureAuth from "./utils/EnsureAuth";
+import EnsureGuest from "./utils/EnsureGuest";
 
 function App() {
   const router = createBrowserRouter(

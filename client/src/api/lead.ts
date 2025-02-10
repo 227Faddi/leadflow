@@ -1,5 +1,5 @@
-import { IndustryChart, Lead, LeadForm, StatusChart } from "../../types";
-import { axiosInstance } from "../../utils/axios/axios";
+import { axiosInstance } from "../api/axios";
+import { IndustryChart, Lead, LeadForm, StatusChart } from "../types";
 
 export const fetchLeads = async (): Promise<Lead[]> => {
   const { data } = await axiosInstance.get(`/api/leads`);
@@ -37,7 +37,7 @@ export const updateStatus = async ({
   id,
   newStatus,
 }: {
-  id: Lead["id"];
+  id: string;
   newStatus: Lead["status"];
 }): Promise<void> => {
   await axiosInstance.put(`/api/leads/${id}/status`, { status: newStatus });

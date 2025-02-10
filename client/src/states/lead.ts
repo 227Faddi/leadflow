@@ -1,8 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { IndustryChart, Lead, StatusChart } from "../../types";
-import handleError from "../../utils/axios/handleError";
+import handleError from "../api/handleError";
 import {
   addLead,
   deleteAllLeads,
@@ -14,7 +13,8 @@ import {
   getMessage,
   getStatusCount,
   updateStatus,
-} from "./api";
+} from "../api/lead";
+import { IndustryChart, Lead, StatusChart } from "../types";
 
 export const leadKeys = {
   all: ["leads"] as const,

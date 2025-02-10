@@ -1,5 +1,5 @@
 import Swal from "sweetalert2";
-import { axiosInstance } from "../../utils/axios/axios";
+import { axiosInstance } from "../../api/axios";
 
 const InsightsModal = () => {
   const handleInsight = async () => {

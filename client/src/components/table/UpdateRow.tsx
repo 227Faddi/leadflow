@@ -1,10 +1,10 @@
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { LuChevronsUpDown } from "react-icons/lu";
-import { useUpdateStatus } from "../../features/lead/hooks";
+import { useUpdateStatus } from "../../states/lead";
 import { Lead } from "../../types";
 import { firstLetterUpperCase } from "../../utils";
-import { statuses } from "../../utils/zod/formValidation";
+import { statuses } from "../../utils/formValidation";
 
 type Props = {
   currentStatus: Lead["status"];

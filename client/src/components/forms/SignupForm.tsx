@@ -4,9 +4,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { useSignup } from "../../features/auth/hooks";
+import { useSignup } from "../../states/auth";
 import { SignupFormData } from "../../types";
-import { signupSchema } from "../../utils/zod/formValidation";
+import { signupSchema } from "../../utils/formValidation";
 import { SocialButton } from "../ui/Button";
 
 const SignupForm = () => {

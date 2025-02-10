@@ -1,5 +1,5 @@
-import { ChangePassword, User } from "../../types";
-import { axiosInstance } from "../../utils/axios/axios";
+import { ChangePassword, User } from "../types";
+import { axiosInstance } from "./axios";
 
 export const getUser = async (): Promise<User> => {
   const response = await axiosInstance.get("/users/me");

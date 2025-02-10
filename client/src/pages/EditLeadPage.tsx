@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import EditLeadForm from "../components/forms/EditLeadForm";
 import ErrorMessage from "../components/ui/ErrorMessage";
 import Spinner from "../components/ui/Spinner";
-import { useGetLead } from "../features/lead/hooks";
+import { useGetLead } from "../states/lead";
 import { Lead } from "../types";
 
 const EditLeadPage = () => {

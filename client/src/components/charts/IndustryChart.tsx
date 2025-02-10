@@ -7,7 +7,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { useGetIndustryCount } from "../../features/lead/hooks";
+import { useGetIndustryCount } from "../../states/lead";
 import { firstLetterUpperCase } from "../../utils";
 
 const IndustryChart = () => {

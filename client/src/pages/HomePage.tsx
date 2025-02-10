@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import HomePageInfo from "../components/HomePageInfo";
 import { SocialButton } from "../components/ui/Button";
-import { useLogin } from "../features/auth/hooks";
+import { useLogin } from "../states/auth";
 
 const HomePage = () => {
   const guest = {

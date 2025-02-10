@@ -1,7 +1,7 @@
 import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
-import { refreshGet } from "../../features/auth/api";
-import { Token } from "../../types";
+import { Token } from "../types";
+import { getRefreshToken } from "./auth";
 
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
@@ -21,10 +21,10 @@ export const updateAxiosHeader = (token: Token) => {
   }
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 const refreshAuthLogic = async (failedRequest: any) => {
   try {
-    const response = await refreshGet();
+    const response = await getRefreshToken();
     const accessToken = response.data.accessToken;
 
     if (!accessToken) {

@@ -1,10 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { Token } from "../../types";
-import { updateAxiosHeader } from "../../utils/axios/axios";
-import handleError from "../../utils/axios/handleError";
-import { loginPost, logoutPost, refreshGet, signupPost } from "./api";
+import {
+  getRefreshToken,
+  postLogin,
+  postLogout,
+  postSignup,
+} from "../api/auth";
+import { updateAxiosHeader } from "../api/axios";
+import handleError from "../api/handleError";
+import { Token } from "../types";
 
 export const authKeys = {
   token: ["token"] as const,
@@ -26,7 +31,7 @@ export const useGetRefreshToken = () => {
     isLoading,
     isError,
   } = useQuery<Token>({
-    queryFn: refreshGet,
+    queryFn: getRefreshToken,
     queryKey: authKeys.token,
     retry: false,
   });
@@ -38,7 +43,7 @@ export const useSignup = () => {
   const { setToken } = useToken();
 
   const { mutateAsync: signup, isPending } = useMutation({
-    mutationFn: signupPost,
+    mutationFn: postSignup,
     onSuccess: ({ accessToken, message }) => {
       setToken(accessToken);
       toast.success(message || "Welcome!");
@@ -55,7 +60,7 @@ export const useLogin = () => {
   const { setToken } = useToken();
 
   const { mutateAsync: login, isPending } = useMutation({
-    mutationFn: loginPost,
+    mutationFn: postLogin,
     onSuccess: ({ accessToken, message }) => {
       setToken(accessToken);
       toast.success(message || "Welcome Back!");
@@ -72,7 +77,7 @@ export const useLogout = () => {
   const { setToken } = useToken();
 
   const { mutateAsync: logout, isPending } = useMutation({
-    mutationFn: logoutPost,
+    mutationFn: postLogout,
     onSuccess: () => {
       setToken(undefined);
       navigate("/");

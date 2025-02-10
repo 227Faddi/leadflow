@@ -4,9 +4,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { useLogin } from "../../features/auth/hooks";
+import { useLogin } from "../../states/auth";
 import { LoginFormData } from "../../types";
-import { loginSchema } from "../../utils/zod/formValidation";
+import { loginSchema } from "../../utils/formValidation";
 import { SocialButton } from "../ui/Button";
 
 const LoginForm = () => {

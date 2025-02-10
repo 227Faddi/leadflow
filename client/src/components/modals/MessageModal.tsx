@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { LuMail } from "react-icons/lu";
 import Swal from "sweetalert2";
-import { axiosInstance } from "../../utils/axios/axios";
+import { axiosInstance } from "../../api/axios";
 
 type Props = {
   id: string;

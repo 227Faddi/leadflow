@@ -2,9 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "motion/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useChangePassword } from "../../features/user/hooks";
+import { useChangePassword } from "../../states/user";
 import { ChangePassword } from "../../types";
-import { changePasswordSchema } from "../../utils/zod/formValidation";
+import { changePasswordSchema } from "../../utils/formValidation";
 
 const ChangePassForm = () => {
   const {

@@ -1,7 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { Lead } from "../../types";
 import { firstLetterUpperCase } from "../../utils";
-import { statuses } from "../../utils/zod/formValidation";
+import { statuses } from "../../utils/formValidation";
 import Actions from "./Actions";
 import UpdateRow from "./UpdateRow";
 
