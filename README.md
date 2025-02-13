@@ -17,7 +17,7 @@ A custom CRM platform designed specifically for freelancers to organize leads, t
 
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
-## 🚀 Getting Started
+## 🔥 Getting Started
 
 ### 📦 Installation
 
@@ -133,6 +133,24 @@ cd server
 ```
 npm run dev
 ```
+
+### 🚀 CI/CD Setup
+
+The project includes a CI/CD pipeline using GitHub Actions to automate deployment.
+
+1. Navigate to your repository on GitHub.
+
+2. Go to Settings > Secrets and variables > Actions.
+
+3. Click New repository secret and add the following secrets:
+
+```
+VERCEL_ORG_ID=your_vercel_org_id
+VERCEL_PROJECT_ID=your_vercel_project_id
+VERCEL_TOKEN=your_vercel_token
+```
+
+Once added, GitHub Actions will use these secrets to deploy the project automatically.
 
 ## More
 
