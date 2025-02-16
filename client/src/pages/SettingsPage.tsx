@@ -4,7 +4,7 @@ import ChangePassForm from "../components/forms/ChangePassForm";
 import EditProfileForm from "../components/forms/EditProfileForm";
 import ConfirmWithTextModal from "../components/modals/ConfirmWithTextModal";
 import { useDeleteAllLeads } from "../states/lead";
-import { useDeleteUser } from "../states/user";
+import { useDeleteUser, useUser } from "../states/user";
 
 const SettingsPage = () => {
   const deleteUser = useDeleteUser();
@@ -15,6 +15,13 @@ const SettingsPage = () => {
 
   const isEditProfile = params.has("edit-profile");
   const isChangePassword = params.has("change-password");
+
+  const { user } = useUser();
+
+  let isGuest = false;
+  if (user?.username === "Guest") {
+    isGuest = true;
+  }
 
   return (
     <div className="h-full container px-6 py-8 mx-auto">
@@ -34,13 +41,17 @@ const SettingsPage = () => {
             >
               <Link
                 to="/settings?edit-profile"
-                className="max-w-sm text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                className={`max-w-sm text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center  ${
+                  isGuest && "pointer-events-none line-through"
+                }`}
               >
                 Edit Profile
               </Link>
               <Link
                 to="/settings?change-password"
-                className="max-w-sm text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                className={`max-w-sm text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 shadow-lg shadow-blue-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center  ${
+                  isGuest && "pointer-events-none line-through"
+                }`}
               >
                 Change Password
               </Link>
@@ -50,7 +61,9 @@ const SettingsPage = () => {
                 text="Are you sure you want to permanently delete all leads? This action cannot be undone."
                 onClick={deleteLeads}
                 confirmText="delete all leads"
-                className="max-w-sm text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                className={`max-w-sm text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center  ${
+                  isGuest && "pointer-events-none line-through"
+                }`}
               />
               <ConfirmWithTextModal
                 children="Delete Profile"
@@ -58,7 +71,9 @@ const SettingsPage = () => {
                 text="Are you sure you want to permanently delete your profile? This action cannot be undone."
                 onClick={deleteUser}
                 confirmText="delete my profile"
-                className="max-w-sm text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                className={`max-w-sm text-white bg-gradient-to-r from-red-500 via-red-600 to-red-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 shadow-lg shadow-red-500/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center ${
+                  isGuest && "pointer-events-none line-through"
+                }`}
               />
             </motion.div>
           )}

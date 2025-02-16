@@ -4,6 +4,7 @@ import asyncHandler from 'express-async-handler';
 import sequelize from '../config/database.js';
 import { env } from '../config/index.js';
 import Lead from '../models/Lead.js';
+import User from '../models/User.js';
 
 export default {
   getLeads: asyncHandler(async (req: Request, res: Response) => {
@@ -32,6 +33,17 @@ export default {
   }),
 
   deleteAllLeads: asyncHandler(async (req: Request, res: Response) => {
+    const user = await User.findOne({
+      where: { id: req.user },
+    });
+
+    if (user?.id === env.GUEST_PROFILE_ID) {
+      res.status(400).json({
+        message:
+          'Sorry you can not delete this profile, create a new one instead',
+      });
+      throw new Error('Can not modify guest account');
+    }
     await Lead.destroy({
       where: {
         userId: req.user,
