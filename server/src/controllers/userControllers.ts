@@ -1,18 +1,18 @@
-import bcrypt from 'bcrypt';
-import { Request, Response } from 'express';
-import asyncHandler from 'express-async-handler';
-import { env } from '../config/index.js';
-import cloudinary from '../middleware/cloudinary.js';
-import User from '../models/User.js';
+import bcrypt from "bcrypt";
+import { Request, Response } from "express";
+import asyncHandler from "express-async-handler";
+import { env } from "../config/index.js";
+import cloudinary from "../middleware/cloudinary.js";
+import User from "../models/User.js";
 
 export default {
   getUser: asyncHandler(async (req: Request, res: Response) => {
     const user = await User.findOne({
       where: { id: req.user },
-      attributes: { exclude: ['password', 'createdAt', 'updatedAt'] },
+      attributes: { exclude: ["password", "createdAt", "updatedAt"] },
     });
     if (!user) {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: "User not found" });
       return;
     }
     res.status(200).send(user);
@@ -27,16 +27,16 @@ export default {
       where: { id: req.user },
     });
 
-    if (user?.username === 'Guest') {
-      res.status(400).json({
-        message: 'Sorry you can not modify this profile',
-      });
-      throw new Error('Sorry you can not modify this profile');
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
     }
 
-    if (!user) {
-      res.status(404).json({ message: 'User not found' });
-      return;
+    if (user.id === env.GUEST_ID) {
+      res.status(400).json({
+        message: "Sorry you can not modify this profile",
+      });
+      throw new Error("Sorry you can not modify this profile");
     }
 
     if (profileImg) {
@@ -64,30 +64,30 @@ export default {
     });
 
     if (!user) {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: "User not found" });
       return;
     }
 
-    if (user.id === env.GUEST_PROFILE_ID) {
+    if (user.id === env.GUEST_ID) {
       res.status(400).json({
-        message: 'Sorry you can not modify this profile',
+        message: "Sorry you can not modify this profile",
       });
-      throw new Error('Can not modify guest account');
+      throw new Error("Can not modify guest account");
     }
 
     if (newPassword != confirmPassword) {
       res.status(400).json({
-        message: 'Passwords do not match',
+        message: "Passwords do not match",
       });
-      throw new Error('Passwords do not match');
+      throw new Error("Passwords do not match");
     }
 
     // Check current password
     if (!(await bcrypt.compare(currentPassword, user.dataValues.password))) {
       res.status(400).json({
-        message: 'Invalid password. Please try again',
+        message: "Invalid password. Please try again",
       });
-      throw new Error('Invalid password');
+      throw new Error("Invalid password");
     }
 
     // Hash new password
@@ -96,7 +96,7 @@ export default {
 
     await user.update({ password: newHashedPassword });
 
-    res.status(200).json({ message: 'Password updated successfully' });
+    res.status(200).json({ message: "Password updated successfully" });
   }),
 
   deleteUser: asyncHandler(async (req: Request, res: Response) => {
@@ -105,16 +105,16 @@ export default {
     });
 
     if (!user) {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: "User not found" });
       return;
     }
 
-    if (user.id === env.GUEST_PROFILE_ID) {
+    if (user.id === env.GUEST_ID) {
       res.status(400).json({
         message:
-          'Sorry you can not delete this profile, create a new one instead',
+          "Sorry you can not delete this profile, create a new one instead",
       });
-      throw new Error('Can not modify guest account');
+      throw new Error("Can not modify guest account");
     }
 
     user.destroy();
@@ -122,12 +122,12 @@ export default {
     // Delete old image in cloudinary
     await cloudinary.uploader.destroy(user.cloudinaryId);
 
-    res.clearCookie('jwt', {
+    res.clearCookie("jwt", {
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: "none",
       secure: true,
     });
 
-    res.status(200).json({ message: 'User deleted successfully' });
+    res.status(200).json({ message: "User deleted successfully" });
   }),
 };

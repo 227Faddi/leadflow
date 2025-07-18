@@ -2,14 +2,15 @@ import axios from "axios";
 import createAuthRefreshInterceptor from "axios-auth-refresh";
 import { Token } from "../types";
 import { getRefreshToken } from "./auth";
+const serverURL = import.meta.env.VITE_SERVER_URL;
 
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
+  baseURL: serverURL,
   withCredentials: true,
 });
 
 export const axiosRefresh = axios.create({
-  baseURL: import.meta.env.VITE_SERVER_URL,
+  baseURL: serverURL,
   withCredentials: true,
 });
 

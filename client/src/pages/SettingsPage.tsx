@@ -19,7 +19,7 @@ const SettingsPage = () => {
   const { user } = useUser();
 
   let isGuest = false;
-  if (user?.username === "Guest") {
+  if (user?.id === import.meta.env.VITE_GUEST_ID) {
     isGuest = true;
   }
 

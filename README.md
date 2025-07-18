@@ -15,7 +15,7 @@ A custom CRM platform designed specifically for freelancers to organize leads, t
 
 ## 🛠 Tech Stack
 
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=Sequelize&logoColor=white) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 ## 🔥 Getting Started
 
@@ -54,7 +54,7 @@ Create a .env file in the root directory of your project and fill in the followi
 ```
 VITE_SERVER_URL=your_server_url
 VITE_GUEST_EMAIL=your_guest_email
-VITE_GUEST_PASSWORD=your_guest_password
+VITE_GUEST_ID=your_guest_id
 ```
 
 - Server
@@ -74,11 +74,7 @@ CLIENT_URL=your_client_url
 NODE_ENV=your_node_environment
 
 # Database Configuration
-DB_NAME=your_database_name
-DB_USER=your_database_user
-DB_PASSWORD=your_database_password
-DB_HOST=your_database_host
-DB_PORT=your_database_port
+DB_STRING=your_database_string
 
 # Gemini API
 GEMINI_API_KEY=your_gemini_api_key
@@ -102,7 +98,7 @@ CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 AVATAR_DICEBEAR_URL=your_avatar_dicebear_url
 
 # Guest Profile
-GUEST_PROFILE_ID=your_guest_profile_id
+GUEST_ID=your_guest_id
 
 # JWT Authentication
 JWT_ACCESS_TOKEN_SECRET=your_access_token_secret

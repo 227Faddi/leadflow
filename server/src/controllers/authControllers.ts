@@ -1,17 +1,17 @@
-import bcrypt from 'bcrypt';
-import { Request, Response } from 'express';
-import asyncHandler from 'express-async-handler';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { env } from '../config/index.js';
-import cloudinary from '../middleware/cloudinary.js';
-import User from '../models/User.js';
+import bcrypt from "bcrypt";
+import { Request, Response } from "express";
+import asyncHandler from "express-async-handler";
+import jwt, { JwtPayload } from "jsonwebtoken";
+import { env } from "../config/index.js";
+import cloudinary from "../middleware/cloudinary.js";
+import User from "../models/User.js";
 
 export default {
   refresh: asyncHandler((req: Request, res: Response) => {
     const cookies = req.cookies;
 
     if (!cookies?.jwt) {
-      res.status(401).json({ message: 'Unauthorized' });
+      res.status(401).json({ message: "Unauthorized" });
       return;
     }
 
@@ -22,15 +22,15 @@ export default {
       env.JWT_REFRESH_TOKEN_SECRET,
       async (err: Error | null, decoded: string | JwtPayload | undefined) => {
         if (err) {
-          if (err.name === 'TokenExpiredError') {
-            res.clearCookie('jwt', {
+          if (err.name === "TokenExpiredError") {
+            res.clearCookie("jwt", {
               httpOnly: true,
               secure: true,
-              sameSite: 'none',
+              sameSite: "none",
             });
-            return res.status(401).json({ message: 'Refresh token expired' });
+            return res.status(401).json({ message: "Refresh token expired" });
           }
-          return res.status(403).json({ message: 'Forbidden' });
+          return res.status(403).json({ message: "Forbidden" });
         }
 
         const foundUser = await User.findOne({
@@ -38,7 +38,7 @@ export default {
         });
 
         if (!foundUser) {
-          res.status(401).json({ message: 'Unauthorized' });
+          res.status(401).json({ message: "Unauthorized" });
           return;
         }
 
@@ -62,11 +62,16 @@ export default {
 
     const user = await User.findOne({ where: { email: email } });
 
-    if (!user || !(await bcrypt.compare(password, user.dataValues.password))) {
-      res.status(400).json({
-        message: 'Invalid email or password. Please try again',
-      });
-      throw new Error('Invalid credentials');
+    if (user?.dataValues.id !== env.GUEST_ID) {
+      if (
+        !user ||
+        !(await bcrypt.compare(password, user.dataValues.password))
+      ) {
+        res.status(400).json({
+          message: "Invalid email or password. Please try again",
+        });
+        throw new Error("Invalid credentials");
+      }
     }
 
     const accessToken = jwt.sign(
@@ -88,10 +93,10 @@ export default {
     );
 
     // Create secure cookie with refresh token
-    res.cookie('jwt', refreshToken, {
+    res.cookie("jwt", refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
+      sameSite: "none",
       domain: env.BASE_DOMAIN,
       maxAge: env.JWT_REFRESH_TOKEN_MAX_AGE,
     });
@@ -118,17 +123,17 @@ export default {
     // Check Values
     if (password != confirmPassword) {
       res.status(400).json({
-        message: 'Passwords do not match',
+        message: "Passwords do not match",
       });
-      throw new Error('Passwords do not match');
+      throw new Error("Passwords do not match");
     }
 
     const userExists = await User.findOne({ where: { email: email } });
     if (userExists) {
       res.status(400).json({
-        message: 'User email already exists. Please log in instead',
+        message: "User email already exists. Please log in instead",
       });
-      throw new Error('User email already exists');
+      throw new Error("User email already exists");
     }
 
     // Hash password
@@ -157,10 +162,10 @@ export default {
     );
 
     // Create secure cookie with refresh token
-    res.cookie('jwt', refreshToken, {
+    res.cookie("jwt", refreshToken, {
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
+      sameSite: "none",
       domain: env.BASE_DOMAIN,
       maxAge: env.JWT_REFRESH_TOKEN_MAX_AGE,
     });
@@ -178,14 +183,14 @@ export default {
       res.sendStatus(204);
       return;
     }
-    res.clearCookie('jwt', {
+    res.clearCookie("jwt", {
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: "none",
       secure: true,
       domain: env.BASE_DOMAIN,
     });
 
-    res.status(200).json({ message: 'Cookie cleared' });
+    res.status(200).json({ message: "Cookie cleared" });
   }),
 
   socialCallback: asyncHandler((req: Request, res: Response) => {
@@ -198,13 +203,13 @@ export default {
     );
 
     // Create secure cookie with refresh token
-    res.cookie('jwt', refreshToken, {
+    res.cookie("jwt", refreshToken, {
       httpOnly: true,
       secure: true,
       domain: env.BASE_DOMAIN,
       maxAge: env.JWT_REFRESH_TOKEN_MAX_AGE,
     });
 
-    res.redirect(env.CLIENT_URL + '/dashboard');
+    res.redirect(env.CLIENT_URL + "/dashboard");
   }),
 };

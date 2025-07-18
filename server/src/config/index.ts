@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 export const env = {
@@ -9,11 +9,7 @@ export const env = {
   BASE_DOMAIN: process.env.BASE_DOMAIN as string,
 
   // Database
-  DB_NAME: process.env.DB_NAME as string,
-  DB_USER: process.env.DB_USER as string,
-  DB_PASSWORD: process.env.DB_PASSWORD as string,
-  DB_HOST: process.env.DB_HOST as string,
-  DB_PORT: Number(process.env.DB_PORT),
+  DB_STRING: process.env.DB_STRING as string,
 
   // Gemini
   GEMINI_API_KEY: process.env.GEMINI_API_KEY as string,
@@ -37,7 +33,7 @@ export const env = {
   AVATAR_DICEBEAR_URL: process.env.AVATAR_DICEBEAR_URL as string,
 
   // GUEST PROFILE
-  GUEST_PROFILE_ID: process.env.GUEST_PROFILE_ID as string,
+  GUEST_ID: process.env.GUEST_ID as string,
 
   // JWT
   JWT_ACCESS_TOKEN_SECRET: process.env.JWT_ACCESS_TOKEN_SECRET as string,

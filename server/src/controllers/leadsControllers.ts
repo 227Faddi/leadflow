@@ -1,16 +1,16 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { Request, Response } from 'express';
-import asyncHandler from 'express-async-handler';
-import sequelize from '../config/database.js';
-import { env } from '../config/index.js';
-import Lead from '../models/Lead.js';
-import User from '../models/User.js';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Request, Response } from "express";
+import asyncHandler from "express-async-handler";
+import sequelize from "../config/database.js";
+import { env } from "../config/index.js";
+import Lead from "../models/Lead.js";
+import User from "../models/User.js";
 
 export default {
   getLeads: asyncHandler(async (req: Request, res: Response) => {
     const leads = await Lead.findAll({
       where: { userId: req.user },
-      order: [[sequelize.literal('status'), 'ASC']],
+      order: [[sequelize.literal("status"), "ASC"]],
     });
     res.status(200).send(leads);
   }),
@@ -18,7 +18,7 @@ export default {
   addLead: asyncHandler(async (req: Request, res: Response) => {
     const newLead = req.body;
     await Lead.create({ ...newLead, userId: req.user });
-    res.status(200).send({ message: 'Lead added successfully' });
+    res.status(200).send({ message: "Lead added successfully" });
   }),
 
   deleteLead: asyncHandler(async (req: Request, res: Response) => {
@@ -29,7 +29,7 @@ export default {
         userId: req.user,
       },
     });
-    res.status(200).send({ message: 'Lead deleted successfully' });
+    res.status(200).send({ message: "Lead deleted successfully" });
   }),
 
   deleteAllLeads: asyncHandler(async (req: Request, res: Response) => {
@@ -37,19 +37,19 @@ export default {
       where: { id: req.user },
     });
 
-    if (user?.id === env.GUEST_PROFILE_ID) {
+    if (user?.id === env.GUEST_ID) {
       res.status(400).json({
         message:
-          'Sorry you can not delete this profile, create a new one instead',
+          "Sorry you can not delete this profile, create a new one instead",
       });
-      throw new Error('Can not modify guest account');
+      throw new Error("Can not modify guest account");
     }
     await Lead.destroy({
       where: {
         userId: req.user,
       },
     });
-    res.status(200).send({ message: 'Leads deleted successfully' });
+    res.status(200).send({ message: "Leads deleted successfully" });
   }),
 
   updateLeadStatus: asyncHandler(async (req: Request, res: Response) => {
@@ -57,18 +57,18 @@ export default {
     const lead = await Lead.findOne({ where: { id: id, userId: req.user } });
 
     if (!lead) {
-      res.status(404).send({ message: 'Lead not found' });
+      res.status(404).send({ message: "Lead not found" });
       return;
     }
     lead.update(req.body);
-    res.status(200).send({ message: 'Status updated successfully' });
+    res.status(200).send({ message: "Status updated successfully" });
   }),
 
   getLead: asyncHandler(async (req: Request, res: Response) => {
     const id = req.params.id;
     const lead = await Lead.findOne({ where: { id: id, userId: req.user } });
     if (!lead) {
-      res.status(404).send({ message: 'Lead not found' });
+      res.status(404).send({ message: "Lead not found" });
       return;
     }
     res.status(200).send(lead);
@@ -78,12 +78,12 @@ export default {
     const data = await Lead.findAll({
       where: { userId: req.user },
       attributes: [
-        'industry',
-        [sequelize.fn('COUNT', sequelize.col('industry')), 'value'],
+        "industry",
+        [sequelize.fn("COUNT", sequelize.col("industry")), "value"],
       ],
       limit: 5,
-      order: [[sequelize.literal('value'), 'DESC']],
-      group: ['industry'],
+      order: [[sequelize.literal("value"), "DESC"]],
+      group: ["industry"],
       raw: true,
     });
 
@@ -94,10 +94,10 @@ export default {
     const data = await Lead.findAll({
       where: { userId: req.user },
       attributes: [
-        'status',
-        [sequelize.fn('COUNT', sequelize.col('status')), 'value'],
+        "status",
+        [sequelize.fn("COUNT", sequelize.col("status")), "value"],
       ],
-      group: ['status'],
+      group: ["status"],
       raw: true,
     });
 
@@ -108,11 +108,11 @@ export default {
     const id = req.params.id;
     const lead = await Lead.findOne({ where: { id: id, userId: req.user } });
     if (!lead) {
-      res.status(404).send({ message: 'Lead not found' });
+      res.status(404).send({ message: "Lead not found" });
       return;
     }
     lead.update(req.body);
-    res.status(200).send({ message: 'Status updated successfully' });
+    res.status(200).send({ message: "Status updated successfully" });
   }),
 
   getLeadMessage: asyncHandler(async (req: Request, res: Response) => {
@@ -120,12 +120,12 @@ export default {
     const lead = await Lead.findOne({
       where: { id: id },
       attributes: {
-        exclude: ['id', 'status', 'userId', 'createdAt', 'updatedAt'],
+        exclude: ["id", "status", "userId", "createdAt", "updatedAt"],
       },
       raw: true,
     });
     if (!lead) {
-      res.status(404).send({ message: 'Lead not found' });
+      res.status(404).send({ message: "Lead not found" });
       return;
     }
 
@@ -143,7 +143,7 @@ export default {
     `;
 
     const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
     const response = result.response.text();
 
@@ -154,22 +154,22 @@ export default {
     const statuses = await Lead.findAll({
       where: { userId: req.user },
       attributes: [
-        'status',
-        [sequelize.fn('COUNT', sequelize.col('status')), 'value'],
+        "status",
+        [sequelize.fn("COUNT", sequelize.col("status")), "value"],
       ],
-      group: ['status'],
+      group: ["status"],
       raw: true,
     });
 
     const industries = await Lead.findAll({
       where: { userId: req.user },
       attributes: [
-        'industry',
-        [sequelize.fn('COUNT', sequelize.col('industry')), 'value'],
+        "industry",
+        [sequelize.fn("COUNT", sequelize.col("industry")), "value"],
       ],
       limit: 5,
-      order: [[sequelize.literal('value'), 'DESC']],
-      group: ['industry'],
+      order: [[sequelize.literal("value"), "DESC"]],
+      group: ["industry"],
       raw: true,
     });
 
@@ -183,7 +183,7 @@ export default {
     `;
 
     const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
     const response = result.response.text();
 

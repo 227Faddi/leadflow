@@ -10,7 +10,7 @@ import { useLogin } from "../states/auth";
 const HomePage = () => {
   const guest = {
     email: import.meta.env.VITE_GUEST_EMAIL,
-    password: import.meta.env.VITE_GUEST_PASSWORD,
+    password: "",
   };
 
   const { login, isPending } = useLogin();

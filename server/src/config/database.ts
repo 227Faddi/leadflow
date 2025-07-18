@@ -1,27 +1,21 @@
-import mysql2 from 'mysql2';
-import { Sequelize } from 'sequelize';
-import { env } from './index.js';
+import { Sequelize } from "sequelize";
+import { env } from "./index.js";
 
-const sequelize = new Sequelize(env.DB_NAME, env.DB_USER, env.DB_PASSWORD, {
-  host: env.DB_HOST,
-  port: env.DB_PORT,
-  dialect: 'mysql',
-  dialectModule: mysql2,
-});
+const sequelize = new Sequelize(env.DB_STRING);
 
 try {
   await sequelize.authenticate();
-  console.log('Connection has been established successfully.');
+  console.log("Connection has been established successfully.");
 } catch (error) {
-  console.error('Unable to connect to the database:', error);
+  console.error("Unable to connect to the database:", error);
 }
 
 export const synchronizeTables = async () => {
   try {
     await sequelize.sync();
-    console.log('Database synchronized successfully.');
+    console.log("Database synchronized successfully.");
   } catch (err) {
-    console.error('Database synchronization failed:', err);
+    console.error("Database synchronization failed:", err);
   }
 };
 
