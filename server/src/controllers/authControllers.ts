@@ -202,7 +202,6 @@ export default {
       }
     );
 
-    // Create secure cookie with refresh token
     res.cookie("jwt", refreshToken, {
       httpOnly: true,
       secure: true,

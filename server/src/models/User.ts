@@ -4,30 +4,31 @@ import {
   InferAttributes,
   InferCreationAttributes,
   Model,
-} from 'sequelize';
-import sequelize from '../config/database.js';
-import Lead from './Lead.js';
+} from "sequelize";
+import sequelize from "../config/database.js";
+import Lead from "./Lead.js";
 
 export interface UserModel
   extends Model<
     InferAttributes<UserModel>,
     InferCreationAttributes<UserModel>
   > {
-  id: string;
+  id: CreationOptional<string>;
   username: string;
   email: string;
   password: CreationOptional<string>;
   profileImg: string;
   cloudinaryId: CreationOptional<string>;
+  googleId: CreationOptional<string>;
+  githubId: CreationOptional<string>;
 }
 
-const User = sequelize.define<UserModel>('User', {
+const User = sequelize.define<UserModel>("User", {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
     unique: true,
-    allowNull: true,
   },
   username: {
     type: DataTypes.STRING,
@@ -52,11 +53,21 @@ const User = sequelize.define<UserModel>('User', {
     allowNull: true,
     unique: true,
   },
+  googleId: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    unique: true,
+  },
+  githubId: {
+    type: DataTypes.STRING,
+    allowNull: true,
+    unique: true,
+  },
 });
 
 User.hasMany(Lead, {
-  foreignKey: 'userId',
-  onDelete: 'CASCADE',
+  foreignKey: "userId",
+  onDelete: "CASCADE",
 });
 
 export default User;

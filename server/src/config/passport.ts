@@ -1,8 +1,8 @@
-import { PassportStatic } from 'passport';
-import { Strategy as GitHubStrategy, Profile } from 'passport-github2';
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import User from '../models/User.js';
-import { env } from './index.js';
+import { PassportStatic } from "passport";
+import { Strategy as GitHubStrategy, Profile } from "passport-github2";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import User from "../models/User.js";
+import { env } from "./index.js";
 
 const passportConfig = (passport: PassportStatic) => {
   passport.use(
@@ -21,7 +21,7 @@ const passportConfig = (passport: PassportStatic) => {
           ((env.AVATAR_DICEBEAR_URL + username) as string);
 
         const user = {
-          id: id,
+          googleId: id,
           email: email,
           username: username,
           profileImg: profileImg,
@@ -29,7 +29,7 @@ const passportConfig = (passport: PassportStatic) => {
 
         try {
           const userExists = await User.findOne({
-            where: { id: profile.id },
+            where: { googleId: profile.id },
           });
           if (userExists) {
             done(null, userExists);
@@ -61,13 +61,13 @@ const passportConfig = (passport: PassportStatic) => {
         const username = profile.username as string;
         const email =
           profile.emails?.[0].value ??
-          ((id + username + '@users.noreply.github.com') as string);
+          ((id + username + "@users.noreply.github.com") as string);
         const profileImg =
           (profile?.photos?.[0]?.value as string) ??
           ((env.AVATAR_DICEBEAR_URL + username) as string);
 
         const user = {
-          id: id,
+          githubId: id,
           email: email,
           username: username,
           profileImg: profileImg,
@@ -75,7 +75,7 @@ const passportConfig = (passport: PassportStatic) => {
 
         try {
           const userExists = await User.findOne({
-            where: { id: profile.id },
+            where: { githubId: profile.id },
           });
           if (userExists) {
             done(null, userExists);
