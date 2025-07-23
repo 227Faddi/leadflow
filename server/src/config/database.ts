@@ -1,7 +1,10 @@
 import { Sequelize } from "sequelize";
 import { env } from "./index.js";
+import pg from "pg";
 
-const sequelize = new Sequelize(env.DB_STRING);
+const sequelize = new Sequelize(env.DB_STRING, {
+  dialectModule: pg,
+});
 
 try {
   await sequelize.authenticate();
