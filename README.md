@@ -83,6 +83,7 @@ GEMINI_API_KEY=your_gemini_api_key
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 GOOGLE_CALLBACK_URL=your_google_callback_url
+CURRENT_MODEL = gemini-2.5-flash
 
 # GitHub OAuth
 GITHUB_CLIENT_ID=your_github_client_id

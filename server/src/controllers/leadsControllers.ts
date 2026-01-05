@@ -1,10 +1,13 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import sequelize from "../config/database.js";
 import { env } from "../config/index.js";
 import Lead from "../models/Lead.js";
 import User from "../models/User.js";
+
+const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
+const CURRENT_MODEL = env.CURRENT_MODEL;
 
 export default {
   getLeads: asyncHandler(async (req: Request, res: Response) => {
@@ -142,12 +145,12 @@ export default {
       - Stay under 100 words.
     `;
 
-    const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const result = await model.generateContent(prompt);
-    const response = result.response.text();
+    const response = await ai.models.generateContent({
+      model: CURRENT_MODEL,
+      contents: prompt,
+    });
 
-    res.status(200).send({ message: response });
+    res.status(200).send({ message: response.text });
   }),
 
   getInsights: asyncHandler(async (req: Request, res: Response) => {
@@ -182,11 +185,11 @@ export default {
       - Statuses: ${JSON.stringify(statuses)}
     `;
 
-    const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-    const result = await model.generateContent(prompt);
-    const response = result.response.text();
+    const response = await ai.models.generateContent({
+      model: CURRENT_MODEL,
+      contents: prompt,
+    });
 
-    res.status(200).send({ message: response });
+    res.status(200).send({ message: response.text });
   }),
 };
