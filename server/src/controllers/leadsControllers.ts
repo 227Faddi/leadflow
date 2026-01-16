@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+import { ApiError, GoogleGenAI } from "@google/genai";
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import sequelize from "../config/database.js";
@@ -145,12 +145,31 @@ export default {
       - Stay under 100 words.
     `;
 
-    const response = await ai.models.generateContent({
-      model: CURRENT_MODEL,
-      contents: prompt,
-    });
-
-    res.status(200).send({ message: response.text });
+    try {
+      const response = await ai.models.generateContent({
+        model: CURRENT_MODEL,
+        contents: prompt,
+      });
+      res.status(200).send({ message: response.text });
+    } catch (error) {
+      if (error instanceof ApiError) {
+        console.error("Gemini API Error:", error.status, error.message);
+        if (error.status === 429) {
+          res.status(429).send({
+            message: "AI service rate limit exceeded. Please try again later.",
+          });
+          return;
+        }
+        if (error.status === 503) {
+          res.status(503).send({
+            message: "AI service is currently overloaded. Please try again later.",
+          });
+          return;
+        }
+      }
+      console.error("Unexpected error generating message:", error);
+      res.status(500).send({ message: "Failed to generate message." });
+    }
   }),
 
   getInsights: asyncHandler(async (req: Request, res: Response) => {
@@ -185,11 +204,30 @@ export default {
       - Statuses: ${JSON.stringify(statuses)}
     `;
 
-    const response = await ai.models.generateContent({
-      model: CURRENT_MODEL,
-      contents: prompt,
-    });
-
-    res.status(200).send({ message: response.text });
+    try {
+      const response = await ai.models.generateContent({
+        model: CURRENT_MODEL,
+        contents: prompt,
+      });
+      res.status(200).send({ message: response.text });
+    } catch (error) {
+      if (error instanceof ApiError) {
+        console.error("Gemini API Error:", error.status, error.message);
+        if (error.status === 429) {
+          res.status(429).send({
+            message: "AI service rate limit exceeded. Please try again later.",
+          });
+          return;
+        }
+        if (error.status === 503) {
+          res.status(503).send({
+            message: "AI service is currently overloaded. Please try again later.",
+          });
+          return;
+        }
+      }
+      console.error("Unexpected error generating insights:", error);
+      res.status(500).send({ message: "Failed to generate insights." });
+    }
   }),
 };

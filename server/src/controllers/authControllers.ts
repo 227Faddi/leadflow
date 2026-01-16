@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
 import { env } from "../config/index.js";
 import cloudinary from "../middleware/cloudinary.js";
 import User from "../models/User.js";
@@ -48,8 +48,8 @@ export default {
               id: foundUser.dataValues.id,
             },
           },
-          env.JWT_ACCESS_TOKEN_SECRET,
-          { expiresIn: env.JWT_ACCESS_TOKEN_EXPIRATION }
+          env.JWT_ACCESS_TOKEN_SECRET as jwt.Secret,
+          { expiresIn: env.JWT_ACCESS_TOKEN_EXPIRATION as SignOptions['expiresIn'] }
         );
 
         res.json({ accessToken });
@@ -80,15 +80,15 @@ export default {
           id: user.dataValues.id,
         },
       },
-      env.JWT_ACCESS_TOKEN_SECRET,
-      { expiresIn: env.JWT_ACCESS_TOKEN_EXPIRATION }
+      env.JWT_ACCESS_TOKEN_SECRET as jwt.Secret,
+      { expiresIn: env.JWT_ACCESS_TOKEN_EXPIRATION as SignOptions['expiresIn'] }
     );
 
     const refreshToken = jwt.sign(
       { id: user.dataValues.id },
-      env.JWT_REFRESH_TOKEN_SECRET,
+      env.JWT_REFRESH_TOKEN_SECRET as jwt.Secret,
       {
-        expiresIn: env.JWT_REFRESH_TOKEN_EXPIRATION,
+        expiresIn: env.JWT_REFRESH_TOKEN_EXPIRATION as SignOptions['expiresIn'],
       }
     );
 
@@ -149,15 +149,15 @@ export default {
           id: user.dataValues.id,
         },
       },
-      env.JWT_ACCESS_TOKEN_SECRET,
-      { expiresIn: env.JWT_ACCESS_TOKEN_EXPIRATION }
+      env.JWT_ACCESS_TOKEN_SECRET as jwt.Secret,
+      { expiresIn: env.JWT_ACCESS_TOKEN_EXPIRATION as SignOptions['expiresIn'] }
     );
 
     const refreshToken = jwt.sign(
       { id: user.dataValues.id },
-      env.JWT_REFRESH_TOKEN_SECRET,
+      env.JWT_REFRESH_TOKEN_SECRET as jwt.Secret,
       {
-        expiresIn: env.JWT_REFRESH_TOKEN_EXPIRATION,
+        expiresIn: env.JWT_REFRESH_TOKEN_EXPIRATION as SignOptions['expiresIn'],
       }
     );
 
@@ -196,9 +196,9 @@ export default {
   socialCallback: asyncHandler((req: Request, res: Response) => {
     const refreshToken = jwt.sign(
       { id: req.user?.id },
-      env.JWT_REFRESH_TOKEN_SECRET,
+      env.JWT_REFRESH_TOKEN_SECRET as jwt.Secret,
       {
-        expiresIn: env.JWT_REFRESH_TOKEN_EXPIRATION,
+        expiresIn: env.JWT_REFRESH_TOKEN_EXPIRATION as SignOptions['expiresIn'],
       }
     );
 
