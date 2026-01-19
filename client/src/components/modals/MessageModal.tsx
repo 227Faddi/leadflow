@@ -2,6 +2,7 @@ import toast from "react-hot-toast";
 import { LuMail } from "react-icons/lu";
 import Swal from "sweetalert2";
 import { axiosInstance } from "../../api/axios";
+import { AxiosError } from "axios";
 
 type Props = {
   id: string;
@@ -23,7 +24,9 @@ const MessageModal = ({ id }: Props) => {
         },
       });
 
-      const { data } = await axiosInstance.get(`api/leads/${id}/message`);
+      const { data } = await axiosInstance.get<{ message: string }>(
+        `api/leads/${id}/message`
+      );
       const message = data.message;
 
       const popup = await Swal.fire({
@@ -49,11 +52,14 @@ const MessageModal = ({ id }: Props) => {
         toast.success("Message copied succceffuly");
       }
     } catch (err) {
-      console.error(`Something went wrong: ${err}`);
+      const axiosError = err as AxiosError<{ message: string }>;
+      console.error(`Something went wrong: ${axiosError}`);
+      const errorMessage =
+        axiosError.response?.data?.message || "Please try again later.";
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Please try again later.",
+        text: errorMessage,
         customClass: {
           popup:
             "outline outline-4 outline-slate-300 dark:bg-gray-900 dark:text-white dark:!outline-slate-700",

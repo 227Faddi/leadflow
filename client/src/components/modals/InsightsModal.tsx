@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import { axiosInstance } from "../../api/axios";
+import { AxiosError } from "axios";
 
 const InsightsModal = () => {
   const handleInsight = async () => {
@@ -17,7 +18,9 @@ const InsightsModal = () => {
         },
       });
 
-      const { data } = await axiosInstance.get(`api/leads/insights`);
+      const { data } = await axiosInstance.get<{ message: string }>(
+        `api/leads/insights`
+      );
       const message = data.message;
 
       await Swal.fire({
@@ -32,11 +35,14 @@ const InsightsModal = () => {
         },
       });
     } catch (err) {
-      console.error(`Something went wrong: ${err}`);
+      const axiosError = err as AxiosError<{ message: string }>;
+      console.error(`Something went wrong: ${axiosError}`);
+      const errorMessage =
+        axiosError.response?.data?.message || "Please try again later.";
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Please try again later.",
+        text: errorMessage,
         customClass: {
           popup:
             "outline outline-4 outline-slate-300 dark:bg-gray-900 dark:text-white dark:!outline-slate-700",
