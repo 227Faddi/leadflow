@@ -198,7 +198,8 @@ export default {
     const prompt = `
       Analyze the following lead analytics data and provide a summary of key trends and insights. 
       Focus on identifying lead distribution patterns across industries and statuses, as well as suggesting opportunities for improvement. 
-      Please provide a concise 3-4 sentence summary highlighting important findings: 
+      Please provide a concise 3-4 sentence summary highlighting important findings.
+      **Strictly stay under 100 words.**
       **Data**: 
       - Industries: ${JSON.stringify(industries)} 
       - Statuses: ${JSON.stringify(statuses)}
