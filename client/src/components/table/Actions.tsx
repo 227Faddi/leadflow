@@ -1,5 +1,5 @@
 import { CellContext } from "@tanstack/react-table";
-import { LuPenSquare, LuTrash2 } from "react-icons/lu";
+import { LuSquarePen, LuTrash2 } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import { useDeleteLead } from "../../states/lead";
 import { Lead } from "../../types";
@@ -26,7 +26,7 @@ const Actions = ({ props }: Props) => {
           to={`/edit/${props.row.original.id}`}
           className="text-gray-900 hover:text-gray-600 dark:text-white"
         >
-          <LuPenSquare size={23} />
+          <LuSquarePen size={23} />
         </Link>
       </ToolTip>
       <ToolTip text="Delete Lead">
