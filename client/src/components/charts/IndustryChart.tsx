@@ -35,9 +35,7 @@ const IndustryChart = () => {
             className="fill-gray-300"
           >
             <CartesianGrid strokeDasharray="3 3" />
-            {/* @ts-expect-error recharts */}
             <XAxis dataKey="industry" tick={{ fill: "gray" }} />
-            {/* @ts-expect-error recharts */}
             <YAxis tick={{ fill: "gray" }} />
             <Tooltip />
             <Bar
