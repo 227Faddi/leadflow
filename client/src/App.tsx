@@ -14,6 +14,7 @@ import AnalyticsPage from "./pages/AnalyticsPage";
 import DashboardPage from "./pages/DashboardPage";
 import EditLeadPage from "./pages/EditLeadPage";
 import HomePage from "./pages/HomePage";
+import LeadAgentPage from "./pages/LeadAgentPage";
 import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import SettingsPage from "./pages/SettingsPage";
@@ -31,6 +32,7 @@ function App() {
             <Route path="analytics" element={<AnalyticsPage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="add" element={<AddLeadPage />} />
+            <Route path="lead-agent" element={<LeadAgentPage />} />
             <Route path="edit/:id" element={<EditLeadPage />} />
           </Route>
         </Route>

@@ -1,7 +1,7 @@
 import { FaChartPie, FaUserPlus } from "react-icons/fa";
 import { FaChartColumn } from "react-icons/fa6";
 import { IoIosContacts, IoMdSettings } from "react-icons/io";
-import { LuMoonStar, LuSun } from "react-icons/lu";
+import { LuBotMessageSquare, LuMoonStar, LuSun } from "react-icons/lu";
 import { MdLogout } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import useDarkMode from "../hooks/useDarkMode";
@@ -13,14 +13,26 @@ type Props = {
   setSidebarOpen: (val: boolean) => void;
 };
 
+const navItems = [
+  { to: "/dashboard", icon: FaChartPie, label: "Dashboard" },
+  { to: "/add", icon: FaUserPlus, label: "New Lead" },
+  { to: "/analytics", icon: FaChartColumn, label: "Analytics" },
+  { to: "/lead-agent", icon: LuBotMessageSquare, label: "Lead Agent" },
+  { to: "/settings", icon: IoMdSettings, label: "Settings" },
+];
+
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
   const { isDarkMode, toggleDarkMode } = useDarkMode();
-
   const { logout } = useLogout();
+  const handleClick = () => setSidebarOpen(false);
+
+  const itemClasses =
+    "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3";
+
   return (
     <>
       <div
-        onClick={() => setSidebarOpen(false)}
+        onClick={handleClick}
         className={
           sidebarOpen
             ? "block fixed inset-0 z-20 transition-opacity opacity-50 lg:hidden"
@@ -46,69 +58,27 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
           </div>
         </div>
         <nav className="space-y-2 border-r-2 border-slate-700 flex-1">
-          <NavLink
-            to="/dashboard"
-            onClick={() => setSidebarOpen(false)}
-            className={({ isActive }) =>
-              [
-                "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
-                isActive
-                  ? "bg-gray-700 bg-opacity-25 text-gray-100"
-                  : "text-gray-500",
-              ].join(" ")
-            }
-          >
-            <FaChartPie className="w-6 h-6" />
-            <span>Dashboard</span>
-          </NavLink>
-          <NavLink
-            to="/add"
-            onClick={() => setSidebarOpen(false)}
-            className={({ isActive }) =>
-              [
-                "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
-                isActive
-                  ? "bg-gray-700 bg-opacity-25 text-gray-100"
-                  : "text-gray-500",
-              ].join(" ")
-            }
-          >
-            <FaUserPlus className="w-6 h-6" />
-            <span>New Lead</span>
-          </NavLink>
-          <NavLink
-            to="/analytics"
-            onClick={() => setSidebarOpen(false)}
-            className={({ isActive }) =>
-              [
-                "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
-                isActive
-                  ? "bg-gray-700 bg-opacity-25 text-gray-100"
-                  : "text-gray-500",
-              ].join(" ")
-            }
-          >
-            <FaChartColumn className="w-6 h-6" />
-            <span>Analytics</span>
-          </NavLink>
-          <NavLink
-            to="/settings"
-            onClick={() => setSidebarOpen(false)}
-            className={({ isActive }) =>
-              [
-                "flex items-center p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3",
-                isActive
-                  ? "bg-gray-700 bg-opacity-25 text-gray-100"
-                  : "text-gray-500",
-              ].join(" ")
-            }
-          >
-            <IoMdSettings className="w-6 h-6" />
-            <span>Settings</span>
-          </NavLink>
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              onClick={handleClick}
+              className={({ isActive }) =>
+                [
+                  itemClasses,
+                  isActive
+                    ? "bg-gray-700 bg-opacity-25 text-gray-100"
+                    : "text-gray-500",
+                ].join(" ")
+              }
+            >
+              <item.icon className="w-6 h-6" />
+              <span>{item.label}</span>
+            </NavLink>
+          ))}
           <button
             onClick={toggleDarkMode}
-            className="w-full flex items-center text-gray-500 p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
+            className={`${itemClasses} w-full text-gray-500`}
           >
             {isDarkMode ? (
               <>
@@ -133,7 +103,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: Props) => {
             text="Do you really want to log out?"
             confirmButtonText="Yes, log out"
             onClick={logout}
-            className="w-full flex items-center text-gray-500 p-6 font-bold hover:bg-gray-700 hover:bg-opacity-25 hover:text-gray-100 space-x-3"
+            className={`${itemClasses} w-full text-gray-500`}
           />
         </nav>
       </div>
